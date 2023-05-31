@@ -23,7 +23,7 @@ const defaultOpts = {
   minVal: 0,
   maxVal: 20,
   defaultVal: 0,
-  val: 0,
+  val: null,
   stepSize: 1,
   microStepSize: 0.1,
   megaStepSize: 3,
@@ -53,7 +53,7 @@ export default function useRotaryKnob(ref, options = {}) {
   const stepDeg = degSpan / (opts.maxVal - opts.minVal);
 
   const defaultDeg = (opts.defaultVal * stepDeg) + opts.minDeg;
-  const firstValDeg = opts.val !== null && opts.val !== opts.defaultVal
+  const firstValDeg = opts.val && opts.val !== opts.defaultVal
     ? (opts.val * stepDeg) + opts.minDeg : defaultDeg;
   // console.log(firstValDeg, stepDeg);
 
@@ -65,11 +65,11 @@ export default function useRotaryKnob(ref, options = {}) {
 
   const turnKnob = () => {
     ref.current.style = `transform: rotate(${state.deg || 0}deg);`;
-    if (opts.onChange) opts.onChange(state.val);
   };
 
   const dblClickHandler = () => {
     setState({ val: opts.defaultVal, deg: defaultDeg });
+    if (opts.onChange) opts.onChange(opts.defaultVal);
     turnKnob();
   };
 
@@ -83,11 +83,12 @@ export default function useRotaryKnob(ref, options = {}) {
       state.deg - (a * stepDeg * mult)
     );
 
-    if (newDeg !== state.deg) {
-      const newVal = Number(formatNumber(getVal(
-        state.val - (a * opts.stepSize * mult)
-      )));
+    const newVal = Number(formatNumber(getVal(
+      state.val - (a * opts.stepSize * mult)
+    )));
+    if (newDeg !== state.deg || newVal !== state.val) {
       setState({ deg: newDeg, val: newVal });
+      if (opts.onChange) opts.onChange(newVal);
       turnKnob();
     }
   };

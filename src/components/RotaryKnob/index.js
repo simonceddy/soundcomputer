@@ -13,7 +13,11 @@ function RotaryKnob({
   microStepSize = 0.1,
   megaStepSize = 3,
   defaultVal = 0,
-  val
+  val,
+  className = 'w-24 h-24',
+  bgColour = 'bg-blue-800',
+  borderColour = 'border-red-500',
+  borderWidth = 'border-4'
 }) {
   const ref = useRef(null);
   const { state, wheelHandler, dblClickHandler } = useRotaryKnob(ref, {
@@ -28,19 +32,19 @@ function RotaryKnob({
     megaStepSize,
     val
   });
-  console.log(state);
+  // console.log(state);
   return (
     <div
       id={id}
       ref={ref}
       onWheel={wheelHandler}
       onDoubleClick={dblClickHandler}
-      className="rotary-knob flex flex-col justify-start items-center border-4 border-red-500 bg-blue-800 rounded-full h-28 w-28"
+      className={`rotary-knob flex flex-col justify-start items-center ${borderWidth} ${borderColour} ${bgColour} rounded-full ${className}`}
       // style={{ transform: 'rotate(-50deg)' }}
       // style={{ transform: `rotate(${state.deg || 0}deg)` }}
       role="presentation"
     >
-      <span id="knob-pointer" className="border-4 border-red-500 h-1/3" />
+      <span id="knob-pointer" className={`${borderWidth} ${borderColour} h-1/3`} />
     </div>
   );
 }

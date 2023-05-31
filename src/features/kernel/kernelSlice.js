@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const kernelSlice = createSlice({
   name: 'kernelSlice',
   initialState: {
-    displayMode: 0
+    displayMode: 0,
+    padMode: 0
   },
   reducers: {
     setDisplayMode: (state, action) => {

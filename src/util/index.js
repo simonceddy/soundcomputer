@@ -4,3 +4,11 @@ export function formatNumber(num = 1) {
     maximumFractionDigits: 2
   });
 }
+
+export function formatTempo(bpm = 120) {
+  return bpm.toLocaleString('en-US', {
+    minimumIntegerDigits: 3,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
