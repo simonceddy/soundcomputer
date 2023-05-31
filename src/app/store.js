@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import song from '../features/song/songSlice';
+import kernel from '../features/kernel/kernelSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    song,
+    kernel
   },
 });
