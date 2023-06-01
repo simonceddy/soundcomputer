@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 
 import { useEffect, useState } from 'react';
+import { throttle } from 'lodash';
 import { formatNumber } from '../util';
 
 /**
@@ -61,19 +63,20 @@ export default function useRotaryKnob(ref, options = {}) {
     deg: firstValDeg,
     val: opts.val || opts.defaultVal
   });
+  const [lastPos, setLastPos] = useState(null);
   // console.log(state);
 
-  const turnKnob = () => {
-    ref.current.style = `transform: rotate(${state.deg || 0}deg);`;
-  };
+  // const turnKnob = () => {
+  //   ref.current.style = `transform: rotate(${state.deg || 0}deg);`;
+  // };
 
   const dblClickHandler = () => {
     setState({ val: opts.defaultVal, deg: defaultDeg });
     if (opts.onChange) opts.onChange(opts.defaultVal);
-    turnKnob();
+    // turnKnob();
   };
 
-  const wheelHandler = (e) => {
+  const wheelHandler = throttle((e) => {
     const a = e.deltaY > 0 ? 1 : -1;
     let mult = 1;
     if (e.shiftKey && !e.altKey) mult = opts.microStepSize;
@@ -89,8 +92,43 @@ export default function useRotaryKnob(ref, options = {}) {
     if (newDeg !== state.deg || newVal !== state.val) {
       setState({ deg: newDeg, val: newVal });
       if (opts.onChange) opts.onChange(newVal);
-      turnKnob();
+      // turnKnob();
     }
+  }, 50);
+
+  const mouseMove = throttle((e) => {
+    if (lastPos !== null) {
+      const a = e.deltaY > 0 ? 1 : -1;
+      let mult = 1;
+      if (e.shiftKey && !e.altKey) mult = opts.microStepSize;
+      if (e.altKey && !e.shiftKey) mult = opts.megaStepSize;
+      const newDeg = getDeg(
+        (((lastPos - e.clientY) * stepDeg) * mult) + state.deg
+      );
+      console.log(((opts.minDeg + newDeg) / stepDeg) + opts.maxVal);
+      const newVal = Number(formatNumber(getVal(
+        ((opts.minDeg + newDeg) / stepDeg) + opts.maxVal
+      )));
+      if (newDeg !== state.deg || newVal !== state.val) {
+        setState({ deg: newDeg, val: newVal });
+        if (opts.onChange) opts.onChange(newVal);
+        // turnKnob();
+      }
+    }
+  }, 50);
+
+  const mouseUp = (e) => {
+    if (lastPos !== null) {
+      setLastPos(null);
+      document.removeEventListener('mouseup', mouseUp);
+      document.removeEventListener('mousemove', mouseMove);
+    }
+  };
+
+  const dragHandler = (e) => {
+    setLastPos(e.clientY);
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', mouseUp);
   };
 
   useEffect(() => {
@@ -98,7 +136,7 @@ export default function useRotaryKnob(ref, options = {}) {
     if (!setup && ref.current) {
       // perform setup
       console.log('setting up rotary knob');
-      turnKnob();
+      // turnKnob();
     }
     return () => {
       setup = true;
@@ -108,6 +146,7 @@ export default function useRotaryKnob(ref, options = {}) {
   return {
     state,
     wheelHandler,
-    dblClickHandler
+    dblClickHandler,
+    dragHandler
   };
 }

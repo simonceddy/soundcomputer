@@ -26,10 +26,13 @@ function styleStep(step, padMode, displayMode, selected, currentStep) {
 function Step({
   children, id, stepId, laneId
 }) {
-  const { step, selected, currentStep } = useSelector((s) => ({
+  const {
+    step, selected, currentStep, locked
+  } = useSelector((s) => ({
     step: s.sequencer.lanes[laneId].steps[stepId],
     selected: s.sequencer.selectedStep,
-    currentStep: s.sequencer.lanes[laneId].currentStep
+    currentStep: s.sequencer.lanes[laneId].currentStep,
+    locked: s.sequencer.locked
   }));
   const { padMode, displayMode } = useSelector((s) => s.kernel);
   const dispatch = useDispatch();
@@ -51,7 +54,7 @@ function Step({
     <button
       type="button"
       onClick={(e) => {
-        if (!e.shiftKey && padMode === PAD_MODE_SEQ) {
+        if (!locked && !e.shiftKey && padMode === PAD_MODE_SEQ) {
           dispatch(toggleStep({
             stepId,
             laneId

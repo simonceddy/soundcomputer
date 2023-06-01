@@ -1,8 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { useSelector } from 'react-redux';
 import { Step, TrackLane } from '../../components/Sequencer';
+// import { scheduler } from '../../support/sequencer';
 
 function Sequencer() {
-  const { lanes } = useSelector((s) => s.sequencer);
+  const { lanes } = useSelector((s) => ({
+    lanes: s.sequencer.lanes,
+    // tempo: s.song.tempo
+  }));
+  // scheduler({ lanes }, tempo);
   // console.log(lanes);
   return (
     <div className="flex flex-col justify-start items-start w-full">
