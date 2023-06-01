@@ -105,7 +105,7 @@ export default function useRotaryKnob(ref, options = {}) {
       const newDeg = getDeg(
         (((lastPos - e.clientY) * stepDeg) * mult) + state.deg
       );
-      console.log(((opts.minDeg + newDeg) / stepDeg) + opts.maxVal);
+      // console.log(((opts.minDeg + newDeg) / stepDeg) + opts.maxVal);
       const newVal = Number(formatNumber(getVal(
         ((opts.minDeg + newDeg) / stepDeg) + opts.maxVal
       )));
@@ -135,7 +135,7 @@ export default function useRotaryKnob(ref, options = {}) {
     let setup = false;
     if (!setup && ref.current) {
       // perform setup
-      console.log('setting up rotary knob');
+      // console.log('setting up rotary knob');
       // turnKnob();
     }
     return () => {

@@ -31,6 +31,7 @@ export function initSequencer() {
     lanes,
     selectedStep: null,
     locked: false,
+    selectedLane: null,
   };
 }
 

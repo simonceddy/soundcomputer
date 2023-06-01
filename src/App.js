@@ -5,11 +5,15 @@ import Display from './features/display/Display';
 import { TopRow } from './components/Layout';
 import Sequencer from './features/sequencer';
 import SquareButton from './components/SquareButton';
-import { DISPLAY_MODE_SONG, DISPLAY_MODE_STEP } from './support/consts';
+import {
+  DISPLAY_MODE_MIDI, DISPLAY_MODE_SONG, DISPLAY_MODE_STEP, DISPLAY_MODE_TRACK
+} from './support/consts';
 import { setDisplayMode } from './features/kernel/kernelSlice';
 import Encoders from './features/encoders';
-import { toggleLocked } from './features/sequencer/sequencerSlice';
+import { resetAllCurrentSteps, toggleLocked } from './features/sequencer/sequencerSlice';
 import { useAudioScheduler } from './hooks';
+// import BigKnob from './features/bigknob/BigKnob';
+import DisplayArea from './components/Display/DisplayArea';
 
 const audioCtx = new AudioContext();
 
@@ -22,7 +26,7 @@ function App() {
   // console.log(displayMode);
   const [playing, setPlaying] = useState(false);
   const dispatch = useDispatch();
-  const { scheduler, stopScheduler, reset } = useAudioScheduler(audioCtx);
+  const { start, stopScheduler } = useAudioScheduler(audioCtx);
 
   useEffect(() => {
     // console.log(playing);
@@ -30,7 +34,7 @@ function App() {
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
-      scheduler();
+      start();
     } else {
       stopScheduler();
     }
@@ -42,8 +46,9 @@ function App() {
         <Bpm />
         <SquareButton
           onClick={(e) => {
-            if (e.shiftKey) reset();
-            else setPlaying(!playing);
+            if (e.shiftKey) {
+              dispatch(resetAllCurrentSteps());
+            } else setPlaying(!playing);
           }}
           shiftLabel="reset"
           active={playing}
@@ -54,15 +59,37 @@ function App() {
           play
         </SquareButton>
         <SquareButton
-          shiftLabel="song"
+          shiftLabel="save"
+          onClick={() => {
+            if (displayMode !== DISPLAY_MODE_SONG) {
+              dispatch(setDisplayMode(DISPLAY_MODE_SONG));
+            }
+          }}
+          active={displayMode === DISPLAY_MODE_SONG}
+        >
+          song
+        </SquareButton>
+        <SquareButton
+          shiftLabel="track"
           onClick={() => {
             dispatch(setDisplayMode(
-              displayMode === DISPLAY_MODE_STEP ? DISPLAY_MODE_SONG : DISPLAY_MODE_STEP
+              displayMode === DISPLAY_MODE_STEP ? DISPLAY_MODE_TRACK : DISPLAY_MODE_STEP
             ));
           }}
           active={displayMode === DISPLAY_MODE_STEP}
         >
           step
+        </SquareButton>
+        <SquareButton
+          shiftLabel="midi"
+          onClick={(e) => {
+            if (e.shiftKey && displayMode !== DISPLAY_MODE_MIDI) {
+              dispatch(setDisplayMode(DISPLAY_MODE_MIDI));
+            }
+          }}
+          // active={displayMode === DISPLAY_MODE_STEP}
+        >
+          conf
         </SquareButton>
         <SquareButton
           onClick={() => {
@@ -72,10 +99,13 @@ function App() {
         >
           lock
         </SquareButton>
-        <div className="flex flex-col justify-between items-center">
-          <Display />
-          <Encoders />
-        </div>
+        <DisplayArea>
+          {/* <BigKnob /> */}
+          <div className="flex flex-col justify-between items-center">
+            <Display />
+            <Encoders />
+          </div>
+        </DisplayArea>
       </TopRow>
       <Sequencer />
     </div>

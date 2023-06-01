@@ -31,16 +31,19 @@ export const sequencerSlice = createSlice({
       keys.forEach((k) => {
         state.lanes[k].currentStep = getNextStep(state.lanes[k]);
       });
+      // console.log(state.lanes[1].currentStep);
     },
     resetAllCurrentSteps(state) {
       const keys = Object.keys(state.lanes);
-      state.lanes = Object.fromEntries(keys, keys.map((k) => ({
-        ...state.lanes[k],
-        currentStep: 1
-      })));
+      keys.forEach((k) => {
+        state.lanes[k].currentStep = 1;
+      });
     },
     toggleLocked(state) {
       state.locked = !state.locked;
+    },
+    setSelectedLane(state, action) {
+      state.selectedLane = action.payload;
     }
   },
 });
@@ -52,7 +55,8 @@ export const {
   setLaneCurrentStep,
   toggleLocked,
   resetAllCurrentSteps,
-  advanceAllSteps
+  advanceAllSteps,
+  setSelectedLane
 } = sequencerSlice.actions;
 
 export default sequencerSlice.reducer;
