@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import useRotaryKnob from '../../hooks/useRotaryKnob';
 
 function RotaryKnob({
@@ -16,7 +16,7 @@ function RotaryKnob({
   val,
   className = 'w-24 h-24',
   bgColour = 'bg-blue-800',
-  borderColour = 'border-red-500',
+  borderColour = 'border-red-500 active:border-yellow-400',
   borderWidth = 'border-4'
 }) {
   const ref = useRef(null);
@@ -35,14 +35,9 @@ function RotaryKnob({
     val
   });
 
-  useEffect(() => {
-    if (ref.current !== null) {
-      ref.style = `transform: rotate(${state.deg || 0}deg)`;
-    }
-  }, [state]);
   // console.log(state);
   return (
-    <div
+    <button
       id={id}
       ref={ref}
       onMouseDown={dragHandler}
@@ -51,10 +46,11 @@ function RotaryKnob({
       className={`rotary-knob flex flex-col justify-start items-center ${borderWidth} ${borderColour} ${bgColour} rounded-full ${className}`}
       // style={{ transform: 'rotate(-50deg)' }}
       style={{ transform: `rotate(${state.deg || 0}deg)` }}
-      role="presentation"
+      // role="presentation"
+      type="button"
     >
       <span id="knob-pointer" className={`${borderWidth} ${borderColour} h-1/3`} />
-    </div>
+    </button>
   );
 }
 

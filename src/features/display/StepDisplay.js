@@ -10,13 +10,13 @@ function StepDisplay() {
   const dispatch = useDispatch();
   useEffect(() => {
     let setup = false;
-    if (!setup && step) dispatch(setHeader(`Trk ${step.laneId} - Step ${step.id}`));
+    if (!setup && step) dispatch(setHeader(`Track ${step.laneId} - Step ${step.id}`));
     return () => {
       setup = true;
     };
   }, [step]);
 
-  // console.log(step);
+  console.log(step);
   return (
     <div className="flex flex-col justify-start items-center text-sm">
       {step ? (

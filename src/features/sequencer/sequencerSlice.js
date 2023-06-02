@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNextStep, initSequencer } from '../../support/sequencer';
+import { getNextStep, initSequencer, randomizeLane } from '../../support/sequencer';
 
 export const sequencerSlice = createSlice({
   name: 'sequencerSlice',
@@ -33,6 +33,12 @@ export const sequencerSlice = createSlice({
       });
       // console.log(state.lanes[1].currentStep);
     },
+    randomizeSequencer(state) {
+      const keys = Object.keys(state.lanes);
+      keys.forEach((k) => {
+        state.lanes[k] = randomizeLane(state.lanes[k]);
+      });
+    },
     resetAllCurrentSteps(state) {
       const keys = Object.keys(state.lanes);
       keys.forEach((k) => {
@@ -44,7 +50,25 @@ export const sequencerSlice = createSlice({
     },
     setSelectedLane(state, action) {
       state.selectedLane = action.payload;
-    }
+    },
+    setStepValue1(state, action) {
+      const { laneId, stepId, value } = action.payload;
+      if (state.lanes[laneId] && state.lanes[laneId].steps[stepId]) {
+        state.lanes[laneId].steps[stepId].value1 = value;
+      }
+    },
+    setStepValue2(state, action) {
+      const { laneId, stepId, value } = action.payload;
+      if (state.lanes[laneId] && state.lanes[laneId].steps[stepId]) {
+        state.lanes[laneId].steps[stepId].value2 = value;
+      }
+    },
+    setStepProbability(state, action) {
+      const { laneId, stepId, value } = action.payload;
+      if (state.lanes[laneId] && state.lanes[laneId].steps[stepId]) {
+        state.lanes[laneId].steps[stepId].probability = value;
+      }
+    },
   },
 });
 
@@ -56,7 +80,11 @@ export const {
   toggleLocked,
   resetAllCurrentSteps,
   advanceAllSteps,
-  setSelectedLane
+  setSelectedLane,
+  randomizeSequencer,
+  setStepValue1,
+  setStepValue2,
+  setStepProbability
 } = sequencerSlice.actions;
 
 export default sequencerSlice.reducer;

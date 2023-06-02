@@ -4,7 +4,7 @@ function DisplayContainer({ children, header }) {
       <div className="w-full border-b-2 border-slate-900 dark:border-slate-300 font-mono font-bold py-1 flex flex-row justify-between items-start text-sm">
         {header}
       </div>
-      <div className="w-full flex-1 p-1">
+      <div className="w-full flex-1 p-1 relative">
         {children}
       </div>
     </div>

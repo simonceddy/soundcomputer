@@ -143,6 +143,12 @@ export default function useRotaryKnob(ref, options = {}) {
     };
   }, [ref]);
 
+  useEffect(() => {
+    if (ref.current !== null) {
+      ref.style = `transform: rotate(${state.deg || 0}deg)`;
+    }
+  }, [state]);
+
   return {
     state,
     wheelHandler,

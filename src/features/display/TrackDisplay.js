@@ -7,7 +7,7 @@ function TrackDisplay() {
   const dispatch = useDispatch();
   useEffect(() => {
     let setup = false;
-    if (!setup && selectedLane) dispatch(setHeader(`Trk ${selectedLane}`));
+    if (!setup && selectedLane) dispatch(setHeader(`Track ${selectedLane}`));
     return () => {
       setup = true;
     };

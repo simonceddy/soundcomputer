@@ -16,6 +16,7 @@ export function initSequencer() {
         value1: 0,
         value2: 0,
         probability: 1,
+        active: false,
       };
     });
     lanes[k1 + 1] = {
@@ -41,6 +42,32 @@ export function getNextStep(lane) {
     return currentStep <= 1 ? activeSteps : currentStep - 1;
   }
   return currentStep >= activeSteps ? 1 : currentStep + 1;
+}
+
+export function randomizeLane(lane) {
+  const stepKeys = Object.keys(lane.steps);
+  console.log(stepKeys);
+
+  const activeSteps = Math.ceil(Math.random() * 16);
+  return {
+    ...lane,
+    direction: SEQ_DIRECTION_FWD,
+    currentStep: 1,
+    activeSteps,
+    steps: Object.fromEntries(stepKeys.map((k) => {
+      const probability = Math.random() > 0.8 ? (Math.ceil(Math.random() * 10) * 0.1) : 1;
+      return [k, {
+        ...lane.steps[k],
+        probability: Number(probability.toLocaleString('en-US', {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1
+        })),
+        value1: Math.ceil(Math.random() * 128) - 1,
+        value2: Math.ceil(Math.random() * 128) - 1,
+        active: Math.random() > 0.6
+      }];
+    }))
+  };
 }
 
 // const audioCtx = new AudioContext();
