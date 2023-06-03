@@ -17,7 +17,7 @@ function Bpm() {
         megaStepSize={5}
         defaultVal={120}
       />
-      <span className="font-bold font-mono text-2xl p-2 border-2 border-teal-400 m-1 italic rounded-sm">
+      <span className="font-bold font-mono text-2xl p-2 border-2 border-teal-400 m-1 italic bg-black rounded-sm">
         {formatTempo(tempo)}
       </span>
     </div>

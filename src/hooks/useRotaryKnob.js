@@ -137,6 +137,7 @@ export default function useRotaryKnob(ref, options = {}) {
       // perform setup
       // console.log('setting up rotary knob');
       // turnKnob();
+      ref.current.style = `transform: rotate(${state.deg || 0}deg)`;
     }
     return () => {
       setup = true;
@@ -145,7 +146,7 @@ export default function useRotaryKnob(ref, options = {}) {
 
   useEffect(() => {
     if (ref.current !== null) {
-      ref.style = `transform: rotate(${state.deg || 0}deg)`;
+      ref.current.style = `transform: rotate(${state.deg || 0}deg)`;
     }
   }, [state]);
 

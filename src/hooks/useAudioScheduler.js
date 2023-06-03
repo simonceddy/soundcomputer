@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNextStep } from '../support/sequencer';
 import { advanceAllSteps, setLaneCurrentStep } from '../features/sequencer/sequencerSlice';
@@ -28,54 +28,54 @@ export default function useAudioScheduler(audioCtx) {
     sequencer: s.sequencer,
     tempo: s.song.tempo
   }));
-  const laneKeys = Object.keys(sequencer.lanes);
+  // const laneKeys = Object.keys(sequencer.lanes);
   // const [timerID, setTimerID] = useState(null);
   // const [nextNoteTime, setNextNoteTime] = useState(0.0);
 
   const dispatch = useDispatch();
 
-  const nextNote = () => {
+  const nextNote = useCallback(() => {
     const secondsPerBeat = 60.0 / tempo;
 
     nextNoteTime += secondsPerBeat;
     currentNote = (currentNote + 1) % 16;
-  };
+  }, [tempo]);
 
-  const scheduleLanes = (beat, time) => {
-    // queue.push({ beat, time });
-    if (sequencer.lanes[1].steps[sequencer.lanes[1].currentStep]
-      && sequencer.lanes[1].steps[sequencer.lanes[1].currentStep].active) {
-      console.log('lane !');
-    }
-    if (sequencer.lanes[2].steps[sequencer.lanes[2].currentStep]
-      && sequencer.lanes[2].steps[sequencer.lanes[2].currentStep].active) {
-      console.log('lane @');
-    }
-    if (sequencer.lanes[3].steps[sequencer.lanes[3].currentStep]
-      && sequencer.lanes[3].steps[sequencer.lanes[3].currentStep].active) {
-      console.log('lane #');
-    }
-    if (sequencer.lanes[4].steps[sequencer.lanes[4].currentStep]
-      && sequencer.lanes[4].steps[sequencer.lanes[4].currentStep].active) {
-      console.log('lane $');
-    }
-    if (sequencer.lanes[5].steps[sequencer.lanes[5].currentStep]
-      && sequencer.lanes[5].steps[sequencer.lanes[5].currentStep].active) {
-      console.log('lane %');
-    }
-    if (sequencer.lanes[6].steps[sequencer.lanes[6].currentStep]
-      && sequencer.lanes[6].steps[sequencer.lanes[6].currentStep].active) {
-      console.log('lane ^');
-    }
-    if (sequencer.lanes[7].steps[sequencer.lanes[7].currentStep]
-      && sequencer.lanes[7].steps[sequencer.lanes[7].currentStep].active) {
-      console.log('lane &');
-    }
-    if (sequencer.lanes[8].steps[sequencer.lanes[8].currentStep]
-      && sequencer.lanes[8].steps[sequencer.lanes[8].currentStep].active) {
-      console.log('lane *');
-    }
-  };
+  // const scheduleLanes = (beat, time) => {
+  //   // queue.push({ beat, time });
+  //   if (sequencer.lanes[1].steps[sequencer.lanes[1].currentStep]
+  //     && sequencer.lanes[1].steps[sequencer.lanes[1].currentStep].active) {
+  //     console.log('lane !');
+  //   }
+  //   if (sequencer.lanes[2].steps[sequencer.lanes[2].currentStep]
+  //     && sequencer.lanes[2].steps[sequencer.lanes[2].currentStep].active) {
+  //     console.log('lane @');
+  //   }
+  //   if (sequencer.lanes[3].steps[sequencer.lanes[3].currentStep]
+  //     && sequencer.lanes[3].steps[sequencer.lanes[3].currentStep].active) {
+  //     console.log('lane #');
+  //   }
+  //   if (sequencer.lanes[4].steps[sequencer.lanes[4].currentStep]
+  //     && sequencer.lanes[4].steps[sequencer.lanes[4].currentStep].active) {
+  //     console.log('lane $');
+  //   }
+  //   if (sequencer.lanes[5].steps[sequencer.lanes[5].currentStep]
+  //     && sequencer.lanes[5].steps[sequencer.lanes[5].currentStep].active) {
+  //     console.log('lane %');
+  //   }
+  //   if (sequencer.lanes[6].steps[sequencer.lanes[6].currentStep]
+  //     && sequencer.lanes[6].steps[sequencer.lanes[6].currentStep].active) {
+  //     console.log('lane ^');
+  //   }
+  //   if (sequencer.lanes[7].steps[sequencer.lanes[7].currentStep]
+  //     && sequencer.lanes[7].steps[sequencer.lanes[7].currentStep].active) {
+  //     console.log('lane &');
+  //   }
+  //   if (sequencer.lanes[8].steps[sequencer.lanes[8].currentStep]
+  //     && sequencer.lanes[8].steps[sequencer.lanes[8].currentStep].active) {
+  //     console.log('lane *');
+  //   }
+  // };
 
   const scheduler = () => {
     // worker.postMessage({ sequencer });
@@ -106,7 +106,7 @@ export default function useAudioScheduler(audioCtx) {
         currentNote = 0;
         clearInterval(timerID);
         timerID = null;
-        audioCtx.suspend();
+        // audioCtx.suspend();
         // console.log(timerID);
       }
     }

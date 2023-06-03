@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Bpm from './components/Bpm';
@@ -7,10 +8,13 @@ import Sequencer from './features/sequencer';
 import SquareButton from './components/SquareButton';
 import {
   DISPLAY_MODE_CONF,
-  DISPLAY_MODE_MIDI, DISPLAY_MODE_SONG, DISPLAY_MODE_STEP, DISPLAY_MODE_TRACK
+  DISPLAY_MODE_MIDI,
+  DISPLAY_MODE_SONG,
+  DISPLAY_MODE_STEP,
+  DISPLAY_MODE_TRACK
 } from './support/consts';
 import { setDisplayMode } from './features/kernel/kernelSlice';
-import Encoders from './features/encoders';
+// import Encoders from './features/encoders';
 import { randomizeSequencer, resetAllCurrentSteps, toggleLocked } from './features/sequencer/sequencerSlice';
 import { useAudioScheduler } from './hooks';
 // import BigKnob from './features/bigknob/BigKnob';
@@ -18,6 +22,7 @@ import DisplayArea from './components/Display/DisplayArea';
 import Bootstrapper from './features/kernel/Bootstrapper';
 import { setNotification } from './features/display/displaySlice';
 import ShiftButton from './components/ShiftButton';
+import Tabs from './features/kernel/Tabs';
 
 const audioCtx = new AudioContext();
 
@@ -49,23 +54,39 @@ function App() {
 
       <div className="w-full h-full text-lg bg-black font-mono font-bold text-teal-400 flex flex-col justify-center items-center p-2">
         <TopRow>
-          <Bpm />
-          <ShiftButton />
-          <SquareButton
-            onClick={(e) => {
-              if (e.shiftKey) {
-                dispatch(resetAllCurrentSteps());
-              } else setPlaying(!playing);
-            }}
-            shiftLabel="reset"
-            active={playing}
-            bgColour={playing ? 'bg-green-300' : 'bg-slate-300'}
-            textColour="text-black"
-            borderColour="border-black"
-          >
-            play
-          </SquareButton>
-          <SquareButton
+          <div className="w-1/4 flex flex-col justify-between items-center p-2 m-2 rounded-md bg-slate-400/70">
+            <Bpm />
+            <div className="flex flex-row justify-around items-center w-full">
+              {/* <ShiftButton /> */}
+              <SquareButton
+                onClick={(e) => {
+                  if (e.shiftKey) {
+                    dispatch(resetAllCurrentSteps());
+                  } else setPlaying(!playing);
+                }}
+                shiftLabel="reset"
+                active={playing}
+                bgColour={playing ? 'bg-green-300' : 'bg-slate-300'}
+                textColour="text-black"
+                borderColour="border-black"
+              >
+                play
+              </SquareButton>
+              <SquareButton
+                shiftLabel="rand"
+                onClick={(e) => {
+                  if (e.shiftKey) {
+                    dispatch(randomizeSequencer());
+                    dispatch(setNotification('Randomized!'));
+                  } else dispatch(toggleLocked());
+                }}
+                active={sequencer.locked}
+              >
+                lock
+              </SquareButton>
+            </div>
+          </div>
+          {/* <SquareButton
             shiftLabel="save"
             onClick={(e) => {
               if (e.shiftKey) {
@@ -77,8 +98,8 @@ function App() {
             active={displayMode === DISPLAY_MODE_SONG}
           >
             song
-          </SquareButton>
-          <SquareButton
+          </SquareButton> */}
+          {/* <SquareButton
             shiftLabel="track"
             onClick={(e) => {
               if (e.shiftKey) {
@@ -94,8 +115,8 @@ function App() {
             active={displayMode === DISPLAY_MODE_STEP}
           >
             step
-          </SquareButton>
-          <SquareButton
+          </SquareButton> */}
+          {/* <SquareButton
             shiftLabel="midi"
             onClick={(e) => {
               if (e.shiftKey && displayMode !== DISPLAY_MODE_MIDI) {
@@ -107,26 +128,9 @@ function App() {
             active={displayMode === DISPLAY_MODE_CONF}
           >
             conf
-          </SquareButton>
-          <SquareButton
-            shiftLabel="rand"
-            onClick={(e) => {
-              if (e.shiftKey) {
-                dispatch(randomizeSequencer());
-                dispatch(setNotification('Randomized!'));
-              } else dispatch(toggleLocked());
-            }}
-            active={sequencer.locked}
-          >
-            lock
-          </SquareButton>
-          <DisplayArea>
-            {/* <BigKnob /> */}
-            <div className="flex flex-col justify-between items-center">
-              <Display />
-              <Encoders />
-            </div>
-          </DisplayArea>
+          </SquareButton> */}
+
+          <Tabs />
         </TopRow>
         <Sequencer />
       </div>

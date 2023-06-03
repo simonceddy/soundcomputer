@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import RotaryKnob from '../../components/RotaryKnob/index';
 import { useEncoder } from '../../hooks';
 
-function Encoder1() {
-  const { props, handler, value } = useEncoder('encoder1');
+function Encoder2() {
+  const { props, handler, value } = useEncoder('encoder2');
   // console.log(value);
   return (
     <RotaryKnob
@@ -17,4 +17,4 @@ function Encoder1() {
   );
 }
 
-export default Encoder1;
+export default Encoder2;

@@ -11,13 +11,13 @@ function ShiftButton({
       document.addEventListener('keydown', (e) => {
         // console.log(e.key);
         const { key } = e;
-        if (key === 'Shift') {
+        if (key === 'Shift' && ref.current) {
           ref.current.classList.toggle('bg-green-500');
           ref.current.classList.toggle('bg-slate-500');
         }
       });
       document.addEventListener('keyup', (e) => {
-        if (e.key === 'Shift') {
+        if (e.key === 'Shift' && ref.current) {
           ref.current.classList.toggle('bg-green-500');
           ref.current.classList.toggle('bg-slate-500');
         }
