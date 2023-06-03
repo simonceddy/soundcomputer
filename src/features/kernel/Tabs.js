@@ -34,7 +34,7 @@ function Tabs() {
   const dispatch = useDispatch();
 
   const d = data[displayMode] || false;
-  console.log(dataKeys, displayMode);
+  // console.log(dataKeys, displayMode);
   return (
     <div className="flex flex-col flex-1 justify-start items-center h-full rounded bg-slate-300 dark:bg-slate-900 text-blue-900 dark:text-blue-200 font-mono mx-2 mt-2 mb-1">
       <div className="flex w-full flex-row justify-start items-start border-b-2 border-slate-900 dark:border-slate-300">

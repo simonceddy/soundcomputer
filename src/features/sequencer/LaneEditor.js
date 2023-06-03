@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setHeader } from '../display/displaySlice';
 
 function LaneEditor() {
-  const { selectedLane, lanes } = useSelector((s) => s.sequencer);
+  const { selectedLane, lanes } = useSelector((s) => s.sequencer.present);
   const dispatch = useDispatch();
   useEffect(() => {
     let setup = false;

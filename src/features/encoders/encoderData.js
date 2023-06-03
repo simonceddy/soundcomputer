@@ -9,7 +9,7 @@ export const encoder1 = {
     maxVal: 127,
     microStepSize: 1,
     handler: (dispatch, store) => (value) => {
-      const step = store.getState().sequencer.selectedStep;
+      const step = store.getState().sequencer.present.selectedStep;
       dispatch(setStepValue1({
         stepId: step.id,
         laneId: step.laneId,
@@ -24,7 +24,7 @@ export const encoder1 = {
     megaStepSize: 2,
     defaultVal: 16,
     value: (store) => {
-      const seq = store.getState().sequencer;
+      const seq = store.getState().sequencer.present;
       if (seq.selectedLane && seq.lanes[seq.selectedLane]) {
         return seq.lanes[seq.selectedLane].activeSteps;
       }
@@ -32,7 +32,7 @@ export const encoder1 = {
     },
     handler: (dispatch, store) => (value) => {
       dispatch(setActiveStepsForLane({
-        laneId: store.getState().sequencer.selectedLane,
+        laneId: store.getState().sequencer.present.selectedLane,
         value
       }));
     }
@@ -45,7 +45,7 @@ export const encoder2 = {
     maxVal: 127,
     microStepSize: 1,
     handler: (dispatch, store) => (value) => {
-      const step = store.getState().sequencer.selectedStep;
+      const step = store.getState().sequencer.present.selectedStep;
       dispatch(setStepValue2({
         stepId: step.id,
         laneId: step.laneId,
@@ -83,7 +83,7 @@ export const encoder3 = {
     megaStepSize: 0.2,
     microStepSize: 0.1,
     handler: (dispatch, store) => (value) => {
-      const step = store.getState().sequencer.selectedStep;
+      const step = store.getState().sequencer.present.selectedStep;
       dispatch(setStepProbability({
         stepId: step.id,
         laneId: step.laneId,

@@ -2,26 +2,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Bpm from './components/Bpm';
-import Display from './features/display/Display';
 import { TopRow } from './components/Layout';
 import Sequencer from './features/sequencer';
 import SquareButton from './components/SquareButton';
-import {
-  DISPLAY_MODE_CONF,
-  DISPLAY_MODE_MIDI,
-  DISPLAY_MODE_SONG,
-  DISPLAY_MODE_STEP,
-  DISPLAY_MODE_TRACK
-} from './support/consts';
-import { setDisplayMode } from './features/kernel/kernelSlice';
-// import Encoders from './features/encoders';
 import { randomizeSequencer, resetAllCurrentSteps, toggleLocked } from './features/sequencer/sequencerSlice';
 import { useAudioScheduler } from './hooks';
-// import BigKnob from './features/bigknob/BigKnob';
-import DisplayArea from './components/Display/DisplayArea';
 import Bootstrapper from './features/kernel/Bootstrapper';
 import { setNotification } from './features/display/displaySlice';
-import ShiftButton from './components/ShiftButton';
 import Tabs from './features/kernel/Tabs';
 
 const audioCtx = new AudioContext();
@@ -30,7 +17,7 @@ function App() {
   const { displayMode, sequencer } = useSelector((s) => ({
     displayMode: s.kernel.displayMode,
     padMode: s.kernel.padMode,
-    sequencer: s.sequencer,
+    sequencer: s.sequencer.present,
   }));
   // console.log(displayMode);
   const [playing, setPlaying] = useState(false);
@@ -57,7 +44,6 @@ function App() {
           <div className="w-1/4 flex flex-col justify-between items-center p-2 m-2 rounded-md bg-slate-400/70">
             <Bpm />
             <div className="flex flex-row justify-around items-center w-full">
-              {/* <ShiftButton /> */}
               <SquareButton
                 onClick={(e) => {
                   if (e.shiftKey) {
@@ -132,7 +118,7 @@ function App() {
 
           <Tabs />
         </TopRow>
-        <Sequencer />
+        {sequencer && <Sequencer />}
       </div>
     </Bootstrapper>
   );

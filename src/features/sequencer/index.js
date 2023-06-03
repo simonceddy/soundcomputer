@@ -6,7 +6,7 @@ import { padMappings } from '../../support/pads';
 // console.log(padMappings);
 function Sequencer() {
   const { lanes } = useSelector((s) => ({
-    lanes: s.sequencer.lanes,
+    lanes: s.sequencer.present.lanes,
     // tempo: s.song.tempo
   }));
   // scheduler({ lanes }, tempo);
@@ -28,8 +28,14 @@ function Sequencer() {
                 laneId={laneKey}
                 key={stepKey}
                 id={`lane-${laneKey}-step-${stepKey}`}
-                bottomRightLabel={padMapping !== undefined ? (
-                  padMapping.label
+                bottomRightLabel={padMapping !== undefined && padMapping.bottomRightLabel ? (
+                  padMapping.bottomRightLabel
+                ) : null}
+                bottomLeftLabel={padMapping !== undefined && padMapping.bottomLeftLabel ? (
+                  padMapping.bottomLeftLabel
+                ) : null}
+                topLeftLabel={padMapping !== undefined && padMapping.topLeftLabel ? (
+                  padMapping.topLeftLabel
                 ) : null}
               />
             );

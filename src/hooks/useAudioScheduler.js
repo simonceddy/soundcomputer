@@ -25,7 +25,7 @@ const queue = [];
 export default function useAudioScheduler(audioCtx) {
   const { sequencer, tempo } = useSelector((s) => ({
     padMode: s.kernel.padMode,
-    sequencer: s.sequencer,
+    sequencer: s.sequencer.present,
     tempo: s.song.tempo
   }));
   // const laneKeys = Object.keys(sequencer.lanes);
