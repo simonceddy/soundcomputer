@@ -4,6 +4,9 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './App';
 import './styles';
+import * as WAAClockLib from './lib/waaclock';
+
+console.log(WAAClockLib);
 
 const container = document.getElementById('root');
 const root = createRoot(container);

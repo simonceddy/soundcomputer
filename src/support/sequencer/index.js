@@ -46,7 +46,7 @@ export function getNextStep(lane) {
 
 export function randomizeLane(lane) {
   const stepKeys = Object.keys(lane.steps);
-  console.log(stepKeys);
+  // console.log(stepKeys);
 
   const activeSteps = Math.ceil(Math.random() * 16);
   return {

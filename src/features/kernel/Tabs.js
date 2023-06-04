@@ -53,7 +53,7 @@ function Tabs() {
       <div className="w-full border-b-2 border-slate-900 dark:border-slate-300 font-mono font-bold py-1 flex flex-row justify-between items-start text-sm mt-2">
         {header}
       </div>
-      <div className="w-full flex-1 p-2">
+      <div className="w-full flex-1 p-2 overflow-y-scroll whitespace-pre">
         {d && d.Component && <d.Component />}
       </div>
     </div>

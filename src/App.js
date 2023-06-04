@@ -68,7 +68,7 @@ function App() {
                 }}
                 active={sequencer.locked}
               >
-                lock
+                &#128274;
               </SquareButton>
             </div>
           </div>
