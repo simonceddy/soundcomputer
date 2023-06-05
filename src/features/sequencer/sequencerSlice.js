@@ -26,6 +26,12 @@ export const sequencerSlice = createSlice({
         state.lanes[laneId].currentStep = stepId;
       }
     },
+    setLaneDirection(state, action) {
+      const { laneId, value } = action.payload;
+      if (state.lanes[laneId]) {
+        state.lanes[laneId].direction = Number(value);
+      }
+    },
     advanceAllSteps(state) {
       const keys = Object.keys(state.lanes);
       keys.forEach((k) => {
@@ -69,6 +75,12 @@ export const sequencerSlice = createSlice({
         state.lanes[laneId].steps[stepId].probability = value;
       }
     },
+    setAll(state, action) {
+      state.lanes = action.payload.lanes;
+      state.locked = action.payload.locked;
+      state.selectedLane = action.payload.selectedLane;
+      state.selectedStep = action.payload.selectedStep;
+    }
   },
 });
 
@@ -84,7 +96,9 @@ export const {
   randomizeSequencer,
   setStepValue1,
   setStepValue2,
-  setStepProbability
+  setStepProbability,
+  setLaneDirection,
+  setAll
 } = sequencerSlice.actions;
 
 export default sequencerSlice.reducer;

@@ -4,7 +4,7 @@ import { setSongTempo } from '../../features/song/songSlice';
 import { formatTempo } from '../../util';
 
 function Bpm() {
-  const { tempo } = useSelector((s) => s.song);
+  const { tempo } = useSelector((s) => s.song.present);
   const dispatch = useDispatch();
   return (
     <div className="flex flex-row justify-between items-center w-52 m-2 p-2 border-2 border-teal-500 rounded">

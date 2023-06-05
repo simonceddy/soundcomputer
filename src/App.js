@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Bpm from './components/Bpm';
 import { TopRow } from './components/Layout';
 import Sequencer from './features/sequencer';
@@ -10,17 +10,25 @@ import { useAudioScheduler } from './hooks';
 import Bootstrapper from './features/kernel/Bootstrapper';
 import { setNotification } from './features/display/displaySlice';
 import Tabs from './features/kernel/Tabs';
+import GlobalCtrlPanel from './features/kernel/GlobalCtrlPanel';
+import './support/midi';
+import NormSquareButton from './components/NormSquareButton';
+import LoadSong from './features/song/LoadSong';
+import { toggleLoadingSong, togglePlaying } from './features/kernel/kernelSlice';
 
 const audioCtx = new AudioContext();
 
 function App() {
-  const { displayMode, sequencer } = useSelector((s) => ({
+  const {
+    displayMode, sequencer, loadingSong, playing
+  } = useSelector((s) => ({
     displayMode: s.kernel.displayMode,
     padMode: s.kernel.padMode,
+    loadingSong: s.kernel.loadingSong,
     sequencer: s.sequencer.present,
+    playing: s.kernel.playing,
   }));
   // console.log(displayMode);
-  const [playing, setPlaying] = useState(false);
   const dispatch = useDispatch();
   const { start, stopScheduler } = useAudioScheduler(audioCtx);
 
@@ -38,8 +46,16 @@ function App() {
 
   return (
     <Bootstrapper>
-
-      <div className="w-full h-full text-lg bg-black font-mono font-bold text-teal-400 flex flex-col justify-center items-center p-2">
+      {loadingSong && (
+        <div
+          className="absolute w-full h-full z-40 flex flex-col justify-center items-center bg-slate-500/40"
+          role="presentation"
+          onClick={() => dispatch(toggleLoadingSong())}
+        >
+          <LoadSong />
+        </div>
+      )}
+      <div className="w-full h-full text-lg bg-black font-mono font-bold text-teal-400 flex flex-col justify-start items-center p-2 relative">
         <TopRow>
           <div className="w-1/4 flex flex-col justify-between items-center p-2 m-2 rounded-md bg-slate-400/70">
             <Bpm />
@@ -48,7 +64,7 @@ function App() {
                 onClick={(e) => {
                   if (e.shiftKey) {
                     dispatch(resetAllCurrentSteps());
-                  } else setPlaying(!playing);
+                  } else dispatch(togglePlaying());
                 }}
                 shiftLabel="reset"
                 active={playing}
@@ -58,20 +74,27 @@ function App() {
               >
                 play
               </SquareButton>
-              <SquareButton
-                shiftLabel="rand"
+              <NormSquareButton
+                textColour={sequencer.locked ? 'text-black' : 'text-white'}
                 onClick={(e) => {
-                  if (e.shiftKey) {
-                    dispatch(randomizeSequencer());
-                    dispatch(setNotification('Randomized!'));
-                  } else dispatch(toggleLocked());
+                  dispatch(toggleLocked());
                 }}
-                active={sequencer.locked}
+                bgColour={`${sequencer.locked ? 'bg-red-400' : 'bg-slate-500'}`}
               >
-                &#128274;
-              </SquareButton>
+                seq lock
+              </NormSquareButton>
+              <NormSquareButton
+                textColour="text-white active:text-black"
+                onClick={(e) => {
+                  dispatch(randomizeSequencer());
+                  dispatch(setNotification('Randomized!'));
+                }}
+              >
+                rand
+              </NormSquareButton>
             </div>
           </div>
+          <GlobalCtrlPanel />
           {/* <SquareButton
             shiftLabel="save"
             onClick={(e) => {

@@ -6,6 +6,8 @@ export const kernelSlice = createSlice({
     displayMode: 0,
     padMode: 0,
     booted: false,
+    loadingSong: false,
+    playing: false,
   },
   reducers: {
     setDisplayMode: (state, action) => {
@@ -13,10 +15,19 @@ export const kernelSlice = createSlice({
     },
     bootUp(state) {
       state.booted = true;
+    },
+    toggleLoadingSong(state) {
+      state.loadingSong = !state.loadingSong;
+      // console.log(state.loadingSong);
+    },
+    togglePlaying(state) {
+      state.playing = !state.playing;
     }
   },
 });
 
-export const { setDisplayMode, bootUp } = kernelSlice.actions;
+export const {
+  setDisplayMode, bootUp, toggleLoadingSong, togglePlaying
+} = kernelSlice.actions;
 
 export default kernelSlice.reducer;

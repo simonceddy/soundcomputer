@@ -26,7 +26,7 @@ export default function useAudioScheduler(audioCtx) {
   const { sequencer, tempo } = useSelector((s) => ({
     padMode: s.kernel.padMode,
     sequencer: s.sequencer.present,
-    tempo: s.song.tempo
+    tempo: s.song.present.tempo
   }));
   // const laneKeys = Object.keys(sequencer.lanes);
   // const [timerID, setTimerID] = useState(null);

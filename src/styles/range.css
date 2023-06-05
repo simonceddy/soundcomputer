@@ -9,8 +9,8 @@ input[type=range] {
   --range-track-border: 0.2px solid #982424;
   --range-track-border-radius: 1.2px;
   --range-track-height: 16px;
-  --range-track-width: 84px;
-  --range-width: 84px;
+  --range-track-width: 184px;
+  --range-width: 184px;
   --range-height: 22px;
   --range-radius: 9999px;
 }
@@ -28,9 +28,9 @@ input[type=range]::-webkit-slider-thumb {
   appearance: none;
 }
 
-input[type=range]:focus {
-  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
-}
+/* input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. 
+} */
 
 input[type=range]::-ms-track {
   width: var(--range-track-width);

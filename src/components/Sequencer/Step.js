@@ -5,24 +5,11 @@ import {
 } from '../../features/sequencer/sequencerSlice';
 import { DISPLAY_MODE_STEP, DISPLAY_MODE_TRACK, PAD_MODE_SEQ } from '../../support/consts';
 
-// const opacityMap = {
-//   0.0: 25,
-//   0.1: 30,
-//   0.2: 40,
-//   0.3: 50,
-//   0.4: 60,
-//   0.5: 70,
-//   0.6: 75,
-//   0.7: 80,
-//   0.8: 90,
-//   0.9: 95,
-//   1: 100
-// };
-
 function makeBg(step, disabled) {
   if (disabled) return 'black';
   if (!step.active) return 'rgba(100,116,139)';
-  return `rgba(74,222,128,${step.probability})`;
+  const a = (step.probability / 2) + 0.5;
+  return `rgba(74,222,128,${a})`;
 }
 
 function styleStep(
@@ -34,15 +21,7 @@ function styleStep(
   selectedLane,
   disabled = false
 ) {
-  // console.log(`bg-green-400/${step.probability * 100}`);
-  // const probOpacity = opacityMap[step.probability];
   let styles = '';
-  // if (padMode === PAD_MODE_SEQ && !disabled) {
-  //   styles += step.active ? `bg-green-400/[${step.probability}]` : 'bg-slate-500';
-  // } else if (disabled) {
-  //   styles += 'bg-black';
-  // }
-
   if ((displayMode === DISPLAY_MODE_STEP
       && selected
       && selected.laneId === step.laneId
@@ -54,7 +33,7 @@ function styleStep(
   ) {
     styles += ' border-yellow-400';
   } else if (currentStep === step.id) {
-    styles += ' border-pink-500';
+    styles += ' border-pink-500 shadow-pink-500 shadow-md';
   } else {
     styles += ' border-gray-400';
   }
@@ -122,7 +101,7 @@ function Step({
         }
       }}
       id={id}
-      className={`sequencer-step border-4 ${styles()} w-10 h-10 m-2 rounded ${className} bg-slate-500 flex flex-col justify-center items-center relative`}
+      className={`sequencer-step border-4 ${styles()} w-10 h-10 m-2 rounded ${className} bg-slate-500 flex flex-col justify-center items-center relative drop-shadow-lg`}
     >
       <span
         style={{

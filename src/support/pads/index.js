@@ -62,14 +62,16 @@ export const padMap = {
   '8-12': { bottomLeftLabel: 'B' },
   '8-13': { bottomLeftLabel: 'C' },
   '8-14': {
-    bottomRightLabel: '0',
+    bottomRightLabel: '♯',
     bottomLeftLabel: 'C#'
   },
   '8-15': {
-    bottomLeftLabel: 'D'
+    bottomLeftLabel: 'D',
+    bottomRightLabel: '0'
   },
   '8-16': {
-    bottomLeftLabel: 'D#'
+    bottomLeftLabel: 'D#',
+    bottomRightLabel: '♭'
   },
 };
 

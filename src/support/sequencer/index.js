@@ -1,3 +1,5 @@
+// import { toMidi } from '@tonaljs/midi';
+
 /* eslint-disable no-unused-vars */
 export const SEQ_DIRECTION_FWD = 0;
 export const SEQ_DIRECTION_REV = 1;
@@ -13,7 +15,7 @@ export function initSequencer() {
       steps[k2 + 1] = {
         laneId: k1 + 1,
         id: k2 + 1,
-        value1: 0,
+        value1: 48,
         value2: 0,
         probability: 1,
         active: false,
@@ -30,16 +32,59 @@ export function initSequencer() {
   // console.log(lanes);
   return {
     lanes,
-    selectedStep: null,
+    selectedStep: { id: 1, laneId: 1 },
     locked: false,
-    selectedLane: null,
+    selectedLane: 1,
   };
 }
 
+const ascLanes = {};
+
+// TODO IF HELL
 export function getNextStep(lane) {
   const { currentStep, direction, activeSteps } = lane;
+  if ((direction === SEQ_DIRECTION_PEN || direction === SEQ_DIRECTION_PPG)
+    && ascLanes[lane.id] === undefined
+  ) {
+    ascLanes[lane.id] = 1;
+  }
+  if (direction === SEQ_DIRECTION_PPG) {
+    if (ascLanes[lane.id] === 0) {
+      if (currentStep === 1) {
+        ascLanes[lane.id] = 1;
+        return 1;
+      }
+      return currentStep - 1;
+    }
+    if (ascLanes[lane.id] === 1) {
+      if (lane.currentStep === activeSteps) {
+        ascLanes[lane.id] = 0;
+        return activeSteps;
+      }
+      return currentStep + 1;
+    }
+  }
+  if (direction === SEQ_DIRECTION_PEN) {
+    if (ascLanes[lane.id] === 0) {
+      if (currentStep === 1) {
+        ascLanes[lane.id] = 1;
+        return currentStep + 1;
+      }
+      return currentStep - 1;
+    }
+    if (ascLanes[lane.id] === 1) {
+      if (lane.currentStep === activeSteps) {
+        ascLanes[lane.id] = 0;
+        return activeSteps - 1;
+      }
+      return currentStep + 1;
+    }
+  }
   if (direction === SEQ_DIRECTION_REV) {
     return currentStep <= 1 ? activeSteps : currentStep - 1;
+  }
+  if (direction === SEQ_DIRECTION_RND) {
+    return Math.ceil(Math.random() * activeSteps);
   }
   return currentStep >= activeSteps ? 1 : currentStep + 1;
 }
@@ -55,7 +100,7 @@ export function randomizeLane(lane) {
     currentStep: 1,
     activeSteps,
     steps: Object.fromEntries(stepKeys.map((k) => {
-      const probability = Math.random() > 0.8 ? (Math.ceil(Math.random() * 10) * 0.1) : 1;
+      const probability = Math.random() > 0.5 ? (Math.ceil(Math.random() * 10) * 0.1) : 1;
       return [k, {
         ...lane.steps[k],
         probability: Number(probability.toLocaleString('en-US', {
@@ -64,7 +109,8 @@ export function randomizeLane(lane) {
         })),
         value1: Math.ceil(Math.random() * 128) - 1,
         value2: Math.ceil(Math.random() * 128) - 1,
-        active: Math.random() > 0.6
+        // note: Math.ceil(Math.random() * 128) - 1,
+        active: Math.random() > 0.6,
       }];
     }))
   };

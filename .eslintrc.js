@@ -21,6 +21,7 @@ module.exports = {
     'linebreak-style': 'off',
     'comma-dangle': 'off',
     'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'no-param-reassign': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/jsx-one-expression-per-line': 'off',

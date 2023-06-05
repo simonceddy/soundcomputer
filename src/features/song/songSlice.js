@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const newSongName = `NewSong-${Date.now()}`;
+
 export const songSlice = createSlice({
   name: 'songSlice',
   initialState: {
-    name: 'New Song',
+    name: newSongName,
     tempo: 120,
   },
   reducers: {

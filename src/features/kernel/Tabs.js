@@ -3,7 +3,7 @@ import StepEditor from '../sequencer/StepEditor';
 import SongEditor from '../song/SongEditor';
 import LaneEditor from '../sequencer/LaneEditor';
 import {
-  // DISPLAY_MODE_CONF,
+  DISPLAY_MODE_CONF,
   // DISPLAY_MODE_MIDI,
   DISPLAY_MODE_PATTERN,
   DISPLAY_MODE_SONG,
@@ -19,17 +19,17 @@ const data = {
   [DISPLAY_MODE_PATTERN]: { label: 'Pattern', Component: () => <div>Pattern mode</div>, },
   // [DISPLAY_MODE_MIDI]: { label: 'MIDI', Component: MidiDisplay,},
   [DISPLAY_MODE_TRACK]: { label: 'Track', Component: LaneEditor, },
-  // [DISPLAY_MODE_CONF]: { label: 'Config', Component: ConfDisplay,},
+  [DISPLAY_MODE_CONF]: { label: 'Config', Component: () => <div>config</div> }
 };
 
 const dataKeys = Object.keys(data);
 
 function Tabs() {
-  const { displayMode, header } = useSelector((s) => ({
+  const { displayMode } = useSelector((s) => ({
     displayMode: s.kernel.displayMode,
-    booted: s.kernel.booted,
-    notify: s.display.notify,
-    header: s.display.header
+    // booted: s.kernel.booted,
+    // notify: s.display.notify,
+    // header: s.display.header
   }));
   const dispatch = useDispatch();
 
@@ -49,9 +49,6 @@ function Tabs() {
             {data[k].label || k}
           </TabButton>
         ))}
-      </div>
-      <div className="w-full border-b-2 border-slate-900 dark:border-slate-300 font-mono font-bold py-1 flex flex-row justify-between items-start text-sm mt-2">
-        {header}
       </div>
       <div className="w-full flex-1 p-2 overflow-y-scroll whitespace-pre">
         {d && d.Component && <d.Component />}

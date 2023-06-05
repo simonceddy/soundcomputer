@@ -4,7 +4,7 @@ import { setHeader } from '../display/displaySlice';
 import { setSongName } from './songSlice';
 
 function SongEditor() {
-  const song = useSelector((s) => s.song);
+  const song = useSelector((s) => s.song.present);
   const dispatch = useDispatch();
   useEffect(() => {
     let setup = false;
@@ -16,8 +16,8 @@ function SongEditor() {
 
   return (
     <div className="w-full">
-      <label htmlFor="song-name-input" className="w-1/2 flex flex-row justify-between items-center">
-        <span className="ml-1 text-sm underline">
+      <label htmlFor="song-name-input" className="w-2/3 flex flex-row justify-between items-center">
+        <span className="mr-1 text-sm underline">
           Song name:
         </span>
         <input
@@ -28,7 +28,7 @@ function SongEditor() {
           onChange={(e) => {
             dispatch(setSongName(e.target.value));
           }}
-          className="mr-1 rounded text-sm border-2 border-slate-300 focus:border-blue-400 bg-slate-300 p-1"
+          className="mr-1 rounded text-sm border-2 border-slate-800 border-opacity-0 focus:border-yellow-400 focus:border-opacity-100 bg-slate-300 p-1 dark:bg-slate-800 text-slate-800 dark:text-slate-300 flex-1"
         />
       </label>
     </div>

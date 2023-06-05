@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setHeader } from '../display/displaySlice';
+// import midiNote from 'midi-note';
+import { midiToNoteName } from '@tonaljs/midi';
 import { setStepValue2, setStepValue1, setStepProbability } from './sequencerSlice';
+import { TabHeader } from '../../components/Tabs';
+import Range from '../../components/Range';
 
 function StepEditor() {
   const step = useSelector((s) => {
@@ -11,28 +13,25 @@ function StepEditor() {
       : null;
   });
   const dispatch = useDispatch();
-  useEffect(() => {
-    let setup = false;
-    if (!setup && step) dispatch(setHeader(`Track ${step.laneId} - Step ${step.id}`));
-    return () => {
-      setup = true;
-    };
-  }, [step]);
 
   // console.log(step);
   return (
     <div className="flex flex-col justify-start items-center text-sm w-full">
       {step ? (
         <>
-          <div className="w-full flex flex-row justify-between items-center">
-            <span className="underline">
-              Value 1
+          <TabHeader>
+            Track {step.laneId} - Step {step.id}
+          </TabHeader>
+          <div className="w-full flex flex-row justify-start items-center">
+            <span className="underline w-1/6">
+              Note
+            </span>
+            <span className="w-1/6">
+              {midiToNoteName(step.value1)}
             </span>
             <span>
-              {step.value1}
-            </span>
-            <span>
-              <input
+              <Range
+                vertical
                 value={step.value1}
                 min={0}
                 max={127}
@@ -44,19 +43,18 @@ function StepEditor() {
                     laneId: step.laneId,
                   }));
                 }}
-                type="range"
               />
             </span>
           </div>
-          <div className="w-full flex flex-row justify-between items-center">
-            <span className="underline">
-              Value 2
+          <div className="w-full flex flex-row justify-start items-center">
+            <span className="underline w-1/6">
+              Velocity
             </span>
-            <span>
+            <span className="w-1/6">
               {step.value2}
             </span>
             <span>
-              <input
+              <Range
                 value={step.value2}
                 min={0}
                 max={127}
@@ -68,19 +66,18 @@ function StepEditor() {
                     laneId: step.laneId,
                   }));
                 }}
-                type="range"
               />
             </span>
           </div>
-          <div className="w-full flex flex-row justify-between items-center">
-            <span className="underline">
+          <div className="w-full flex flex-row justify-start items-center">
+            <span className="underline w-1/6">
               Probability
             </span>
-            <span>
+            <span className="w-1/6">
               {Math.round(step.probability * 100)}%
             </span>
             <span>
-              <input
+              <Range
                 value={step.probability}
                 min={0}
                 max={1}
@@ -92,7 +89,6 @@ function StepEditor() {
                     laneId: step.laneId,
                   }));
                 }}
-                type="range"
               />
             </span>
           </div>
