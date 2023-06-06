@@ -50,7 +50,7 @@ function GlobalCtrlPanel() {
                 sequencer,
               })
                 .then((result) => {
-                  console.log(result);
+                  // console.log(result);
                   dispatch(setSongMetaData({
                     ...song.metaData,
                     modified: result.modified && result.modified.getTime

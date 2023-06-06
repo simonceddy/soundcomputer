@@ -5,8 +5,8 @@ import Bpm from './components/Bpm';
 import { TopRow } from './components/Layout';
 import Sequencer from './features/sequencer';
 import SquareButton from './components/SquareButton';
-import { randomizeSequencer, resetAllCurrentSteps, toggleLocked } from './features/sequencer/sequencerSlice';
-import { useAudioScheduler } from './hooks';
+import { resetAllCurrentSteps, toggleLocked } from './features/sequencer/sequencerSlice';
+import { useAudioScheduler, useRandomizer } from './hooks';
 import Bootstrapper from './features/kernel/Bootstrapper';
 import { setNotification } from './features/display/displaySlice';
 import Tabs from './features/kernel/Tabs';
@@ -29,6 +29,7 @@ function App() {
     sequencer: s.sequencer.present,
     playing: s.kernel.playing,
   }));
+  const rand = useRandomizer();
   // console.log(displayMode);
   const dispatch = useDispatch();
   const { start, stopScheduler } = useAudioScheduler(audioCtx);
@@ -87,7 +88,7 @@ function App() {
               <NormSquareButton
                 textColour="text-white active:text-black"
                 onClick={(e) => {
-                  dispatch(randomizeSequencer());
+                  rand();
                   dispatch(setNotification('Randomized!'));
                 }}
               >

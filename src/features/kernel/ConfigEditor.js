@@ -27,7 +27,7 @@ function ConfigEditor() {
               type="checkbox"
               checked={config[k] === true}
               onChange={(e) => {
-                console.log('checked');
+                // console.log('checked');
                 dispatch(setConfigVal({
                   key: k,
                   value: e.target.checked

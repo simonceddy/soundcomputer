@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getNextStep, initSequencer, randomizeLane } from '../../support/sequencer';
+import {
+  getNextStep,
+  initSequencer,
+  randomizeLane as rLane,
+  randomizeStep as rStep
+} from '../../support/sequencer';
 
 export const sequencerSlice = createSlice({
   name: 'sequencerSlice',
@@ -42,8 +47,19 @@ export const sequencerSlice = createSlice({
     randomizeSequencer(state) {
       const keys = Object.keys(state.lanes);
       keys.forEach((k) => {
-        state.lanes[k] = randomizeLane(state.lanes[k]);
+        state.lanes[k] = rLane(state.lanes[k]);
       });
+    },
+    randomizeLane(state, action) {
+      if (state.lanes[action.payload]) {
+        state.lanes[action.payload] = rLane(state.lanes[action.payload]);
+      }
+    },
+    randomizeStep(state, action) {
+      const { laneId, stepId } = action.payload;
+      if (state.lanes[laneId] && state.lanes[laneId].steps[stepId]) {
+        state.lanes[laneId].steps[stepId] = rStep(state.lanes[laneId].steps[stepId]);
+      }
     },
     resetAllCurrentSteps(state) {
       const keys = Object.keys(state.lanes);
@@ -98,7 +114,9 @@ export const {
   setStepValue2,
   setStepProbability,
   setLaneDirection,
-  setAll
+  setAll,
+  randomizeLane,
+  randomizeStep
 } = sequencerSlice.actions;
 
 export default sequencerSlice.reducer;

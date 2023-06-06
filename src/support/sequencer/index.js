@@ -89,7 +89,24 @@ export function getNextStep(lane) {
   return currentStep >= activeSteps ? 1 : currentStep + 1;
 }
 
+export function randomizeStep(step) {
+  // console.log(step);
+  const probability = Math.random() > 0.5 ? (Math.ceil(Math.random() * 10) * 0.1) : 1;
+  return {
+    ...step,
+    probability: Number(probability.toLocaleString('en-US', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    })),
+    value1: Math.ceil(Math.random() * 128) - 1,
+    value2: Math.ceil(Math.random() * 128) - 1,
+    // note: Math.ceil(Math.random() * 128) - 1,
+    active: Math.random() > 0.6,
+  };
+}
+
 export function randomizeLane(lane) {
+  // console.log(lane);
   const stepKeys = Object.keys(lane.steps);
   // console.log(stepKeys);
 
@@ -99,20 +116,7 @@ export function randomizeLane(lane) {
     direction: Math.floor(Math.random() * 5),
     currentStep: 1,
     activeSteps,
-    steps: Object.fromEntries(stepKeys.map((k) => {
-      const probability = Math.random() > 0.5 ? (Math.ceil(Math.random() * 10) * 0.1) : 1;
-      return [k, {
-        ...lane.steps[k],
-        probability: Number(probability.toLocaleString('en-US', {
-          minimumFractionDigits: 1,
-          maximumFractionDigits: 1
-        })),
-        value1: Math.ceil(Math.random() * 128) - 1,
-        value2: Math.ceil(Math.random() * 128) - 1,
-        // note: Math.ceil(Math.random() * 128) - 1,
-        active: Math.random() > 0.6,
-      }];
-    }))
+    steps: Object.fromEntries(stepKeys.map((k) => [k, randomizeStep(lane.steps[k])]))
   };
 }
 

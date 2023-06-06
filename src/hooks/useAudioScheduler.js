@@ -1,21 +1,18 @@
 /* eslint-disable no-unused-vars */
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNextStep } from '../support/sequencer';
-import { advanceAllSteps, setLaneCurrentStep } from '../features/sequencer/sequencerSlice';
-
-// const worker = new Worker('worklets/scheduler.js');
-// console.log(worker);
-// worker.postMessage('hello');
+import { advanceAllSteps } from '../features/sequencer/sequencerSlice';
+import { scheduleStep } from '../support/midi';
 
 const lookahead = 25.0;
 const scheduleAheadTime = 0.1;
 
-let timerID;
 let nextNoteTime = 0.0;
 let currentNote = 1;
 
-const queue = [];
+const timerWorker = new Worker('worklets/metronomeWorker.js');
+
+timerWorker.postMessage({ interval: lookahead });
 
 /**
  *
@@ -23,14 +20,10 @@ const queue = [];
  * @returns
  */
 export default function useAudioScheduler(audioCtx) {
-  const { sequencer, tempo } = useSelector((s) => ({
-    padMode: s.kernel.padMode,
-    sequencer: s.sequencer.present,
-    tempo: s.song.present.tempo
+  const { tempo, sequencer } = useSelector((s) => ({
+    tempo: s.song.present.tempo,
+    sequencer: s.sequencer.present
   }));
-  // const laneKeys = Object.keys(sequencer.lanes);
-  // const [timerID, setTimerID] = useState(null);
-  // const [nextNoteTime, setNextNoteTime] = useState(0.0);
 
   const dispatch = useDispatch();
 
@@ -40,53 +33,34 @@ export default function useAudioScheduler(audioCtx) {
     nextNoteTime += secondsPerBeat;
     currentNote = (currentNote + 1) % 16;
   }, [tempo]);
+  // console.log(timerWorker);
 
-  // const scheduleLanes = (beat, time) => {
-  //   // queue.push({ beat, time });
-  //   if (sequencer.lanes[1].steps[sequencer.lanes[1].currentStep]
-  //     && sequencer.lanes[1].steps[sequencer.lanes[1].currentStep].active) {
-  //     console.log('lane !');
-  //   }
-  //   if (sequencer.lanes[2].steps[sequencer.lanes[2].currentStep]
-  //     && sequencer.lanes[2].steps[sequencer.lanes[2].currentStep].active) {
-  //     console.log('lane @');
-  //   }
-  //   if (sequencer.lanes[3].steps[sequencer.lanes[3].currentStep]
-  //     && sequencer.lanes[3].steps[sequencer.lanes[3].currentStep].active) {
-  //     console.log('lane #');
-  //   }
-  //   if (sequencer.lanes[4].steps[sequencer.lanes[4].currentStep]
-  //     && sequencer.lanes[4].steps[sequencer.lanes[4].currentStep].active) {
-  //     console.log('lane $');
-  //   }
-  //   if (sequencer.lanes[5].steps[sequencer.lanes[5].currentStep]
-  //     && sequencer.lanes[5].steps[sequencer.lanes[5].currentStep].active) {
-  //     console.log('lane %');
-  //   }
-  //   if (sequencer.lanes[6].steps[sequencer.lanes[6].currentStep]
-  //     && sequencer.lanes[6].steps[sequencer.lanes[6].currentStep].active) {
-  //     console.log('lane ^');
-  //   }
-  //   if (sequencer.lanes[7].steps[sequencer.lanes[7].currentStep]
-  //     && sequencer.lanes[7].steps[sequencer.lanes[7].currentStep].active) {
-  //     console.log('lane &');
-  //   }
-  //   if (sequencer.lanes[8].steps[sequencer.lanes[8].currentStep]
-  //     && sequencer.lanes[8].steps[sequencer.lanes[8].currentStep].active) {
-  //     console.log('lane *');
-  //   }
-  // };
+  const scheduleSteps = (beat, time) => {
+    const t = time - audioCtx.currentTime;
+    const gate = 30 / tempo;
+    const lanes = Object.values(sequencer.lanes);
+    lanes.forEach((lane) => {
+      // console.log(lane);
+      if (lane.steps[lane.currentStep].active) {
+        scheduleStep(lane.steps[lane.currentStep], t, gate);
+      }
+    });
+  };
 
   const scheduler = () => {
-    // worker.postMessage({ sequencer });
     while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime) {
-      // scheduleLanes(currentNote, nextNoteTime);
+      scheduleSteps(currentNote, nextNoteTime);
       dispatch(advanceAllSteps());
       nextNote();
-      // console.log(currentNote);
     }
-    timerID = setTimeout(scheduler, lookahead);
   };
+
+  timerWorker.onmessage = (e) => {
+    if (e.data === 'tick') {
+      scheduler();
+    } else { console.log(`message: ${e.data}`); }
+  };
+
   return {
     start() {
       if (audioCtx.state === 'suspended') {
@@ -94,21 +68,15 @@ export default function useAudioScheduler(audioCtx) {
       }
       currentNote = 0;
       nextNoteTime = audioCtx.currentTime;
-      scheduler(); // kick off scheduling
+      // scheduler(); // kick off scheduling
+      timerWorker.postMessage('start');
     },
     reset() {
-      nextNoteTime = 0.0;
+      nextNoteTime = audioCtx.currentTime;
       currentNote = 0;
     },
     stopScheduler() {
-      if (timerID) {
-        nextNoteTime = 0.0;
-        currentNote = 0;
-        clearInterval(timerID);
-        timerID = null;
-        // audioCtx.suspend();
-        // console.log(timerID);
-      }
+      timerWorker.postMessage('stop');
     }
   };
 }
