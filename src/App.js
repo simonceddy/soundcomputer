@@ -15,6 +15,7 @@ import './support/midi';
 import NormSquareButton from './components/NormSquareButton';
 import LoadSong from './features/song/LoadSong';
 import { toggleLoadingSong, togglePlaying } from './features/kernel/kernelSlice';
+import Notification from './features/display/Notification';
 
 const audioCtx = new AudioContext();
 
@@ -94,7 +95,10 @@ function App() {
               </NormSquareButton>
             </div>
           </div>
-          <GlobalCtrlPanel />
+          <div className="flex flex-col justify-center items-center mx-2">
+            <Notification />
+            <GlobalCtrlPanel />
+          </div>
           {/* <SquareButton
             shiftLabel="save"
             onClick={(e) => {

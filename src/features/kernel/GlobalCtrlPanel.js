@@ -2,13 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ActionCreators } from 'redux-undo';
 import NormSquareButton from '../../components/NormSquareButton';
 import { setNotification } from '../display/displaySlice';
-import { saveAs } from '../../util/storage';
+import { saveSong } from '../../util/storage';
 import { toggleLoadingSong } from './kernelSlice';
+import { setSongMetaData } from '../song/songSlice';
 
 function GlobalCtrlPanel() {
-  const { sequencer, name } = useSelector((s) => ({
+  const { sequencer, song } = useSelector((s) => ({
     sequencer: s.sequencer.present,
-    name: s.song.present.name
+    song: s.song.present
   }));
   const dispatch = useDispatch();
   return (
@@ -40,12 +41,25 @@ function GlobalCtrlPanel() {
         </NormSquareButton>
         <NormSquareButton
           onClick={() => {
-            saveAs(name, { name, sequencer, })
-              .then((result) => {
-                console.log(result);
-                dispatch(setNotification('Saved'));
+            dispatch(setNotification('Saving...'));
+            setTimeout(() => {
+              saveSong(song.name, {
+                name: song.name,
+                created: song.metaData.created ? new Date(song.metaData.created) : null,
+                tempo: song.tempo,
+                sequencer,
               })
-              .catch(console.error);
+                .then((result) => {
+                  console.log(result);
+                  dispatch(setSongMetaData({
+                    ...song.metaData,
+                    modified: result.modified && result.modified.getTime
+                      ? result.modified.getTime() : null
+                  }));
+                  dispatch(setNotification(`Saved ${song.name}`));
+                })
+                .catch(console.error);
+            }, 400);
           }}
         >
           save

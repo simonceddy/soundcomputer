@@ -12,6 +12,7 @@ import {
 } from '../../support/consts';
 import { TabButton } from '../../components/Tabs';
 import { setDisplayMode } from './kernelSlice';
+import ConfigEditor from './ConfigEditor';
 
 const data = {
   [DISPLAY_MODE_SONG]: { label: 'Song', Component: SongEditor, },
@@ -19,15 +20,15 @@ const data = {
   [DISPLAY_MODE_PATTERN]: { label: 'Pattern', Component: () => <div>Pattern mode</div>, },
   // [DISPLAY_MODE_MIDI]: { label: 'MIDI', Component: MidiDisplay,},
   [DISPLAY_MODE_TRACK]: { label: 'Track', Component: LaneEditor, },
-  [DISPLAY_MODE_CONF]: { label: 'Config', Component: () => <div>config</div> }
+  [DISPLAY_MODE_CONF]: { label: 'Config', Component: ConfigEditor }
 };
 
 const dataKeys = Object.keys(data);
 
 function Tabs() {
-  const { displayMode } = useSelector((s) => ({
+  const { displayMode, booted } = useSelector((s) => ({
     displayMode: s.kernel.displayMode,
-    // booted: s.kernel.booted,
+    booted: s.kernel.booted,
     // notify: s.display.notify,
     // header: s.display.header
   }));
@@ -37,22 +38,30 @@ function Tabs() {
   // console.log(dataKeys, displayMode);
   return (
     <div className="flex flex-col flex-1 justify-start items-center h-full rounded bg-slate-300 dark:bg-slate-900 text-blue-900 dark:text-blue-200 font-mono mx-2 mt-2 mb-1">
-      <div className="flex w-full flex-row justify-start items-start border-b-2 border-slate-900 dark:border-slate-300">
-        {dataKeys.map((k) => (
-          <TabButton
-            active={displayMode === Number(k)}
-            key={`tab-button-${k}`}
-            onClick={() => {
-              dispatch(setDisplayMode(k));
-            }}
-          >
-            {data[k].label || k}
-          </TabButton>
-        ))}
-      </div>
-      <div className="w-full flex-1 p-2 overflow-y-scroll whitespace-pre">
-        {d && d.Component && <d.Component />}
-      </div>
+      {booted ? (
+        <>
+          <div className="flex w-full flex-row justify-start items-start border-b-2 border-slate-900 dark:border-slate-300">
+            {dataKeys.map((k) => (
+              <TabButton
+                active={displayMode === Number(k)}
+                key={`tab-button-${k}`}
+                onClick={() => {
+                  dispatch(setDisplayMode(k));
+                }}
+              >
+                {data[k].label || k}
+              </TabButton>
+            ))}
+          </div>
+          <div className="w-full flex-1 p-2 overflow-y-scroll whitespace-pre">
+            {d && d.Component && <d.Component />}
+          </div>
+        </>
+      ) : (
+        <div className="text-lg font-mono font-bold">
+          Booting...
+        </div>
+      )}
     </div>
   );
 }

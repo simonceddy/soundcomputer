@@ -5,6 +5,7 @@ import song from '../features/song/songSlice';
 import kernel from '../features/kernel/kernelSlice';
 import sequencer from '../features/sequencer/sequencerSlice';
 import display from '../features/display/displaySlice';
+import saveConfigListener from '../features/kernel/saveConfigListener';
 
 export const store = configureStore({
   reducer: {
@@ -25,4 +26,6 @@ export const store = configureStore({
     // sequencer,
     display,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .prepend(saveConfigListener.middleware)
 });

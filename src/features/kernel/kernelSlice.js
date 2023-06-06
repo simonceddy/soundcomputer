@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { defaultConfig } from './config';
 
 export const kernelSlice = createSlice({
   name: 'kernelSlice',
-  initialState: {
+  initialState: () => ({
     displayMode: 0,
     padMode: 0,
     booted: false,
     loadingSong: false,
     playing: false,
-  },
+    config: defaultConfig
+  }),
   reducers: {
     setDisplayMode: (state, action) => {
       state.displayMode = Number(action.payload);
@@ -22,12 +24,19 @@ export const kernelSlice = createSlice({
     },
     togglePlaying(state) {
       state.playing = !state.playing;
+    },
+    setConfigVal(state, action) {
+      const { key, value } = action.payload;
+      state.config[key] = value;
+    },
+    setAllConfig(state, action) {
+      state.config = action.payload;
     }
   },
 });
 
 export const {
-  setDisplayMode, bootUp, toggleLoadingSong, togglePlaying
+  setDisplayMode, bootUp, toggleLoadingSong, togglePlaying, setConfigVal, setAllConfig
 } = kernelSlice.actions;
 
 export default kernelSlice.reducer;

@@ -96,7 +96,7 @@ export function randomizeLane(lane) {
   const activeSteps = Math.ceil(Math.random() * 16);
   return {
     ...lane,
-    direction: SEQ_DIRECTION_FWD,
+    direction: Math.floor(Math.random() * 5),
     currentStep: 1,
     activeSteps,
     steps: Object.fromEntries(stepKeys.map((k) => {

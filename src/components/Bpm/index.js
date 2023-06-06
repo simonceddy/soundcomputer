@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { throttle } from 'lodash';
 import RotaryKnob from '../RotaryKnob';
 import { setSongTempo } from '../../features/song/songSlice';
 import { formatTempo } from '../../util';
@@ -12,7 +13,7 @@ function Bpm() {
         className="w-16 h-16"
         minVal={30}
         maxVal={300}
-        onChange={(v) => dispatch(setSongTempo(v))}
+        onChange={throttle((v) => dispatch(setSongTempo(v)), 50)}
         val={tempo}
         megaStepSize={5}
         defaultVal={120}

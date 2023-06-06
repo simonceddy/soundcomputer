@@ -7,14 +7,20 @@ export async function getStorageKeys() {
   return keys.filter((v) => v.startsWith('soundcomputer-'));
 }
 
-export async function saveAs(name, state) {
-  const n = name.startsWith('soundcomputer-') ? name : `soundcomputer-${name}`;
-  const result = await localforage.setItem(n, state);
+export async function load(name) {
+  const result = await localforage.getItem(name);
   return result;
 }
 
-export async function load(name) {
-  const result = await localforage.getItem(name);
+export async function saveSong(name, state) {
+  const n = name.startsWith('soundcomputer-') ? name : `soundcomputer-${name}`;
+  const oldState = await load(n);
+  const s = { ...state, modified: new Date() };
+  if (!oldState && !s.created) s.created = new Date();
+  const result = await localforage.setItem(n, {
+    ...oldState,
+    ...s
+  });
   return result;
 }
 
