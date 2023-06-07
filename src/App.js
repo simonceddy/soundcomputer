@@ -16,6 +16,7 @@ import NormSquareButton from './components/NormSquareButton';
 import LoadSong from './features/song/LoadSong';
 import { toggleLoadingSong, togglePlaying } from './features/kernel/kernelSlice';
 import Notification from './features/display/Notification';
+import Modal from './components/Modal';
 
 const audioCtx = new AudioContext();
 
@@ -49,13 +50,11 @@ function App() {
   return (
     <Bootstrapper>
       {loadingSong && (
-        <div
-          className="absolute w-full h-full z-40 flex flex-col justify-center items-center bg-slate-500/40"
-          role="presentation"
-          onClick={() => dispatch(toggleLoadingSong())}
+        <Modal
+          onClose={() => dispatch(toggleLoadingSong())}
         >
           <LoadSong />
-        </div>
+        </Modal>
       )}
       <div className="w-full h-full text-lg bg-black font-mono font-bold text-teal-400 flex flex-col justify-start items-center p-2 relative">
         <TopRow>

@@ -20,9 +20,10 @@ timerWorker.postMessage({ interval: lookahead });
  * @returns
  */
 export default function useAudioScheduler(audioCtx) {
-  const { tempo, sequencer } = useSelector((s) => ({
+  const { tempo, sequencer, enableMidi } = useSelector((s) => ({
     tempo: s.song.present.tempo,
-    sequencer: s.sequencer.present
+    sequencer: s.sequencer.present,
+    enableMidi: s.kernel.config.enableMidi || true
   }));
 
   const dispatch = useDispatch();
@@ -41,7 +42,10 @@ export default function useAudioScheduler(audioCtx) {
     const lanes = Object.values(sequencer.lanes);
     lanes.forEach((lane) => {
       // console.log(lane);
-      if (lane.steps[lane.currentStep] && lane.steps[lane.currentStep].active) {
+      if (enableMidi
+        && lane.steps[lane.currentStep]
+        && lane.steps[lane.currentStep].active
+      ) {
         scheduleStep(lane.steps[lane.currentStep], t, gate);
       }
     });

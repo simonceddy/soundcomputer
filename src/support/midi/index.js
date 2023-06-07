@@ -24,7 +24,6 @@ import jzz from 'jzz';
 //   .close();
 
 const outPort = jzz().openMidiOut().or('Cannot open MIDI out port!');
-console.log(outPort.info());
 outPort.and(function () { console.log('MIDI-Out: ', this.name()); });
 export function scheduleStep(step, time, gate) {
   if (Math.random() <= step.probability) {

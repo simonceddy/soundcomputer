@@ -9,11 +9,14 @@ import {
 import { DISPLAY_MODE_STEP, DISPLAY_MODE_TRACK } from '../../support/consts';
 import { randomizeSequencer, toggleLocked } from '../sequencer/sequencerSlice';
 import { initConfig } from './config';
-import { setSongName } from '../song/songSlice';
+import { useRandomName } from '../../hooks';
+// import { setSongName } from '../song/songSlice';
 
 function Bootstrapper({ children }) {
   const { booted, displayMode, config } = useSelector((s) => s.kernel);
   const dispatch = useDispatch();
+
+  const randomName = useRandomName();
   useHotkeys('alt+s,alt+t,alt+l,alt+space,alt+shift+r', (e, he) => {
     if (he.alt) {
       if (e.code === 'KeyS' && displayMode !== DISPLAY_MODE_STEP) {
@@ -34,16 +37,9 @@ function Bootstrapper({ children }) {
     if (!setup && !booted) {
       initConfig()
         .then((conf) => {
-          dispatch(setAllConfig(conf));
+          dispatch(setAllConfig({ ...config, ...conf }));
+          randomName();
           if (config.lockSeqByDefault) dispatch(toggleLocked());
-          const worker = new Worker('worklets/randomName.js');
-          worker.onmessage = ({ data }) => {
-            if (data) {
-              dispatch(setSongName(data));
-              worker.terminate();
-            }
-          };
-          worker.postMessage(1);
           setTimeout(() => dispatch(bootUp()), 1000);
         })
         .catch(console.error);
