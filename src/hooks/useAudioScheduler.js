@@ -41,7 +41,7 @@ export default function useAudioScheduler(audioCtx) {
     const lanes = Object.values(sequencer.lanes);
     lanes.forEach((lane) => {
       // console.log(lane);
-      if (lane.steps[lane.currentStep].active) {
+      if (lane.steps[lane.currentStep] && lane.steps[lane.currentStep].active) {
         scheduleStep(lane.steps[lane.currentStep], t, gate);
       }
     });
