@@ -20,6 +20,16 @@ import Modal from './components/Modal';
 
 const audioCtx = new AudioContext();
 
+// (async () => {
+//   await audioCtx.audioWorklet.addModule('/worklets/randomNoise.js');
+//   const randomNoiseNode = new AudioWorkletNode(
+//     audioCtx,
+//     'randomNoise'
+//   );
+//   randomNoiseNode.connect(audioCtx.destination);
+//   console.log(randomNoiseNode);
+// })();
+
 function App() {
   const {
     displayMode, sequencer, loadingSong, playing

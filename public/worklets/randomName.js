@@ -11,8 +11,8 @@ let n = [];
   const ares = await fetch(apath);
   n = await nres.text();
   a = await ares.text();
-  n = n.split('\n');
-  a = a.split('\n');
+  n = n.split(',');
+  a = a.split(',');
   // console.log(n, a);
 
   function makeRandName() {
