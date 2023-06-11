@@ -6,6 +6,7 @@ import kernel from '../features/kernel/kernelSlice';
 import sequencer from '../features/sequencer/sequencerSlice';
 import display from '../features/display/displaySlice';
 import saveConfigListener from '../features/kernel/saveConfigListener';
+import instruments from '../features/instrument/instrumentSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
       filter: includeAction(['songSlice/setSongName'])
     }),
     kernel,
+    instruments,
     sequencer: undoable(sequencer, {
       ignoreInitialState: true,
       filter: excludeAction([
@@ -23,7 +25,6 @@ export const store = configureStore({
         'sequencerSlice/setLaneCurrentStep',
       ])
     }),
-    // sequencer,
     display,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()

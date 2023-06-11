@@ -17,8 +17,7 @@ import LoadSong from './features/song/LoadSong';
 import { toggleLoadingSong, togglePlaying } from './features/kernel/kernelSlice';
 import Notification from './features/display/Notification';
 import Modal from './components/Modal';
-
-const audioCtx = new AudioContext();
+import audioContext from './support/audioContext';
 
 // (async () => {
 //   await audioCtx.audioWorklet.addModule('/worklets/randomNoise.js');
@@ -43,13 +42,13 @@ function App() {
   const rand = useRandomizer();
   // console.log(displayMode);
   const dispatch = useDispatch();
-  const { start, stopScheduler } = useAudioScheduler(audioCtx);
+  const { start, stopScheduler } = useAudioScheduler(audioContext);
 
   useEffect(() => {
     // console.log(playing);
     if (playing) {
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
       }
       start();
     } else {
