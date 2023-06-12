@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import audioContext from '../support/audioContext';
-import { playSample } from '../support/instruments';
 
-function useSample(url = 'assets/green ghoul kick.mp3') {
+export default function useAudioBuffer(url = 'assets/green ghoul kick.mp3') {
   const [buffer, setBuffer] = useState(null);
   useEffect(() => {
     const fetchSample = async () => {
@@ -15,9 +14,5 @@ function useSample(url = 'assets/green ghoul kick.mp3') {
     fetchSample();
   }, []);
 
-  return () => {
-    if (buffer) playSample(buffer, audioContext.currentTime);
-  };
+  return buffer;
 }
-
-export default useSample;

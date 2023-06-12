@@ -4,3 +4,4 @@ export { default as useStoredSong } from './useStoredSong';
 export { default as useRandomizer } from './useRandomizer';
 export { default as useRandomName } from './useRandomName';
 export { default as useSample } from './useSample';
+export { default as useAudioBuffer } from './useAudioBuffer';

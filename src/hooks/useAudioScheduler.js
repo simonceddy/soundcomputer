@@ -3,12 +3,13 @@ import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { advanceAllSteps } from '../features/sequencer/sequencerSlice';
 import { scheduleStep } from '../support/midi';
+import { playStep } from '../support/instruments';
 
 const lookahead = 25.0;
 const scheduleAheadTime = 0.1;
 
 let nextNoteTime = 0.0;
-let currentNote = 1;
+let currentNote = 0;
 
 const timerWorker = new Worker('worklets/metronomeWorker.js');
 
@@ -52,7 +53,8 @@ export default function useAudioScheduler(audioCtx) {
         if (enableMidi) scheduleStep(lane.steps[lane.currentStep], t, gate);
         if (assignments[lane.id] !== 0) {
           // TODO play instrument
-          console.log(lane.steps[lane.currentStep]);
+          // console.log(lane.steps[lane.currentStep]);
+          playStep(lane.steps[lane.currentStep], time, assignments[lane.id]);
         }
       }
     });

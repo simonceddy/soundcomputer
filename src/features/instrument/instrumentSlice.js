@@ -18,7 +18,8 @@ export const instrumentSlice = createSlice({
   initialState: initState,
   reducers: {
     assignToLane(state, action) {
-      state.assignments[action.laneId] = action.instrumentId;
+      // console.log(action);
+      state.assignments[action.payload.laneId] = action.payload.instrumentId;
     }
   },
 });
