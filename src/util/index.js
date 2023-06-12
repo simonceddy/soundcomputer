@@ -12,3 +12,10 @@ export function formatTempo(bpm = 120) {
     maximumFractionDigits: 2
   });
 }
+
+export function formatBool(val) {
+  if (typeof val === 'boolean') {
+    return val === true ? 'true' : 'false';
+  }
+  return val;
+}

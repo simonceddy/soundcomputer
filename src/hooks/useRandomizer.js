@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { DISPLAY_MODE_SONG, DISPLAY_MODE_STEP, DISPLAY_MODE_TRACK } from '../support/consts';
+import { DISPLAY_MODE_SONG, DISPLAY_MODE_STEP, DISPLAY_MODE_LANE } from '../support/consts';
 import { randomizeSequencer, randomizeStep, randomizeLane } from '../features/sequencer/sequencerSlice';
 
 export default function useRandomizer() {
@@ -19,7 +19,7 @@ export default function useRandomizer() {
       case DISPLAY_MODE_STEP:
         dispatch(randomizeStep({ laneId: selectedStep.laneId, stepId: selectedStep.id }));
         break;
-      case DISPLAY_MODE_TRACK:
+      case DISPLAY_MODE_LANE:
         dispatch(randomizeLane(selectedLane));
         break;
       default:

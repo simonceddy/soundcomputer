@@ -13,10 +13,10 @@ function TrackDisplay() {
     };
   }, [selectedLane]);
   return (
-    <div className="flex flex-col justify-start items-center text-sm">
+    <div className="col justify-start items-center text-sm">
       {selectedLane ? (
         <>
-          <div className="flex flex-row justify-between items-center w-full">
+          <div className="row justify-between items-center w-full">
             <span>
               Pattern length
             </span>
@@ -24,7 +24,7 @@ function TrackDisplay() {
               {lanes[selectedLane].activeSteps}
             </span>
           </div>
-          <div className="flex flex-row justify-between items-center w-full">
+          <div className="row justify-between items-center w-full">
             <span>
               Direction
             </span>

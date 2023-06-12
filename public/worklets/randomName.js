@@ -20,7 +20,7 @@ let n = [];
       a[Math.floor(Math.random() * a.length)],
       a[Math.floor(Math.random() * a.length)],
       n[Math.floor(Math.random() * n.length)],
-      n[Math.floor(Math.random() * n.length)],
+      // n[Math.floor(Math.random() * n.length)],
     ];
 
     return words.map((w) => {

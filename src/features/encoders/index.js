@@ -7,7 +7,7 @@ import Encoder4 from './Encoder4';
 
 function Encoders() {
   return (
-    <div className="flex flex-row justify-between items-center w-11/12">
+    <div className="row justify-between items-center w-11/12">
       <Encoder1 />
       <Encoder2 />
       <Encoder3 />

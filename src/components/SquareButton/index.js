@@ -9,12 +9,12 @@ function SquareButton({
   shiftLabel
 }) {
   return (
-    <div className={`flex flex-col justify-start items-center relative text-xs font-mono font-thin ${textColour} lowercase`}>
+    <div className={`col justify-start items-center relative text-xs font-mono font-thin ${textColour} lowercase`}>
       <span className="h-4 mb-0.5">{shiftLabel}</span>
       <button
         onClick={onClick}
         type="button"
-        className={`flex flex-col justify-between items-center ${bgColour} ${borderWidth} ${borderColour} h-12 w-12 rounded-sm`}
+        className={`col justify-between items-center ${bgColour} ${borderWidth} ${borderColour} h-12 w-12 rounded-sm`}
       >
         <span className={`w-3 h-2 ${active ? 'bg-red-400' : 'bg-red-950'} my-2`} />
         <span className="mb-1">

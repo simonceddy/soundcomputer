@@ -43,7 +43,7 @@ function RotaryKnob({
       onMouseDown={dragHandler}
       onWheel={wheelHandler}
       onDoubleClick={dblClickHandler}
-      className={`rotary-knob flex flex-col justify-start items-center ${borderWidth} ${borderColour} ${bgColour} rounded-full ${className}`}
+      className={`rotary-knob col justify-start items-center ${borderWidth} ${borderColour} ${bgColour} rounded-full ${className}`}
       // style={{ transform: 'rotate(-50deg)' }}
       style={{ transform: `rotate(${state.deg || 0}deg)` }}
       // role="presentation"

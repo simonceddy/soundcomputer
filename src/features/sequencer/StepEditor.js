@@ -16,13 +16,13 @@ function StepEditor() {
 
   // console.log(step);
   return (
-    <div className="flex flex-col justify-start items-center text-sm w-full">
+    <div className="col justify-start items-center text-sm w-full">
       {step ? (
         <>
           <TabHeader>
             Track {step.laneId} - Step {step.id}
           </TabHeader>
-          <div className="w-full flex flex-row justify-start items-center">
+          <div className="w-full row justify-start items-center">
             <span className="underline w-1/6">
               Note
             </span>
@@ -46,7 +46,7 @@ function StepEditor() {
               />
             </span>
           </div>
-          <div className="w-full flex flex-row justify-start items-center">
+          <div className="w-full row justify-start items-center">
             <span className="underline w-1/6">
               Velocity
             </span>
@@ -69,7 +69,7 @@ function StepEditor() {
               />
             </span>
           </div>
-          <div className="w-full flex flex-row justify-start items-center">
+          <div className="w-full row justify-start items-center">
             <span className="underline w-1/6">
               Probability
             </span>

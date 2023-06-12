@@ -8,12 +8,12 @@ function NormSquareButton({
   // shiftLabel
 }) {
   return (
-    <div className={`flex flex-col justify-start items-center relative text-xs font-mono font-thin ${textColour} lowercase m-1`}>
+    <div className={`col justify-start items-center relative text-xs font-mono font-thin ${textColour} lowercase m-1`}>
       {/* <span className="h-4 mb-0.5">{shiftLabel}</span> */}
       <button
         onClick={onClick}
         type="button"
-        className={`flex flex-col justify-center items-center ${bgColour} ${borderWidth} ${borderColour} h-12 w-12 rounded-sm`}
+        className={`col justify-center items-center ${bgColour} ${borderWidth} ${borderColour} h-12 w-12 rounded-sm`}
       >
         <span className="mb-1 whitespace-pre-wrap">
           {children}

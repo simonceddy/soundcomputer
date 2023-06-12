@@ -2,8 +2,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setActiveStepsForLane, setSelectedLane, setSelectedStep, toggleStep
-} from '../../features/sequencer/sequencerSlice';
-import { DISPLAY_MODE_STEP, DISPLAY_MODE_TRACK, PAD_MODE_SEQ } from '../../support/consts';
+} from './sequencerSlice';
+import {
+  DISPLAY_MODE_STEP, DISPLAY_MODE_LANE, PAD_MODE_SEQ, DISPLAY_MODE_INSTRUMENT
+} from '../../support/consts';
 
 function makeBg(step, disabled) {
   if (disabled) return 'black';
@@ -26,12 +28,18 @@ function styleStep(
       && selected
       && selected.laneId === step.laneId
       && selected.id === step.id)
-      || (displayMode === DISPLAY_MODE_TRACK
+      || (displayMode === DISPLAY_MODE_LANE
         && Number(selectedLane) === Number(step.laneId)
-        && currentStep !== step.id
       )
   ) {
-    styles += ' border-yellow-400';
+    styles += (currentStep !== step.id
+      ? ' border-yellow-400 shadow-yellow-400 shadow-md'
+      : 'border-orange-400 shadow-orange-500 shadow-md');
+  } else if (displayMode === DISPLAY_MODE_INSTRUMENT && selected.laneId === step.laneId
+  ) {
+    styles += (currentStep === step.id
+      ? ' border-purple-500 shadow-purple-500 shadow-md'
+      : ' border-cyan-400 shadow-cyan-400 shadow-md');
   } else if (currentStep === step.id) {
     styles += ' border-pink-500 shadow-pink-500 shadow-md';
   } else {
@@ -91,7 +99,7 @@ function Step({
           }));
         }
         if (selectedLane !== laneId) dispatch(setSelectedLane(laneId));
-        if (displayMode === DISPLAY_MODE_TRACK && e.altKey) {
+        if (displayMode === DISPLAY_MODE_LANE && e.altKey) {
           dispatch(setActiveStepsForLane({
             laneId,
             value: step.id
@@ -101,7 +109,7 @@ function Step({
         }
       }}
       id={id}
-      className={`sequencer-step border-4 ${styles()} w-10 h-10 m-2 rounded ${className} bg-slate-500 flex flex-col justify-center items-center relative drop-shadow-lg`}
+      className={`sequencer-step border-4 ${styles()} w-10 h-10 m-2 rounded ${className} bg-slate-500 col justify-center items-center relative drop-shadow-lg`}
     >
       <span
         style={{

@@ -52,7 +52,7 @@ function Oscilloscope() {
     return () => {
       setup = true;
     };
-  });
+  }, []);
   return (
     <div>
       <canvas ref={ref} />

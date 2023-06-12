@@ -1,9 +1,16 @@
 @tailwind base;
-
-/* put components here */
-.rotary-knob:active > span {
-  @apply border-yellow-400;
-}
-
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .rotary-knob:active > span {
+    @apply border-yellow-400;
+  }
+  .col {
+    @apply flex flex-col;
+  }
+
+  .row {
+    @apply flex flex-row;
+  }
+}

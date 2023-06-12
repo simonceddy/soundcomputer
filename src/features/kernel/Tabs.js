@@ -4,23 +4,26 @@ import SongEditor from '../song/SongEditor';
 import LaneEditor from '../sequencer/LaneEditor';
 import {
   DISPLAY_MODE_CONF,
+  DISPLAY_MODE_INSTRUMENT,
   // DISPLAY_MODE_MIDI,
   DISPLAY_MODE_PATTERN,
   DISPLAY_MODE_SONG,
   DISPLAY_MODE_STEP,
-  DISPLAY_MODE_TRACK
+  DISPLAY_MODE_LANE
 } from '../../support/consts';
 import { TabButton } from '../../components/Tabs';
 import { setDisplayMode } from './kernelSlice';
 import ConfigEditor from './ConfigEditor';
+import InstrumentEditor from '../instrument/InstrumentEditor';
 
 const data = {
   [DISPLAY_MODE_SONG]: { label: 'Song', Component: SongEditor, },
   [DISPLAY_MODE_STEP]: { label: 'Step', Component: StepEditor, },
   [DISPLAY_MODE_PATTERN]: { label: 'Pattern', Component: () => <div>Pattern mode</div>, },
   // [DISPLAY_MODE_MIDI]: { label: 'MIDI', Component: MidiDisplay,},
-  [DISPLAY_MODE_TRACK]: { label: 'Track', Component: LaneEditor, },
-  [DISPLAY_MODE_CONF]: { label: 'Config', Component: ConfigEditor }
+  [DISPLAY_MODE_LANE]: { label: 'Lane', Component: LaneEditor, },
+  [DISPLAY_MODE_INSTRUMENT]: { label: 'Instrument', Component: InstrumentEditor },
+  [DISPLAY_MODE_CONF]: { label: 'Config', Component: ConfigEditor },
 };
 
 const dataKeys = Object.keys(data);
@@ -37,7 +40,7 @@ function Tabs() {
   const d = data[displayMode] || false;
   // console.log(dataKeys, displayMode);
   return (
-    <div className="flex flex-col flex-1 justify-start items-center h-full rounded bg-slate-300 dark:bg-slate-900 text-blue-900 dark:text-blue-200 font-mono mx-2 mt-2 mb-1">
+    <div className="col flex-1 justify-start items-center h-full rounded bg-slate-300 dark:bg-slate-900 text-blue-900 dark:text-blue-200 font-mono mx-2 mt-2 mb-1">
       {booted ? (
         <>
           <div className="flex w-full flex-row justify-start items-start border-b-2 border-slate-900 dark:border-slate-300">

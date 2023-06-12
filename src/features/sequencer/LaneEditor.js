@@ -5,6 +5,7 @@ import {
 } from '../../support/sequencer';
 import { TabHeader } from '../../components/Tabs';
 import { setLaneDirection } from './sequencerSlice';
+import { formatBool } from '../../util';
 
 const directions = {
   [SEQ_DIRECTION_FWD]: 'FWD',
@@ -35,21 +36,29 @@ function LaneEditor() {
   const { selectedLane, lanes } = useSelector((s) => s.sequencer.present);
   const dispatch = useDispatch();
   return (
-    <div className="flex flex-col justify-start items-center text-sm">
+    <div className="col justify-start items-center text-sm">
       {selectedLane ? (
         <>
           <TabHeader>
-            {`Track ${selectedLane}`}
+            {`Lane ${selectedLane}`}
           </TabHeader>
-          <div className="flex flex-row justify-between items-center w-full">
+          <div className="row justify-between items-center w-full">
             <span>
-              Pattern length
+              Active
+            </span>
+            <span>
+              {formatBool(lanes[selectedLane].active)}
+            </span>
+          </div>
+          <div className="row justify-between items-center w-full">
+            <span>
+              Steps
             </span>
             <span>
               {lanes[selectedLane].activeSteps}
             </span>
           </div>
-          <div className="flex flex-row justify-between items-center w-full">
+          <div className="row justify-between items-center w-full">
             <span>
               Direction
             </span>

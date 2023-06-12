@@ -29,13 +29,13 @@ function ShiftButton({
   }, [ref]);
 
   return (
-    <div className="flex flex-col justify-start items-center relative text-xs font-mono font-thin text-slate-100 lowercase">
+    <div className="col justify-start items-center relative text-xs font-mono font-thin text-slate-100 lowercase">
       <span className="h-4 mb-0.5" />
       <button
         ref={ref}
         onClick={onClick}
         type="button"
-        className="flex flex-col justify-center items-center bg-slate-500 active:bg-green-500 border-2 border-slate-300 active:border-yellow-400 h-12 w-12 rounded-sm"
+        className="col justify-center items-center bg-slate-500 active:bg-green-500 border-2 border-slate-300 active:border-yellow-400 h-12 w-12 rounded-sm"
       >
         <span className="mb-1">
           shift

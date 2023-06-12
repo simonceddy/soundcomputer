@@ -46,7 +46,7 @@ function Display() {
     <DisplayContainer header={header}>
       {notify !== null ? (
         <div
-          className="absolute w-full h-full flex flex-col justify-center items-center"
+          className="absolute w-full h-full col justify-center items-center"
           role="presentation"
           onClick={() => {
             if (timeoutId) {

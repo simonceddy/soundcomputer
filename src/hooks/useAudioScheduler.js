@@ -20,10 +20,13 @@ timerWorker.postMessage({ interval: lookahead });
  * @returns
  */
 export default function useAudioScheduler(audioCtx) {
-  const { tempo, sequencer, enableMidi } = useSelector((s) => ({
+  const {
+    tempo, sequencer, enableMidi, assignments
+  } = useSelector((s) => ({
     tempo: s.song.present.tempo,
     sequencer: s.sequencer.present,
-    enableMidi: s.kernel.config.enableMidi || true
+    enableMidi: s.kernel.config.enableMidi || true,
+    assignments: s.instruments.assignments
   }));
 
   const dispatch = useDispatch();
@@ -34,7 +37,7 @@ export default function useAudioScheduler(audioCtx) {
     nextNoteTime += secondsPerBeat;
     currentNote = (currentNote + 1) % 16;
   }, [tempo]);
-  // console.log(timerWorker);
+  // console.log(assignments);
 
   const scheduleSteps = (beat, time) => {
     const t = time - audioCtx.currentTime;
@@ -42,11 +45,15 @@ export default function useAudioScheduler(audioCtx) {
     const lanes = Object.values(sequencer.lanes);
     lanes.forEach((lane) => {
       // console.log(lane);
-      if (enableMidi
+      if (lane.active
         && lane.steps[lane.currentStep]
         && lane.steps[lane.currentStep].active
       ) {
-        scheduleStep(lane.steps[lane.currentStep], t, gate);
+        if (enableMidi) scheduleStep(lane.steps[lane.currentStep], t, gate);
+        if (assignments[lane.id] !== 0) {
+          // TODO play instrument
+          console.log(lane.steps[lane.currentStep]);
+        }
       }
     });
   };

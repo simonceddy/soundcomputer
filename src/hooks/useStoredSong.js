@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { load } from '../util/storage';
 import { setAll } from '../features/sequencer/sequencerSlice';

@@ -69,7 +69,7 @@ function App() {
         <TopRow>
           <div className="w-1/4 flex flex-col justify-between items-center p-2 m-2 rounded-md bg-slate-400/70">
             <Bpm />
-            <div className="flex flex-row justify-around items-center w-full">
+            <div className="row justify-around items-center w-full">
               <SquareButton
                 onClick={(e) => {
                   if (e.shiftKey) {

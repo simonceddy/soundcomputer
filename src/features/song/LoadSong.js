@@ -22,9 +22,9 @@ function LoadSong() {
     return () => {
       setup = true;
     };
-  });
+  }, []);
   return (
-    <ul className="w-1/2 p-2 bg-slate-300 dark:bg-slate-800 text-teal-800 dark:text-teal-300 flex flex-col justify-start items-start z-50 list-disc rounded-md">
+    <ul className="w-1/2 p-2 bg-slate-300 dark:bg-slate-800 text-teal-800 dark:text-teal-300 col justify-start items-start z-50 list-disc rounded-md">
       {keyList && keyList.map((k) => (
         <li
           role="presentation"

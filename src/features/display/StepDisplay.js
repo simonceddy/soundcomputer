@@ -18,10 +18,10 @@ function StepDisplay() {
 
   console.log(step);
   return (
-    <div className="flex flex-col justify-start items-center text-sm">
+    <div className="col justify-start items-center text-sm">
       {step ? (
         <>
-          <div className="w-full flex flex-row justify-between items-center">
+          <div className="w-full row justify-between items-center">
             <span>
               Value 1
             </span>
@@ -29,7 +29,7 @@ function StepDisplay() {
               {step.value1}
             </span>
           </div>
-          <div className="w-full flex flex-row justify-between items-center">
+          <div className="w-full row justify-between items-center">
             <span>
               Value 2
             </span>
@@ -37,7 +37,7 @@ function StepDisplay() {
               {step.value2}
             </span>
           </div>
-          <div className="w-full flex flex-row justify-between items-center">
+          <div className="w-full row justify-between items-center">
             <span>
               Probability
             </span>

@@ -18,9 +18,9 @@ function ConfigEditor() {
   const dispatch = useDispatch();
   return (
     <div className="w-full text-sm">
-      <div className="flex flex-col justify-start items-start w-full">
+      <div className="col justify-start items-start w-full">
         {configKeys.map((k) => (
-          <div className="flex-row flex justify-between w-1/2" key={`config-editor-row-${k}`}>
+          <div className="row justify-between w-1/2" key={`config-editor-row-${k}`}>
             <span>{k}</span>
             <span>{config[k] !== undefined ? showVal(config[k]) : 'null'}</span>
             <input

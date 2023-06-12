@@ -22,6 +22,7 @@ export function initSequencer() {
       };
     });
     lanes[k1 + 1] = {
+      active: true,
       direction: SEQ_DIRECTION_FWD,
       currentStep: 1,
       id: k1 + 1,

@@ -40,7 +40,9 @@ export const sequencerSlice = createSlice({
     advanceAllSteps(state) {
       const keys = Object.keys(state.lanes);
       keys.forEach((k) => {
-        state.lanes[k].currentStep = getNextStep(state.lanes[k]);
+        if (state.lanes[k].active) {
+          state.lanes[k].currentStep = getNextStep(state.lanes[k]);
+        }
       });
       // console.log(state.lanes[1].currentStep);
     },
@@ -69,6 +71,11 @@ export const sequencerSlice = createSlice({
     },
     toggleLocked(state) {
       state.locked = !state.locked;
+    },
+    toggleActiveLane(state, action) {
+      if (state.lanes[action.payload]) {
+        state.lanes[action.payload].active = !state.lanes[action.payload].active;
+      }
     },
     setSelectedLane(state, action) {
       state.selectedLane = action.payload;
@@ -116,7 +123,8 @@ export const {
   setLaneDirection,
   setAll,
   randomizeLane,
-  randomizeStep
+  randomizeStep,
+  toggleActiveLane
 } = sequencerSlice.actions;
 
 export default sequencerSlice.reducer;

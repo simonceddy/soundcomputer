@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
+import '../../support/instruments';
 
 function initState() {
   const state = {
@@ -15,12 +17,12 @@ export const instrumentSlice = createSlice({
   name: 'instrumentSlice',
   initialState: initState,
   reducers: {
-    assignTrack(state, action) {
+    assignToLane(state, action) {
       state.assignments[action.laneId] = action.instrumentId;
     }
   },
 });
 
-export const { assignTrack } = instrumentSlice.actions;
+export const { assignToLane } = instrumentSlice.actions;
 
 export default instrumentSlice.reducer;

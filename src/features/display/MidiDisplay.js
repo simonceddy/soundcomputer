@@ -12,7 +12,7 @@ function MidiDisplay({ children }) {
     };
   });
   return (
-    <div className="flex flex-col justify-start items-center text-sm">
+    <div className="col justify-start items-center text-sm">
       {children}
     </div>
   );

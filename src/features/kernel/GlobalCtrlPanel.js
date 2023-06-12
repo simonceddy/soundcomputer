@@ -13,8 +13,8 @@ function GlobalCtrlPanel() {
   }));
   const dispatch = useDispatch();
   return (
-    <div className="flex flex-col justify-between items-center p-1 rounded border-2 border-slate-300">
-      <div className="flex flex-row justify-evenly items-center w-full">
+    <div className="col justify-between items-center p-1 rounded border-2 border-slate-300">
+      <div className="row justify-evenly items-center w-full">
         <NormSquareButton
           onClick={() => {
             // console.log('loading screen');
@@ -24,7 +24,7 @@ function GlobalCtrlPanel() {
           load
         </NormSquareButton>
       </div>
-      <div className="flex flex-row justify-evenly items-center w-full">
+      <div className="row justify-evenly items-center w-full">
         <NormSquareButton
           onClick={() => {
             dispatch(ActionCreators.undo());

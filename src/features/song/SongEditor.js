@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { throttle } from 'lodash';
-import { setHeader } from '../display/displaySlice';
 import { setSongName } from './songSlice';
 import { useRandomName } from '../../hooks';
 
@@ -9,17 +7,10 @@ function SongEditor() {
   const song = useSelector((s) => s.song.present);
   const dispatch = useDispatch();
   const randomName = useRandomName();
-  useEffect(() => {
-    let setup = false;
-    if (!setup && song.name) dispatch(setHeader('Song'));
-    return () => {
-      setup = true;
-    };
-  }, [song]);
 
   return (
-    <div className="w-full flex flex-col justify-start items-start">
-      <label htmlFor="song-name-input" className="w-full flex flex-row justify-between items-center">
+    <div className="w-full col justify-start items-start">
+      <label htmlFor="song-name-input" className="w-full row justify-between items-center">
         <span className="mr-1 text-sm underline">
           Song name:
         </span>
@@ -41,15 +32,15 @@ function SongEditor() {
         </button>
       </label>
       <div
-        className="flex flex-row justify-between items-start text-sm w-2/3"
+        className="row justify-between items-start text-sm w-2/3"
       >
         <span className="underline">Tempo</span><span>{song.tempo}</span>
       </div>
       <div
-        className="flex flex-col justify-start items-start text-sm w-2/3"
+        className="col justify-start items-start text-sm w-2/3"
       >{song.metaData ? (
         <>
-          <div className="flex flex-row justify-between items-center w-full">
+          <div className="row justify-between items-center w-full">
             <span className="underline">
               Created:
             </span>
@@ -57,7 +48,7 @@ function SongEditor() {
               {song.metaData.created && new Date(song.metaData.created).toLocaleString('au-Me')}
             </span>
           </div>
-          <div className="flex flex-row justify-between items-center w-full">
+          <div className="row justify-between items-center w-full">
             <span className="underline">
               Last saved:
             </span>

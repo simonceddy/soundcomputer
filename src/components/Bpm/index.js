@@ -8,7 +8,7 @@ function Bpm() {
   const { tempo } = useSelector((s) => s.song.present);
   const dispatch = useDispatch();
   return (
-    <div className="flex flex-row justify-between items-center w-52 m-2 p-2 border-2 border-teal-500 rounded">
+    <div className="row justify-between items-center w-52 m-2 p-2 border-2 border-teal-500 rounded">
       <RotaryKnob
         className="w-16 h-16"
         minVal={30}

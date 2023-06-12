@@ -1,7 +1,7 @@
 function TopRow({ children }) {
   return (
     <div
-      className="w-full flex flex-row justify-between items-center"
+      className="w-full row justify-between items-center"
       style={{
         height: '28%'
       }}
