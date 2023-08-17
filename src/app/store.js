@@ -7,6 +7,7 @@ import sequencer from '../features/sequencer/sequencerSlice';
 import display from '../features/display/displaySlice';
 import saveConfigListener from '../features/kernel/saveConfigListener';
 import instruments from '../features/instrument/instrumentSlice';
+import effects from '../features/effects/effectsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
       filter: includeAction(['songSlice/setSongName'])
     }),
     kernel,
+    effects,
     instruments,
     sequencer: undoable(sequencer, {
       ignoreInitialState: true,
