@@ -12,10 +12,17 @@ module.exports = {
     extend: {
 
       fontFamily: {
+        sans: [
+          'Quicksand',
+          ...defaultTheme.fontFamily.sans,
+        ],
         digi: [
           'VT323',
           ...defaultTheme.fontFamily.mono,
         ]
+      },
+      fontSize: {
+        xxs: ['0.5rem', { lineHeight: '0.7rem' }],
       }
     },
   },

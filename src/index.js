@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 // import App from './App';
 import './styles';
-import SoundComputer from './current';
+import Orthagonal from './orthagonal';
+// import SoundComputer from './current';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -13,7 +14,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       {/* <App /> */}
-      <SoundComputer />
+      <Orthagonal />
     </Provider>
   </React.StrictMode>
 );
