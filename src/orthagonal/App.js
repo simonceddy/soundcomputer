@@ -11,10 +11,16 @@ import TableSwitch from './components/TableSwitch';
 import TopRowContent from './components/TopRowContent';
 import VoltageSection from './components/VoltageSection';
 import TracksIO from './features/tracks/TracksIO';
+import ClockSection from './components/ClockSection';
+import ResetSection from './components/ResetSection';
+import CommitSection from './components/CommitSection';
+import TitleRow from './components/TitleRow';
+import Logo from './components/Logo';
 
-function App({ children }) {
+function App() {
   return (
     <Layout>
+      <TitleRow />
       <MainContent>
         <TopRowContent>
           {}
@@ -30,10 +36,17 @@ function App({ children }) {
           <MainSectionRight />
         </MiddleRowContent>
         <BottomRowContent>
+          <div className="h-full col justify-start items-center ml-[18px] mr-[13px]">
+            <ClockSection />
+            <ResetSection />
+          </div>
           <TracksIO />
+          <div className="mr-[7px]">
+            <CommitSection />
+          </div>
         </BottomRowContent>
       </MainContent>
-      {children}
+      <Logo />
     </Layout>
   );
 }

@@ -19,10 +19,15 @@ module.exports = {
         digi: [
           'VT323',
           ...defaultTheme.fontFamily.mono,
+        ],
+        calc: [
+          'Segment7',
+          ...defaultTheme.fontFamily.mono,
         ]
       },
       fontSize: {
         xxs: ['0.5rem', { lineHeight: '0.7rem' }],
+        '3xs': ['0.4rem', { lineHeight: '0.6rem' }],
       }
     },
   },

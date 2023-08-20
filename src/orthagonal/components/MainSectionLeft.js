@@ -15,16 +15,16 @@ function MainSectionLeft() {
         </div>
         <div className="col">
           <RotaryKnob className="mt-[26px] mb-[37px] mx-auto" />
-          <div className="row ml-[31px]">
+          <div className="row ml-[23px]">
             <SquareButton buttonClassName="bg-[#527ef7]" label="COPY" />
             <div className="col justify-around items-center ml-[2px] pt-[7px]">
-              <TextLabel>press</TextLabel>
+              <TextLabel className="text-3xs">press</TextLabel>
               <RedLED />
-              <TextLabel>INSERT</TextLabel>
+              <TextLabel className="text-3xs">INSERT</TextLabel>
             </div>
           </div>
         </div>
-        <div className="h-full justify-between items-center">
+        <div className="h-full col justify-between items-center">
           <ParamSelectSection className="mb-[17px]" label="TRACK" />
           <ParamSelectSection className="mb-[17px]" label="PATTERN" />
           <ParamSelectSection className="" label="STEP" />

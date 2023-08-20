@@ -13,7 +13,7 @@ function NormSquareButton({
       <button
         onClick={onClick}
         type="button"
-        className={`col justify-center items-center ${bgColour} ${borderWidth} ${borderColour} h-12 w-12 rounded-sm`}
+        className={`col all-center ${bgColour} ${borderWidth} ${borderColour} h-12 w-12 rounded-sm`}
       >
         <span className="mb-1 whitespace-pre-wrap">
           {children}

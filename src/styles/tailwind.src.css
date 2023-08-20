@@ -3,14 +3,18 @@
 @tailwind utilities;
 
 @layer components {
-  .rotary-knob:active > span {
+  /* .rotary-knob:active > span {
     @apply border-yellow-400;
-  }
+  } */
   .col {
     @apply flex flex-col;
   }
 
   .row {
     @apply flex flex-row;
+  }
+
+  .all-center {
+    @apply justify-center items-center;
   }
 }

@@ -1,6 +1,6 @@
-function TextLabel({ children, className = '' }) {
+function TextLabel({ children, className = 'text-xxs' }) {
   return (
-    <span className={`text-xxs font-sans ${className}`}>
+    <span className={`font-sans ${className}`}>
       {children}
     </span>
   );

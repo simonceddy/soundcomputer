@@ -15,9 +15,9 @@ function MainSectionRight({ children }) {
       </div>
       <div className="col flex-1">
         <RotaryKnob className="mt-[26px] mb-[21px] mx-auto" />
-        <div className="row text-xxs w-full mb-[5px] justify-center items-center">LOOP</div>
+        <div className="row text-xxs w-full mb-[5px] all-center">LOOP</div>
         <div className="row mx-auto h-fit relative">
-          <div className="col relative h-full justify-center items-center mr-[10px]">
+          <div className="col relative h-full all-center mr-[10px]">
             <span className="absolute bg-black w-[20px] h-[1px] top-[28px] right-[-13px]" />
             <span className="absolute bg-black w-[20px] h-[1px] bottom-[17px] right-[-13px]" />
             <span className="absolute bg-black w-[7px] h-[1px] top-[7px]" />

@@ -8,7 +8,7 @@ function LeftParamSelectSection({ label = '', className = '' }) {
     <div className={`col justify-start items-start ml-[9px] relative ${className}`}>
       <span className="absolute w-[83px] top-[5px] right-[15px] h-[7px] border-t-2 border-r-2 rounded-tr-lg border-black z-0" />
       <div className="row justify-start items-start">
-        <TextLabel className="uppercase bg-[#afafaf] pr-0.5 z-10">{label}</TextLabel>
+        <TextLabel className="uppercase bg-[#afafaf] pr-0.5 z-10 text-xxs">{label}</TextLabel>
       </div>
       <div className="row justify-start items-center">
         <NumericalDisplay characters={2} />

@@ -4,38 +4,45 @@ import Jack8thInch from './Jack8thInch';
 function TrackIO({ label = '' }) {
   return (
     <div
-      className="col justify-start items-center"
+      className="col justify-start items-center relative"
       style={{
         width: '142px',
         height: '55px',
         flex: '1 1 142px'
       }}
     >
-      <span className="text-xxs">{label}</span>
-      <div className="row w-full justify-evenly items-center">
-        <div className="col justify-start items-center">
+      <span
+        className="absolute top-[6px] border-t-2 border-x-2 border-black z-0 rounded-tl-[6px] rounded-tr-[6px]"
+        style={{
+          height: '7px',
+          width: '135px',
+        }}
+      />
+      <span className="text-xxs absolute px-0.5 bg-[#afafaf] z-10 top-0">{label}</span>
+      <div className="row w-full justify-around items-center">
+        <div className="col justify-start items-center col" style={{ height: '46px' }}>
           <div className="mx-auto">
-            <TextLabel>
+            <TextLabel className="text-3xs">
               CV-A
             </TextLabel>
           </div>
-          <Jack8thInch />
+          <Jack8thInch className="absolute bottom-0" />
         </div>
-        <div className="col justify-start items-center">
+        <div className="col justify-start items-center col" style={{ height: '46px' }}>
           <div className="mx-auto">
-            <TextLabel>
+            <TextLabel className="text-3xs">
               CV-B
             </TextLabel>
           </div>
-          <Jack8thInch />
+          <Jack8thInch className="absolute bottom-0" />
         </div>
-        <div className="col justify-start items-center">
+        <div className="col justify-start items-center col" style={{ height: '46px' }}>
           <div className="mx-auto">
-            <TextLabel>
+            <TextLabel className="text-3xs">
               GATE
             </TextLabel>
           </div>
-          <Jack8thInch />
+          <Jack8thInch className="absolute bottom-0" />
         </div>
       </div>
     </div>

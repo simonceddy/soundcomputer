@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 400 250 A 150 150 0 0 1 250 400 A 150 150 0 0 1 100 250 A 150 150 0 0 1 250 100 A 150 150 0 0 1 400 250 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
+  <g>
+    <path d="M 100 140 L 400 140 L 340 300 L 160 300 L 100 140 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
+    <path d="M 100 60 L 400 60 L 400 140 L 100 140 L 100 60 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
+  </g>
+  <g style="" transform="matrix(1, 0, 0, -1, 0, 360)">
+    <path d="M 100 -40 L 400 -40 L 340 120 L 160 120 L 100 -40 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
+    <path d="M 100 -120 L 400 -120 L 400 -40 L 100 -40 L 100 -120 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
+  </g>
+  <g style="" transform="matrix(1, 0, 0, -1, 0, 360)">
+    <path d="M 100 140 L 400 140 L 340 140 L 160 140 L 100 140 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
+    <path d="M 100 60 L 400 60 L 400 140 L 100 140 L 100 60 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
+  </g>
+</svg>

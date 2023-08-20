@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 132" xmlns="http://www.w3.org/2000/svg">
+  <polyline style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 12px; stroke-linecap: round; stroke-linejoin: round;" points="25 115 70 115 70 25 145 25 145 75 200 75"/>
+  <polyline style="stroke: rgb(0, 0, 0); stroke-width: 12px; stroke-linecap: round; stroke-linejoin: round;" points="225 75 245 75 245 60 270 75 245 90 245 75"/>
+  <polyline style="stroke: rgb(0, 0, 0); fill: none; stroke-width: 12px; stroke-linecap: round; stroke-linejoin: round;" points="289.136 118.279 340 25 405 25 465 75"/>
+</svg>

@@ -104,7 +104,7 @@ function App() {
               </NormSquareButton>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center mx-2">
+          <div className="flex flex-col all-center mx-2">
             <Notification />
             <GlobalCtrlPanel />
           </div>

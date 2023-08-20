@@ -109,7 +109,7 @@ function Step({
         }
       }}
       id={id}
-      className={`sequencer-step border-4 ${styles()} w-10 h-10 m-2 rounded ${className} bg-slate-500 col justify-center items-center relative drop-shadow-lg`}
+      className={`sequencer-step border-4 ${styles()} w-10 h-10 m-2 rounded ${className} bg-slate-500 col all-center relative drop-shadow-lg`}
     >
       <span
         style={{
