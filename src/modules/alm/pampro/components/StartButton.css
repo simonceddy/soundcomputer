@@ -5,3 +5,11 @@
 .start-button:active > .start-button-inner {
   background-color: #e4aa00;
 }
+
+.start-button {
+  background: linear-gradient(to left, #c78400, #f0c100);
+}
+
+.start-button:active {
+  background: linear-gradient(to right, #c78400, #f0c100);
+}

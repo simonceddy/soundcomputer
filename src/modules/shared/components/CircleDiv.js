@@ -1,9 +1,18 @@
-function CircleDiv({ children, style = {}, className = '' }) {
+import { forwardRef } from 'react';
+
+/**
+ *
+ * @param {import("react").DOMAttributes} props
+ * @returns {import("react").ReactComponentElement}
+ */
+function CircleDiv(props, ref) {
   return (
-    <div className={`rounded-full ${className}`} style={{ ...style }}>
-      {children}
+    <div {...props} ref={ref} className={`${props.className} rounded-full`} style={{ ...props.style }}>
+      {props.children}
     </div>
   );
 }
 
-export default CircleDiv;
+const RefWrapper = forwardRef(CircleDiv);
+
+export default RefWrapper;

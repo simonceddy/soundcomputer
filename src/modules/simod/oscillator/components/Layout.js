@@ -1,20 +1,16 @@
-import { MM_3U, MM_HP } from '../../../../support/modules/consts';
-
-const width = Math.round(6 * (8 * MM_HP));
-const height = 4 * MM_3U;
+import ModuleContainer from '../../../shared/components/ModuleContainer';
 
 function Layout({ children }) {
   return (
-    <div
-      className="col justify-start font-alm items-center border border-slate-200 rounded-sm"
+    <ModuleContainer
+      hp={12}
+      className="col justify-start relative font-mono text-slate-100 items-center border border-slate-200 rounded-sm"
       style={{
-        width,
-        height,
-        backgroundColor: '#000202',
+        background: 'linear-gradient(to bottom, #000202, #003232, #000202)',
       }}
     >
       {children}
-    </div>
+    </ModuleContainer>
   );
 }
 

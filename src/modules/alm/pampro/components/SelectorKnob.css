@@ -1,0 +1,25 @@
+.selector-knob {
+  background-color: #111111;
+}
+.selector-knob:active {
+  background-color: #000000;
+}
+
+.selector-knob-inner {
+  background-color: #007bbf;
+}
+
+.selector-knob:active > * > .selector-knob-inner {
+  background: radial-gradient(#004e79, #007bbf);
+}
+
+.selector-knob-ring {
+  background-color: #151515;
+
+  border-color: #686868;
+}
+
+.selector-knob:active > .selector-knob-ring {
+  border-color: #4e4d4d;
+  background-color: #000000;
+}

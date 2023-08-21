@@ -12,15 +12,15 @@ const waves = [
   { key: 'sawtooth', img: sawSvg },
 ];
 
-function Outputs({ children }) {
+function Outputs() {
   return (
-    <div className="w-full p-1.5 row justify-evenly items-start">
+    <div className="w-full p-2 row justify-evenly items-start my-1.5">
       {waves.map(({ key, img }) => (
         <div
           key={`wave-output-${key}`}
           className="col justify-start items-center"
         >
-          <img src={img} alt={key} width={30} height={30} className="mb-2" />
+          <img src={img} alt={key} width={22} height={22} className="mb-2" />
           <MiniJack />
         </div>
       ))}
