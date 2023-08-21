@@ -23,7 +23,9 @@ module.exports = {
         calc: [
           'Segment7',
           ...defaultTheme.fontFamily.mono,
-        ]
+        ],
+        mono: ['Inconsolata', ...defaultTheme.fontFamily.mono],
+        alm: ['Sniglet', ...defaultTheme.fontFamily.sans]
       },
       fontSize: {
         xxs: ['0.5rem', { lineHeight: '0.7rem' }],

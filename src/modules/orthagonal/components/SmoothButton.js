@@ -2,7 +2,7 @@ import RedLED from './RedLED';
 import SquareButton from './SquareButton';
 import TextLabel from './TextLabel';
 
-function SmoothGf() {
+function SmoothGfx() {
   return (
     <svg viewBox="0 0 500 132" xmlns="http://www.w3.org/2000/svg">
       <polyline
@@ -31,7 +31,7 @@ function SmoothButton({ onClick, active = false }) {
   return (
     <div className="col justify-start items-start w-[68px] relative">
       <div className="absolute top-[-5px] left-[-7px]" style={{ width: '50px', height: '10px' }}>
-        <SmoothGf />
+        <SmoothGfx />
       </div>
       <div className="row justify-start items-start pt-[11px]">
         <SquareButton id="smooth-button" buttonClassName="bg-[#527ef7]" onClick={onClick} />

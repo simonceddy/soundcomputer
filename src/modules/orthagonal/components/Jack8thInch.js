@@ -1,3 +1,5 @@
+import JackHole from '../../shared/components/JackHole';
+
 function Jack8thInch({ className }) {
   return (
     <div
@@ -14,13 +16,7 @@ function Jack8thInch({ className }) {
           height: '19px'
         }}
       >
-        <span
-          className="rounded-full bg-black"
-          style={{
-            width: '14px',
-            height: '14px',
-          }}
-        />
+        <JackHole />
       </span>
     </div>
   );

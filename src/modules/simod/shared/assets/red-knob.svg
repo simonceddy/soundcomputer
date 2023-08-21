@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="250" cy="200" r="240" id="gradient-0" gradientTransform="matrix(1.216687, 0.007277, -0.005981, 0.999982, -52.975701, -1.815573)">
+      <stop offset="0" style="stop-color: rgb(214, 0, 0);"/>
+      <stop offset="1" style="stop-color: rgb(117, 0, 0);"/>
+    </radialGradient>
+    <radialGradient gradientUnits="userSpaceOnUse" cx="250" cy="200" r="240" id="gradient-1" gradientTransform="matrix(1.064601, 0.006367, -0.005233, 0.874984, -15.103748, 29.661372)">
+      <stop offset="0" style="stop-color: rgb(214, 0, 0);"/>
+      <stop offset="1" style="stop-color: rgb(153, 0, 0);"/>
+    </radialGradient>
+  </defs>
+  <ellipse style="stroke: rgb(0, 0, 0); stroke-width: 16px; fill: url(#gradient-0);" cx="250" cy="250" rx="240" ry="240" transform="matrix(1, 0, 0, 1, 0, -2.842170943040401e-14)"/>
+  <ellipse style="stroke: rgb(0, 0, 0); stroke-width: 16px; fill: url(#gradient-1);" cx="250" cy="250" rx="210" ry="210" transform="matrix(1, 0, 0, 1, 0, -2.842170943040401e-14)"/>
+  <polyline style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0); stroke-width: 16px;" points="250 40 250 197.5" transform="matrix(1, 0, 0, 1, 0, -2.842170943040401e-14)"/>
+</svg>

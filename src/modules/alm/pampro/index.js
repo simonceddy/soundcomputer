@@ -1,13 +1,13 @@
 import { Provider } from 'react-redux';
-import Orthagonal from './App';
 import store from './app/store';
+import Pam from './Pam';
 
-function Bootstrap() {
+function PamelasProWorkout() {
   return (
     <Provider store={store}>
-      <Orthagonal />
+      <Pam />
     </Provider>
   );
 }
 
-export default Bootstrap;
+export default PamelasProWorkout;

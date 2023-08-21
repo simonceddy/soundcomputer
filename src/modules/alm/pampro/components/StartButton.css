@@ -1,0 +1,7 @@
+.start-button-inner {
+  background-color: #edba00;
+}
+
+.start-button:active > .start-button-inner {
+  background-color: #e4aa00;
+}
