@@ -9,7 +9,7 @@ function ModuleContainer({
 }) {
   return (
     <div
-      className={`${className}`}
+      className={`${className} select-none`}
       style={{ width: 4 * getWidth(hp), height: 4 * MM_3U, ...style }}
     >
       {children}

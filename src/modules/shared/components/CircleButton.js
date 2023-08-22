@@ -1,16 +1,21 @@
-function CircleButton({
-  children, style = {}, className = '', onClick
-}) {
+import { forwardRef } from 'react';
+
+/**
+ *
+ * @param {import("react").DOMAttributes} props
+ * @returns {import("react").ReactComponentElement}
+ */
+function CircleButton(props, ref) {
   return (
     <button
+      {...props}
+      ref={ref}
       type="button"
-      onClick={onClick}
-      className={`rounded-full ${className}`}
-      style={{ ...style }}
+      className={`rounded-full ${props.className}`}
     >
-      {children}
+      {props.children}
     </button>
   );
 }
 
-export default CircleButton;
+export default forwardRef(CircleButton);

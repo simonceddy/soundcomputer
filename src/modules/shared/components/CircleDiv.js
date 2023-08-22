@@ -13,6 +13,4 @@ function CircleDiv(props, ref) {
   );
 }
 
-const RefWrapper = forwardRef(CircleDiv);
-
-export default RefWrapper;
+export default forwardRef(CircleDiv);

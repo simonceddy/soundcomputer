@@ -35,7 +35,7 @@ function ThreeWaySwitch({ onChange, value = 1 }) {
   }, [state]);
 
   const Toggle = useCallback(() => {
-    console.log(state);
+    // console.log(state);
     switch (state) {
       case 2:
         return <UpToggled />;

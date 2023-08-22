@@ -18,7 +18,7 @@ function TrackIO({ label = '' }) {
           width: '135px',
         }}
       />
-      <span className="text-xxs absolute px-0.5 bg-[#afafaf] z-10 top-0">{label}</span>
+      <span className="text-xxs absolute px-0.5 bg-[#afafaf] font-semibold z-10 top-0">{label}</span>
       <div className="row w-full justify-around items-center">
         <div className="col justify-start items-center col" style={{ height: '46px' }}>
           <div className="mx-auto">

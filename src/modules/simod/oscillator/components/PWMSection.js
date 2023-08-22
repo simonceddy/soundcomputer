@@ -1,7 +1,7 @@
 import MiniJack from '../../shared/components/MiniJack';
-import RedRotaryKnob from '../../shared/components/RedRotaryKnob';
 import pwmthin from '../assets/pwm-thin.svg';
 import pwmfat from '../assets/pwm-fat.svg';
+import RotaryKnob from '../../shared/components/RotaryKnob';
 
 function PWMSection() {
   return (
@@ -14,14 +14,16 @@ function PWMSection() {
         </span>
         <MiniJack className="bg-pink-400" />
       </div>
+      <span className="text-4xl rotate-6 text-teal-400">➞</span>
       <div className="col all-center">
         <span className="text-xs italic rotate-3 font-bold mt-0.5">
           Mod
         </span>
-        <RedRotaryKnob className="w-8 h-8" />
+        <RotaryKnob backgroundClass="bg-purple-400" radius="25px" />
       </div>
+      <span className="text-4xl -rotate-6 text-cyan-400">➞</span>
       <div className="col all-center rounded-lg bg-slate-500/40 py-2 px-1">
-        <RedRotaryKnob className="w-12 h-12" />
+        <RotaryKnob radius="40px" backgroundClass="bg-pink-500" />
         <span className="text-base -rotate-3 font-bold mt-0.5 row justify-between items-center">
           <img src={pwmthin} alt="pwm-thin" width={15} height={15} className="mr-1" />
           ⬌

@@ -1,10 +1,10 @@
-import RedRotaryKnob from '../../shared/components/RedRotaryKnob';
+import RotaryKnob from '../../shared/components/RotaryKnob';
 
 function CoarseTune() {
   return (
     <div className="col all-center">
-      <span className="text-sm">Coarse</span>
-      <RedRotaryKnob className="w-14 h-14" />
+      <span className="text-xs">Coarse</span>
+      <RotaryKnob backgroundClass="bg-green-400" radius="34px" />
     </div>
   );
 }

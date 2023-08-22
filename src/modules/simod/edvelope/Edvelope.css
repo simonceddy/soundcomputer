@@ -1,0 +1,23 @@
+span {
+  --shadow1Fill: rgb(1, 110, 110);
+  --shadow2Fill: rgb(124, 33, 48);
+  --shadow3Fill: rgb(0, 78, 78);
+  --shadow4Fill: rgb(117, 65, 117);
+  --shadow5Fill: rgb(121, 104, 9);
+}
+
+span#attack-label {
+  text-shadow: 1px 1px var(--shadow1Fill), 2px 2px var(--shadow2Fill), 3px 3px var(--shadow3Fill), 4px 4px var(--shadow4Fill);
+}
+span#hold-label {
+  text-shadow: 1px 1px var(--shadow2Fill), 2px 2px var(--shadow3Fill), 3px 3px var(--shadow4Fill), 4px 4px var(--shadow5Fill);
+}
+span#decay-label {
+  text-shadow: 1px 1px var(--shadow3Fill), 2px 2px var(--shadow4Fill), 3px 3px var(--shadow5Fill), 4px 4px var(--shadow1Fill);
+}
+span#sustain-label {
+  text-shadow: 1px 1px var(--shadow4Fill), 2px 2px var(--shadow5Fill), 3px 3px var(--shadow1Fill), 4px 4px var(--shadow2Fill);
+}
+span#release-label {
+  text-shadow: 1px 1px var(--shadow5Fill), 2px 2px var(--shadow1Fill), 3px 3px var(--shadow2Fill), 4px 4px var(--shadow3Fill);
+}

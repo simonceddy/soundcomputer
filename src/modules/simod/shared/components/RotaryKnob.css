@@ -1,0 +1,7 @@
+.rotary-knob:active > .rotary-knob-ring, .rotary-knob:active {
+  border-color: rgb(109 40 217);
+}
+
+.rotary-knob:active > * > .rotary-knob-12-marker {
+  background-color: rgb(109 40 217);
+}

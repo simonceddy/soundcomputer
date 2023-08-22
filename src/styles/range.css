@@ -2,16 +2,16 @@ input[type=range] {
   --range-thumb-background: purple;
   --range-thumb-border: 1px solid #e59b9b;
   --range-thumb-border-radius: 9999px;
-  --range-thumb-height: 22px;
-  --range-thumb-width: 22px;
+  --range-thumb-height: 11px;
+  --range-thumb-width: 11px;
   --range-box-shadow-style: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
   --range-track-background: #3071a9;
   --range-track-border: 0.2px solid #982424;
   --range-track-border-radius: 1.2px;
-  --range-track-height: 16px;
-  --range-track-width: 184px;
-  --range-width: 184px;
-  --range-height: 22px;
+  --range-track-height: 7px;
+  --range-track-width: 40px;
+  --range-width: 40px;
+  --range-height: 9px;
   --range-radius: 9999px;
 }
 
