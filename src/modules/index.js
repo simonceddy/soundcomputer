@@ -2,6 +2,7 @@ import PamelasProWorkout from './alm/pampro';
 import ER101 from './orthagonal';
 import Edvelope from './simod/edvelope';
 import Simoscillator from './simod/oscillator';
+import Simult from './simod/simult';
 
 function Modules() {
   return (
@@ -17,6 +18,8 @@ function Modules() {
       <div className="w-auto h-fit row justify-start items-start">
         <Simoscillator />
         <Simoscillator />
+        <Simult />
+        <Simult />
       </div>
     </div>
   );
