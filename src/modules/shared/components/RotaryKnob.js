@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import CircleButton from '../../../shared/components/CircleButton';
-import CircleSpan from '../../../shared/components/CircleSpan';
+import CircleButton from './CircleButton';
+import CircleSpan from './CircleSpan';
 import './RotaryKnob.css';
 import useRotaryKnob from '../hooks/useRotaryKnob';
 

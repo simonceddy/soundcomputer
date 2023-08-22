@@ -1,9 +1,16 @@
+import { useRef } from 'react';
 import JackHole from '../../../shared/components/JackHole';
-import CircleDiv from '../../../shared/components/CircleDiv';
+import CircleSpan from '../../../shared/components/CircleSpan';
+import usePatchCable from '../../../shared/hooks/usePatchCable';
+import CircleButton from '../../../shared/components/CircleButton';
 
 function MiniJack() {
+  const ref = useRef(null);
+  const { onClick } = usePatchCable(ref);
   return (
-    <CircleDiv
+    <CircleButton
+      ref={ref}
+      onClick={onClick}
       className="col all-center border"
       style={{
         width: '33px',
@@ -12,7 +19,7 @@ function MiniJack() {
         background: 'radial-gradient(#7f7f7f, #dfdfdf)'
       }}
     >
-      <CircleDiv
+      <CircleSpan
         className="col all-center border"
         style={{
           width: '25px',
@@ -22,8 +29,8 @@ function MiniJack() {
         }}
       >
         <JackHole />
-      </CircleDiv>
-    </CircleDiv>
+      </CircleSpan>
+    </CircleButton>
   );
 }
 

@@ -1,4 +1,4 @@
-import RotaryKnob from '../../shared/components/RotaryKnob';
+import RotaryKnob from '../../../shared/components/RotaryKnob';
 
 function CoarseTune() {
   return (

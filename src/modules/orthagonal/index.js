@@ -1,13 +1,7 @@
-import { Provider } from 'react-redux';
 import App from './App';
-import store from './app/store';
 
 function ER101() {
-  return (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
+  return (<App />);
 }
 
 export default ER101;

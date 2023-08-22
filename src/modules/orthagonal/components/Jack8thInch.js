@@ -1,9 +1,16 @@
+import { useRef } from 'react';
 import JackHole from '../../shared/components/JackHole';
+import usePatchCable from '../../shared/hooks/usePatchCable';
+import CircleButton from '../../shared/components/CircleButton';
 
 function Jack8thInch({ className }) {
+  const ref = useRef(null);
+  const { onClick } = usePatchCable(ref);
   return (
-    <div
-      className={`rounded-full border border-black bg-[#dcdcdc] col all-center ${className}`}
+    <CircleButton
+      ref={ref}
+      onClick={onClick}
+      className={`border border-black bg-[#dcdcdc] col all-center ${className}`}
       style={{
         width: '34px',
         height: '34px',
@@ -18,7 +25,7 @@ function Jack8thInch({ className }) {
       >
         <JackHole />
       </span>
-    </div>
+    </CircleButton>
   );
 }
 

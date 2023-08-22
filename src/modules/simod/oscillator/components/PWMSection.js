@@ -1,7 +1,7 @@
 import MiniJack from '../../shared/components/MiniJack';
 import pwmthin from '../assets/pwm-thin.svg';
 import pwmfat from '../assets/pwm-fat.svg';
-import RotaryKnob from '../../shared/components/RotaryKnob';
+import RotaryKnob from '../../../shared/components/RotaryKnob';
 
 function PWMSection() {
   return (

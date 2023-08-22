@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { throttle } from 'lodash';
-import { formatNumber } from '../../../../util';
+import { formatNumber } from '../../../util';
 
 /**
  * @typedef {object} RotaryKnobOptions
@@ -97,6 +97,7 @@ export default function useRotaryKnob(ref, options = {}) {
   }, 50);
 
   const mouseMove = throttle((e) => {
+    e.preventDefault();
     if (lastPos !== null) {
       const a = e.deltaY > 0 ? 1 : -1;
       let mult = 1;
@@ -126,6 +127,7 @@ export default function useRotaryKnob(ref, options = {}) {
   };
 
   const dragHandler = (e) => {
+    e.preventDefault();
     setLastPos(e.clientY);
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('mouseup', mouseUp);

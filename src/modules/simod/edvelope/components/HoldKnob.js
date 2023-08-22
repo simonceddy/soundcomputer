@@ -1,5 +1,5 @@
 import MiniJack from '../../shared/components/MiniJack';
-import RotaryKnob from '../../shared/components/RotaryKnob';
+import RotaryKnob from '../../../shared/components/RotaryKnob';
 import KnobSection from './KnobSection';
 
 function HoldKnob() {

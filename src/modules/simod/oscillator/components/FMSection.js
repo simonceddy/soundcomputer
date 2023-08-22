@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CircleButton from '../../../shared/components/CircleButton';
 import CircleSpan from '../../../shared/components/CircleSpan';
-import RotaryKnob from '../../shared/components/RotaryKnob';
+import RotaryKnob from '../../../shared/components/RotaryKnob';
 import FMInputs from './FMInputs';
 
 function fmTypeBg(type = 0) {
