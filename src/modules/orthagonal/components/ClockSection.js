@@ -17,7 +17,7 @@ function ClockSection() {
         <TextLabel className="text-xxs">
           CLOCK
         </TextLabel>
-        <Jack8thInch />
+        <Jack8thInch connectionId="clock-input-jack" offsetX={5} offsetY={5} />
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ function Outputs() {
             <span className="text-xs">
               {label}
             </span>
-            <MiniJack />
+            <MiniJack connectionId={`pam-${key}`} offsetX={4} offsetY={4} />
           </div>
         ))}
       </div>

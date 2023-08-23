@@ -4,9 +4,15 @@ import CircleButton from '../../../shared/components/CircleButton';
 import JackHole from '../../../shared/components/JackHole';
 import usePatchCable from '../../../shared/hooks/usePatchCable';
 
-function MiniJack({ className = 'bg-purple-600', isInput = true }) {
+function MiniJack({
+  className = 'bg-purple-600',
+  isInput = true,
+  connectionId = null,
+  offsetX = 0,
+  offsetY = 0
+}) {
   const ref = useRef(null);
-  const { onClick } = usePatchCable(ref);
+  const { onClick } = usePatchCable(ref, { id: connectionId, offsetX, offsetY });
   return (
     <CircleButton
       ref={ref}

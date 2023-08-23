@@ -12,7 +12,7 @@ function ResetSection() {
         <TextLabel className="text-xxs">
           RESET
         </TextLabel>
-        <Jack8thInch />
+        <Jack8thInch connectionId="ed101-reset-input" offsetX={5} offsetY={5} />
       </div>
     </div>
   );

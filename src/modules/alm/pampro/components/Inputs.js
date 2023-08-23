@@ -19,7 +19,7 @@ function Inputs() {
       <div className="row w-full justify-around items-center">
         {inputs.map(({ key, label }) => (
           <div className="col justify-start items-center mx-[3px] relative" key={`input-col-${key}`}>
-            <MiniJack />
+            <MiniJack connectionId={`pam-input-${key}`} offsetX={5} offsetY={5} />
             <span className="absolute top-[60%] text-xs right-1">▼</span>
             <span
               className="text-xs mt-[5px] rotate-[55deg]"

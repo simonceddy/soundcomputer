@@ -1,3 +1,3 @@
 import './index.css';
 import './tailwind.css';
-import './range.css';
+// import './range.css';

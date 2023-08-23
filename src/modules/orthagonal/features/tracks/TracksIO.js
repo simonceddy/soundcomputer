@@ -8,7 +8,7 @@ function TracksIO() {
   return (
     <IOSection>
       {trackKeys.map((key) => (
-        <TrackIO key={`track-${key}`} label={`TRACK ${key}`} />
+        <TrackIO key={`track-${key}`} track={key} />
       ))}
     </IOSection>
   );

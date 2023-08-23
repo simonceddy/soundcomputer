@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 export const patchSlice = createSlice({
   name: 'patch',
@@ -9,7 +9,11 @@ export const patchSlice = createSlice({
   },
   reducers: {
     addConnection(state, action) {
-      state.connections.push({ in: state.pending, out: action.payload });
+      state.connections.push({
+        in: state.pending,
+        out: action.payload.output,
+        key: action.payload.key
+      });
       state.pending = null;
       state.isPatching = false;
     },
@@ -33,3 +37,16 @@ export const {
 } = patchSlice.actions;
 
 export default patchSlice.reducer;
+
+const selectCon = (state) => state.patch.connections;
+const selectIsPatching = (state) => state.patch.isPatching;
+const selectPending = (state) => state.patch.pending;
+
+export const selectConnections = createSelector(
+  [selectCon, selectIsPatching, selectPending],
+  (connections, isPatching, pending) => ({
+    connections,
+    isPatching,
+    pending
+  })
+);

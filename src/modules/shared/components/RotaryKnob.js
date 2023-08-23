@@ -40,7 +40,7 @@ function RotaryKnob({
     <CircleButton
       id={id}
       ref={ref}
-      className={`col all-center rotary-knob border border-slate-700 ${backgroundClass}`}
+      className={`col all-center rotary-knob border border-slate-700 focus:border-gray-100 ${backgroundClass}`}
       style={{
         width: radius,
         height: radius,
@@ -51,7 +51,7 @@ function RotaryKnob({
       onMouseDown={dragHandler}
     >
       <CircleSpan
-        className={`rotary-knob-ring relative col items-center justify-start border border-slate-700 ${backgroundClass}`}
+        className={`rotary-knob-ring scro relative col items-center justify-start border border-slate-700 ${backgroundClass}`}
         style={{
           width: '90%',
           height: '90%',

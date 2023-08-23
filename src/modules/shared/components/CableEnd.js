@@ -1,8 +1,11 @@
-import CircleDiv from './CircleDiv';
+import CircleButton from './CircleButton';
 
-function CableEnd({ children, className = '', style = {} }) {
+function CableEnd({
+  children, className = '', style = {}, removeCable
+}) {
   return (
-    <CircleDiv
+    <CircleButton
+      onDoubleClick={removeCable}
       className={`${className} border absolute z-50 border-slate-500`}
       style={{
         width: '20px',
@@ -11,7 +14,7 @@ function CableEnd({ children, className = '', style = {} }) {
       }}
     >
       {children}
-    </CircleDiv>
+    </CircleButton>
   );
 }
 

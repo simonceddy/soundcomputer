@@ -70,13 +70,16 @@ export default function useRotaryKnob(ref, options = {}) {
   //   ref.current.style = `transform: rotate(${state.deg || 0}deg);`;
   // };
 
-  const dblClickHandler = () => {
-    setState({ val: opts.defaultVal, deg: defaultDeg });
-    if (opts.onChange) opts.onChange(opts.defaultVal);
+  const dblClickHandler = (e) => {
+    if (e.shiftKey) {
+      setState({ val: opts.defaultVal, deg: defaultDeg });
+      if (opts.onChange) opts.onChange(opts.defaultVal);
+    }
     // turnKnob();
   };
 
   const wheelHandler = throttle((e) => {
+    // e.preventDefault();
     const a = e.deltaY > 0 ? 1 : -1;
     let mult = 1;
     if (e.shiftKey && !e.altKey) mult = opts.microStepSize;
@@ -149,6 +152,13 @@ export default function useRotaryKnob(ref, options = {}) {
   useEffect(() => {
     if (ref.current !== null) {
       ref.current.style.transform = `rotate(${state.deg || 0}deg)`;
+      ref.current.addEventListener('click', (e) => {
+        e.preventDefault();
+        ref.current.focus();
+      });
+      // ref.current.addEventListener('wheel', wheelHandler, { passive: false });
+      // ref.current.addEventListener('dblclick', dblClickHandler, { passive: false });
+      // ref.current.addEventListener('mousedown', dragHandler, { passive: false });
     }
   }, [state]);
 

@@ -1,7 +1,7 @@
 import TextLabel from './TextLabel';
 import Jack8thInch from './Jack8thInch';
 
-function TrackIO({ label = '' }) {
+function TrackIO({ track = 1 }) {
   return (
     <div
       className="col justify-start items-center relative"
@@ -18,7 +18,7 @@ function TrackIO({ label = '' }) {
           width: '135px',
         }}
       />
-      <span className="text-xxs absolute px-0.5 bg-[#afafaf] font-semibold z-10 top-0">{label}</span>
+      <span className="text-xxs absolute px-0.5 bg-[#afafaf] font-semibold z-10 top-0">TRACK {track}</span>
       <div className="row w-full justify-around items-center">
         <div className="col justify-start items-center col" style={{ height: '46px' }}>
           <div className="mx-auto">
@@ -26,7 +26,12 @@ function TrackIO({ label = '' }) {
               CV-A
             </TextLabel>
           </div>
-          <Jack8thInch className="absolute bottom-0" />
+          <Jack8thInch
+            connectionId={`${track}-cv-a-jack`}
+            offsetX={5}
+            offsetY={5}
+            className="absolute bottom-0"
+          />
         </div>
         <div className="col justify-start items-center col" style={{ height: '46px' }}>
           <div className="mx-auto">
@@ -34,7 +39,12 @@ function TrackIO({ label = '' }) {
               CV-B
             </TextLabel>
           </div>
-          <Jack8thInch className="absolute bottom-0" />
+          <Jack8thInch
+            connectionId={`${track}-cv-a-jack`}
+            offsetX={5}
+            offsetY={5}
+            className="absolute bottom-0"
+          />
         </div>
         <div className="col justify-start items-center col" style={{ height: '46px' }}>
           <div className="mx-auto">
@@ -42,7 +52,12 @@ function TrackIO({ label = '' }) {
               GATE
             </TextLabel>
           </div>
-          <Jack8thInch className="absolute bottom-0" />
+          <Jack8thInch
+            connectionId={`${track}-gate-jack`}
+            offsetX={5}
+            offsetY={5}
+            className="absolute bottom-0"
+          />
         </div>
       </div>
     </div>

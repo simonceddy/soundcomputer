@@ -3,19 +3,31 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConnection, setPending, togglePatching } from '../../app/patchSlice';
 
-export default function usePatchCable(ref) {
+const defaultOptions = {
+  offsetX: 0,
+  offsetY: 0,
+  key: null,
+};
+
+export default function usePatchCable(ref, options = defaultOptions) {
+  const opts = { ...defaultOptions, ...options };
   const dispatch = useDispatch();
-  const { isPatching, pending } = useSelector((s) => s.patch);
+  const { isPatching, pending, connections } = useSelector((s) => s.patch);
   const [rect, setRect] = useState(null);
 
   const onClick = () => {
     if (rect) {
-      console.log(rect);
+      // console.log(connections);
       if (!isPatching) {
         dispatch(togglePatching());
-        dispatch(setPending({ top: rect.top, left: rect.left }));
-      } else if (rect.top !== pending.top || rect.left !== pending.left) {
-        dispatch(addConnection({ top: rect.top, left: rect.left }));
+        dispatch(setPending({ top: rect.top + opts.offsetY, left: rect.left + opts.offsetX }));
+      } else if (rect.top !== (pending.top + opts.offsetY)
+        || rect.left !== (pending.left + opts.offsetX)
+      ) {
+        dispatch(addConnection({
+          output: { top: rect.top + opts.offsetY, left: rect.left + opts.offsetX },
+          key: opts.key || connections.length
+        }));
       } else {
         dispatch(setPending(null));
         dispatch(togglePatching());

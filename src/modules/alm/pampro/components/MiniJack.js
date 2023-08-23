@@ -4,9 +4,13 @@ import CircleSpan from '../../../shared/components/CircleSpan';
 import usePatchCable from '../../../shared/hooks/usePatchCable';
 import CircleButton from '../../../shared/components/CircleButton';
 
-function MiniJack() {
+function MiniJack({
+  connectionId = null,
+  offsetX = 0,
+  offsetY = 0
+}) {
   const ref = useRef(null);
-  const { onClick } = usePatchCable(ref);
+  const { onClick } = usePatchCable(ref, { id: connectionId, offsetX, offsetY });
   return (
     <CircleButton
       ref={ref}

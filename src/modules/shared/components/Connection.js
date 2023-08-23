@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux';
 import CableEnd from './CableEnd';
+import { removeConnection } from '../../app/patchSlice';
 
 function Connection({
-  className = '', style = {}, input = {}, output = {}
+  className = '', style = {}, input = {}, output = {}, id = null
 }) {
+  const dispatch = useDispatch();
   const ix = Math.round(input.left - 6);
   const iy = Math.round(input.top - 6);
   const ox = Math.round(output.left - 6);
@@ -14,6 +17,10 @@ function Connection({
   if (w < 16) w = 16;
   if (h < 16) h = 16;
   // console.log(h, w);
+
+  const removeFunc = (e) => {
+    if (id !== null && e.shiftKey) dispatch(removeConnection(id));
+  };
 
   return (
     <div
@@ -48,6 +55,7 @@ function Connection({
         />
       </svg>
       <CableEnd
+        removeCable={removeFunc}
         style={{
           ...style,
           top: iy,
@@ -55,6 +63,7 @@ function Connection({
         }}
       />
       <CableEnd
+        removeCable={removeFunc}
         style={{
           ...style,
           top: oy,

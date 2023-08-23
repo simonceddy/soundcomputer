@@ -21,7 +21,7 @@ function Outputs() {
           className="col justify-start items-center"
         >
           <img src={img} alt={key} width={22} height={22} className="mb-2" />
-          <MiniJack />
+          <MiniJack connectionId={`simosc-output-${key}`} offsetX={1} />
         </div>
       ))}
     </div>
