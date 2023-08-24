@@ -26,7 +26,7 @@ export default function usePatchCable(ref, options = defaultOptions) {
       ) {
         dispatch(addConnection({
           output: { top: rect.top + opts.offsetY, left: rect.left + opts.offsetX },
-          key: opts.key || connections.length
+          key: `${opts.key || connections.length}-${Date.now()}`
         }));
       } else {
         dispatch(setPending(null));

@@ -11,6 +11,7 @@ import SettingsModule from './app/SettingsModule';
 // import { selectConnections } from './app/patchSlice';
 import VCA from './simod/vca';
 import Mixer from './simod/mixer';
+import Attenuverter from './simod/attenuverter';
 // import { selectCableOpacity } from './app/settingsSlice';
 
 function App() {
@@ -34,8 +35,8 @@ function App() {
         )}
         {connections.map((c, id) => (
           <Connection
-            id={id}
-            key={`cable-${id}`}
+            id={c.key || id}
+            key={`cable-${c.key || id}`}
             style={{
               backgroundColor: patchLeadColours[id % pL],
               stroke: patchLeadColours[id % pL],
@@ -54,6 +55,8 @@ function App() {
       <div className="w-auto h-fit row justify-start items-start">
         <Simoscillator />
         <Simoscillator />
+        <Attenuverter />
+        <Attenuverter />
         <Simult />
         <Simult />
         <SettingsModule />
