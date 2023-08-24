@@ -15,7 +15,7 @@ import Attenuverter from './simod/attenuverter';
 // import { selectCableOpacity } from './app/settingsSlice';
 
 function App() {
-  const { connections, isPatching } = useSelector((s) => s.patch);
+  const { connections } = useSelector((s) => s.patch);
   const cableAlpha = useSelector((s) => s.settings.cableAlpha);
   const patchLeadColours = [
     `rgba(255, 0, 0, ${cableAlpha || 0.7})`,
@@ -30,9 +30,6 @@ function App() {
   return (
     <div id="module-rack" className="w-full h-full p-2 relative min-h-full min-w-full col font-sans justify-start items-start overflow-scroll whitespace-nowrap bg-black">
       <div className="w-auto h-fit row justify-start items-start">
-        {isPatching && (
-          <div className="absolute z-50 top-0">Patchin&apos;</div>
-        )}
         {connections.map((c, id) => (
           <Connection
             id={c.key || id}
@@ -51,6 +48,7 @@ function App() {
         <Edvelope />
         <Edvelope />
         <Edvelope />
+        <SettingsModule />
       </div>
       <div className="w-auto h-fit row justify-start items-start">
         <Simoscillator />
@@ -59,7 +57,6 @@ function App() {
         <Attenuverter />
         <Simult />
         <Simult />
-        <SettingsModule />
       </div>
       <div className="w-auto h-fit row justify-start items-start">
         <VCA />

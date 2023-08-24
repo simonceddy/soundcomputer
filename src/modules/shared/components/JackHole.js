@@ -2,10 +2,10 @@
 function JackHole({ isInput = true }) {
   return (
     <span
-      className="rounded-full bg-black"
+      className="rounded-full m-auto bg-black"
       style={{
-        width: '14px',
-        height: '14px',
+        width: '13px',
+        height: '13px',
       }}
     />
   );
