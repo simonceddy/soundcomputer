@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import CircleSpan from '../../../modules/shared/components/CircleSpan';
 import ControlButton from '../../components/ControlButton';
 import { setPage } from '../pads/padsSlice';
+import CircleButton from '../../../modules/shared/components/CircleButton';
 
 const pageLeds = [1, 2, 3, 4];
 
@@ -19,7 +19,8 @@ function PageSelector() {
               key={`page-led-${i}`}
             >
               <span>{i}</span>
-              <CircleSpan
+              <CircleButton
+                onClick={() => dispatch(setPage(i))}
                 className={`w-4 h-4 mx-0.5 mb-2 rounded-full border border-slate-500 ${page === i ? 'bg-red-400' : 'bg-slate-400'}`}
               />
             </div>

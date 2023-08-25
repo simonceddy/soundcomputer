@@ -1,6 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PadButton from '../../components/PadButton';
 import PadButtonRow from '../../components/PadButtonRow';
+import { setSelectedStep } from '../sequencer/sequencerSlice';
 
 const padObjects = [];
 
@@ -15,12 +16,17 @@ const padObjects = [];
 });
 
 function Pads() {
+  const selectedStep = useSelector((s) => s.sequencer.selectedStep);
   const page = useSelector((s) => s.pads.page);
-  // console.log(padObjects, page);
+  const dispatch = useDispatch();
   return (
     <PadButtonRow>
       {page && padObjects[page - 1] && padObjects[page - 1].map(({ key }) => (
-        <PadButton key={`pg-${page}-pad-${key}`} className="text-white bg-slate-800">
+        <PadButton
+          key={`pg-${page}-pad-${key}`}
+          onClick={() => dispatch(setSelectedStep(key - 1))}
+          className={`text-white bg-slate-800 ${selectedStep === (key - 1) ? 'border-yellow-500 hover:border-lime-500 active:border-violet-500' : 'border-slate-500'}`}
+        >
           {key}
         </PadButton>
       ))}
