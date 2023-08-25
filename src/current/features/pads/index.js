@@ -16,9 +16,11 @@ const padObjects = [];
 });
 
 function Pads() {
-  const selectedStep = useSelector((s) => s.sequencer.selectedStep);
+  const selectedTrackKey = useSelector((s) => s.tracks.selectedTrackKey);
+  const { selectedStep, tracks } = useSelector((s) => s.sequencer);
   const page = useSelector((s) => s.pads.page);
   const dispatch = useDispatch();
+  console.log(tracks[selectedTrackKey]);
   return (
     <PadButtonRow>
       {page && padObjects[page - 1] && padObjects[page - 1].map(({ key }) => (
