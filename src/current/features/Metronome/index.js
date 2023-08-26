@@ -8,11 +8,11 @@ function Metronome() {
   const metronomeActive = useSelector((s) => s.app.metronomeActive);
   const dispatch = useDispatch();
   return (
-    <div className="row justify-between items-center mx-2 p-2 mb-auto rounded-lg bg-sky-400/30">
-      <CircleSpan className="w-5 h-5 m-2 bg-gray-200" />
+    <div className="row justify-between items-center mx-2 p-2 w-full">
+      <CircleSpan className="w-5 h-5 my-2 mx-auto bg-gray-600" />
       <SquareButton
         onClick={() => dispatch(toggleMetronome())}
-        className={`text-2xl w-8 h-8 mr-2 ${metronomeActive ? 'bg-green-600' : 'bg-slate-500'}`}
+        className={`text-2xl w-9 h-9 mr-2 ${metronomeActive ? 'bg-green-600' : 'bg-slate-500'}`}
       >
         <span className="mx-auto">
           <PiMetronome size={26} />

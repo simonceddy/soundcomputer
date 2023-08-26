@@ -5,8 +5,14 @@ import CircleButton from '../../../modules/shared/components/CircleButton';
 
 const pageLeds = [1, 2, 3, 4];
 
+function hasSelectedStep(page, selectedStep = 0) {
+  return (page === 1 && selectedStep === 0)
+    || page === (Math.ceil(selectedStep / 16));
+}
+
 function PageSelector() {
   const page = useSelector((s) => s.pads.page);
+  const selectedStep = useSelector((s) => s.sequencer.selectedStep);
   const dispatch = useDispatch();
   return (
     <div className="row all-center mr-2 ml-auto p-1 rounded-lg bg-sky-400/30">
@@ -21,7 +27,7 @@ function PageSelector() {
               <span>{i}</span>
               <CircleButton
                 onClick={() => dispatch(setPage(i))}
-                className={`w-4 h-4 mx-0.5 mb-2 rounded-full border border-slate-500 ${page === i ? 'bg-red-400' : 'bg-slate-400'}`}
+                className={`w-4 h-4 mx-0.5 mb-2 rounded-full border ${hasSelectedStep(i, selectedStep) ? 'border-orange-500' : 'border-slate-500'} ${page === i ? 'bg-red-400' : 'bg-slate-400'}`}
               />
             </div>
           ))}

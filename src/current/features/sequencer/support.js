@@ -9,7 +9,7 @@ export const SEQ_DIRECTION_RND = 4;
 
 export function initStep() {
   return {
-    note: 48,
+    note: Math.floor(Math.random() * 127),
     active: false,
     probability: 1,
   };

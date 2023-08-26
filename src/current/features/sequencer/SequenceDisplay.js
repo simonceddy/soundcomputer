@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import DisplaySubHeading from '../../components/DisplaySubHeading';
 
 function SequenceDisplay() {
   const selectedTrackKey = useSelector((s) => s.tracks.selectedTrackKey);
@@ -6,12 +7,19 @@ function SequenceDisplay() {
   if (!track) return <div>Error: Unknown track!</div>;
   return (
     <div className="col">
-      <span>Track {selectedTrackKey + 1}</span>
-      <span>
-        Sequence is {(track.end + 1) - track.start} steps long.
-      </span>
-      <span>Start at step {track.start}</span>
-      <span>End at step {track.end}</span>
+      <DisplaySubHeading>Track {selectedTrackKey + 1}</DisplaySubHeading>
+      <div className="row">
+        <span>Start step:</span>
+        <span>{track.start}</span>
+      </div>
+      <div className="row">
+        <span>End step:</span>
+        <span>{track.end}</span>
+      </div>
+      <div className="row">
+        <span>Sequence length:</span>
+        <span>{(track.end + 1) - track.start}</span>
+      </div>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import { formatNumber } from '../../../util';
  * @property {number} microStepSize the size of shift modified micro steps. Defaults to 0.1
  * @property {number} megaStepSize the size of alt modified mega steps. Defaults to 3
  * @property {Function<number>|null} onChange an optional callback that runs on state change
+ * @property {Function<number>|null} onDoubleClick an optional default double click handler
  */
 const defaultOpts = {
   maxDeg: 150,
@@ -29,7 +30,8 @@ const defaultOpts = {
   stepSize: 1,
   microStepSize: 0.1,
   megaStepSize: 3,
-  onChange: null
+  onChange: null,
+  onDoubleClick: null
 };
 
 /**
@@ -74,12 +76,10 @@ export default function useRotaryKnob(ref, options = {}) {
     if (e.shiftKey) {
       setState({ val: opts.defaultVal, deg: defaultDeg });
       if (opts.onChange) opts.onChange(opts.defaultVal);
-    }
-    // turnKnob();
+    } else if (opts.onDoubleClick) opts.onDoubleClick();
   };
 
   const wheelHandler = throttle((e) => {
-    // e.preventDefault();
     const a = e.deltaY > 0 ? 1 : -1;
     let mult = 1;
     if (e.shiftKey && !e.altKey) mult = opts.microStepSize;

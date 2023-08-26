@@ -4,6 +4,7 @@ import app from '../features/app/appSlice';
 import tracks from '../features/tracks/tracksSlice';
 import sequencer from '../features/sequencer/sequencerSlice';
 import instruments from '../features/instruments/instrumentsSlice';
+import modulation from '../features/mods/modulationSlice';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     app,
     tracks,
     sequencer,
+    modulation,
     instruments
   }
 });

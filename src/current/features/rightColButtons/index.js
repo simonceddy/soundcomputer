@@ -21,7 +21,7 @@ const rightButtons = [
   { key: APP_MODE_MODS, className: 'bg-violet-400', label: 'mods' },
   { key: APP_MODE_FX, className: 'bg-orange-400', label: 'fx' },
   { key: APP_MODE_MIX, className: 'bg-cyan-400', label: 'mixer' },
-  // { key: 8, className: 'bg-lime-400', label: '' },
+  { key: 8, className: 'bg-lime-400', label: 'matrx' },
 ];
 
 function RightColButtons() {

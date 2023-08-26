@@ -1,97 +1,33 @@
 /* eslint-disable no-unused-vars */
-import { useSelector } from 'react-redux';
-import RotaryKnob from '../../../modules/shared/components/RotaryKnob';
-import {
-  APP_MODE_FLTR, APP_MODE_INSTR, APP_MODE_SEQ, APP_MODE_STEP, APP_MODE_FX
-} from '../app/support';
-
-function controller0Label(mode) {
-  switch (mode) {
-    case APP_MODE_SEQ:
-      return 'Start';
-    case APP_MODE_FLTR:
-      return 'Type';
-    case APP_MODE_STEP:
-      return 'Note';
-    default:
-      return 'Fn';
-  }
-}
-
-function controller1Label(mode) {
-  switch (mode) {
-    case APP_MODE_SEQ:
-      return 'End';
-    case APP_MODE_FLTR:
-      return 'Hz';
-    case APP_MODE_STEP:
-      return 'Octave';
-    default:
-      return 'Fn';
-  }
-}
-
-function controller2Label(mode) {
-  switch (mode) {
-    case APP_MODE_SEQ:
-      return 'Dir';
-    case APP_MODE_FLTR:
-      return 'Q';
-    case APP_MODE_STEP:
-      return 'Dur';
-    default:
-      return 'Fn';
-  }
-}
-
-function controller3Label(mode) {
-  switch (mode) {
-    case APP_MODE_SEQ:
-      return 'Clk X';
-    case APP_MODE_FLTR:
-      return 'Hz Mod';
-    case APP_MODE_STEP:
-      return 'Gate';
-    default:
-      return 'Fn';
-  }
-}
-
-function controller4Label(mode) {
-  switch (mode) {
-    // case APP_MODE_SEQ:
-    //   return '';
-    case APP_MODE_FLTR:
-      return 'Q Mod';
-    case APP_MODE_STEP:
-      return 'Prob %';
-    default:
-      return 'Fn';
-  }
-}
+// import { useSelector } from 'react-redux';
+import Controller0 from './Controller0';
+import Controller1 from './Controller1';
+import Controller2 from './Controller2';
+import Controller3 from './Controller3';
+import Controller4 from './Controller4';
+import Controller5 from './Controller5';
+import Controller6 from './Controller6';
+import Controller7 from './Controller7';
 
 const controllerKnobs = [
-  { key: 'controller-0', label: controller0Label },
-  { key: 'controller-1', label: controller1Label },
-  { key: 'controller-2', label: controller2Label },
-  { key: 'controller-3', label: controller3Label },
-  { key: 'controller-4', label: controller4Label },
-  { key: 'controller-5', label: (mode) => 'Fn' },
-  { key: 'controller-6', label: (mode) => 'Fn' },
-  { key: 'controller-7', label: (mode) => 'Fn' },
+  { key: 'controller-0', El: Controller0 },
+  { key: 'controller-1', El: Controller1 },
+  { key: 'controller-2', El: Controller2 },
+  { key: 'controller-3', El: Controller3 },
+  { key: 'controller-4', El: Controller4 },
+  { key: 'controller-5', El: Controller5 },
+  { key: 'controller-6', El: Controller6 },
+  { key: 'controller-7', El: Controller7 },
 ];
 
 function Controllers() {
-  const appMode = useSelector((s) => s.app.appMode);
-  console.log(appMode);
+  // const appMode = useSelector((s) => s.app.appMode);
+  // console.log(appMode);
 
   return (
     <div className="row items-center justify-around">
-      {controllerKnobs.map(({ key, label, backgroundClass = 'bg-stone-500' }) => (
-        <div key={`controller-knob-${key}`} className="my-2 mx-[4%] col all-center">
-          <span className="p-0.5 text-teal-300 text-sm w-11 mx-auto text-center mb-1 bg-black font-digi">{label && label(appMode)}</span>
-          <RotaryKnob radius="48px" backgroundClass={backgroundClass} />
-        </div>
+      {controllerKnobs.map(({ key, El }) => (
+        <El key={`controller-knob-${key}`} />
       ))}
     </div>
   );

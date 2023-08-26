@@ -10,7 +10,7 @@ function Bootloader({ children }) {
   useEffect(() => {
     setTimeout(() => {
       dispatch(setBooted());
-    }, 3000);
+    }, 1200);
   }, []);
 
   return children;

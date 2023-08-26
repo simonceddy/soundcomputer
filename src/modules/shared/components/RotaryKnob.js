@@ -18,6 +18,7 @@ function RotaryKnob({
   megaStepSize = 3,
   defaultVal = 0,
   val,
+  onDoubleClick,
 }) {
   const ref = useRef(null);
   const {
@@ -32,7 +33,8 @@ function RotaryKnob({
     stepSize,
     microStepSize,
     megaStepSize,
-    val
+    val,
+    onDoubleClick
   });
 
   // console.log(ref);
