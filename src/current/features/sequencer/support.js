@@ -45,6 +45,62 @@ export function initSequencer() {
 
 const ascLanes = {};
 
+function stepPingPong(id, track) {
+  if (ascLanes[id] === 0) {
+    if (track.currentStep === track.start) {
+      ascLanes[id] = 0;
+      return track.start;
+    }
+    return track.currentStep - 1;
+  }
+  if (track.currentStep === track.end) {
+    ascLanes[id] = 0;
+    return track.end;
+  }
+  return track.currentStep + 1;
+}
+
+function stepPend(id, track) {
+  if (ascLanes[id] === 0) {
+    if (track.currentStep === track.start) {
+      ascLanes[id] = 1;
+      return track.currentStep + 1;
+    }
+    return track.currentStep - 1;
+  }
+  if (track.currentStep === track.end) {
+    ascLanes[id] = 0;
+    return track.end - 1;
+  }
+  return track.currentStep + 1;
+}
+
+export function nextStep(id, track) {
+  // TODO
+  const {
+    currentStep, direction, start, end
+  } = track;
+
+  if ((direction === SEQ_DIRECTION_PEN || direction === SEQ_DIRECTION_PPG)
+    && ascLanes[id] === undefined
+  ) {
+    ascLanes[id] = 1;
+  }
+  switch (direction) {
+    case SEQ_DIRECTION_PPG:
+      return stepPingPong(id, track);
+    case SEQ_DIRECTION_PEN:
+      return stepPend(id, track);
+    case SEQ_DIRECTION_REV:
+      return currentStep <= track.start ? track.end : currentStep - 1;
+    case SEQ_DIRECTION_RND:
+      return Math.ceil(Math.random() * (track.end - track.start));
+    case SEQ_DIRECTION_FWD:
+    default:
+      return currentStep >= end ? start : currentStep + 1;
+  }
+}
+
 // TODO IF HELL
 export function getNextStep(lane) {
   const { currentStep, direction, activeSteps } = lane;
@@ -103,9 +159,8 @@ export function randomizeStep(step) {
       minimumFractionDigits: 1,
       maximumFractionDigits: 1
     })),
-    value1: Math.ceil(Math.random() * 128) - 1,
-    value2: Math.ceil(Math.random() * 128) - 1,
-    // note: Math.ceil(Math.random() * 128) - 1,
+    note: Math.floor(Math.random() * 128),
+    value2: Math.floor(Math.random() * 128),
     active: Math.random() > 0.6,
   };
 }

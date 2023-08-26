@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import PadButton from '../../components/PadButton';
 import PadButtonRow from '../../components/PadButtonRow';
-import { setSelectedStep } from '../sequencer/sequencerSlice';
+import { setSelectedStep, toggleStep } from '../sequencer/sequencerSlice';
 
 const padObjects = [];
 
@@ -16,19 +16,39 @@ const padObjects = [];
   padObjects.push(page);
 });
 
+function renderPadColours(id, track, selectedStep) {
+  let className = '';
+  if (track.steps[id]?.active) {
+    className += 'bg-green-400';
+  } else className += 'bg-slate-700';
+  if (id === track.currentStep) {
+    className += ' border-green-400 hover:border-sky-500 active:border-violet-500';
+  } else if (id === selectedStep) {
+    className += ' border-yellow-500 hover:border-lime-500 active:border-violet-500';
+  } else {
+    className += ' border-slate-500';
+  }
+
+  return className;
+}
+
 function Pads() {
   const selectedTrackKey = useSelector((s) => s.tracks.selectedTrackKey);
   const { selectedStep, tracks } = useSelector((s) => s.sequencer);
   const page = useSelector((s) => s.pads.page);
   const dispatch = useDispatch();
-  // console.log(tracks[selectedTrackKey]);
+  const track = tracks[selectedTrackKey];
+  // console.log(track);
   return (
     <PadButtonRow>
       {page && padObjects[page - 1] && padObjects[page - 1].map(({ key }) => (
         <PadButton
           key={`pg-${page}-pad-${key}`}
-          onClick={() => dispatch(setSelectedStep(key))}
-          className={`text-white bg-slate-800 ${selectedStep === (key) ? 'border-yellow-500 hover:border-lime-500 active:border-violet-500' : 'border-slate-500'}`}
+          onClick={() => {
+            dispatch(setSelectedStep(key));
+            dispatch(toggleStep({ track: selectedTrackKey, step: key }));
+          }}
+          className={`text-white ${renderPadColours(key, track, selectedStep)}`}
         >
           {key + 1}
         </PadButton>
