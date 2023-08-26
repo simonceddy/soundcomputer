@@ -1,7 +1,7 @@
 // From https://github.com/cwilso/metronome/
 
 let timerID = null;
-let interval = 100;
+let interval = 1;
 
 onmessage = (e) => {
   if (e.data === 'start') {
