@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import PadButton from '../../components/PadButton';
 import PadButtonRow from '../../components/PadButtonRow';
 import { setSelectedStep, toggleStep } from '../sequencer/sequencerSlice';
+import {
+  APP_MODE_SEQ,
+} from '../app/support';
 
 const padObjects = [];
 
@@ -34,6 +37,7 @@ function renderPadColours(id, track, selectedStep) {
 
 function Pads() {
   const selectedTrackKey = useSelector((s) => s.tracks.selectedTrackKey);
+  const appMode = useSelector((s) => s.app.appMode);
   const { selectedStep, tracks } = useSelector((s) => s.sequencer);
   const page = useSelector((s) => s.pads.page);
   const dispatch = useDispatch();
@@ -46,7 +50,9 @@ function Pads() {
           key={`pg-${page}-pad-${key}`}
           onClick={() => {
             dispatch(setSelectedStep(key));
-            dispatch(toggleStep({ track: selectedTrackKey, step: key }));
+            if (appMode === APP_MODE_SEQ) {
+              dispatch(toggleStep({ track: selectedTrackKey, step: key }));
+            }
           }}
           className={`text-white ${renderPadColours(key, track, selectedStep)}`}
         >

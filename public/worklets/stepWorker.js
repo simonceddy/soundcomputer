@@ -56,9 +56,9 @@ export function nextStep(id, track) {
     case SEQ_DIRECTION_PEN:
       return stepPend(id, track);
     case SEQ_DIRECTION_REV:
-      return currentStep <= track.start ? track.end : currentStep - 1;
+      return currentStep <= start ? end : currentStep - 1;
     case SEQ_DIRECTION_RND:
-      return Math.ceil(Math.random() * (track.end - track.start));
+      return Math.floor(Math.random() * (end - start)) + start;
     case SEQ_DIRECTION_FWD:
     default:
       return currentStep >= end ? start : currentStep + 1;

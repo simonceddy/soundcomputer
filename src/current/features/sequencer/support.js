@@ -92,62 +92,13 @@ export function nextStep(id, track) {
     case SEQ_DIRECTION_PEN:
       return stepPend(id, track);
     case SEQ_DIRECTION_REV:
-      return currentStep <= track.start ? track.end : currentStep - 1;
+      return currentStep <= start ? end : currentStep - 1;
     case SEQ_DIRECTION_RND:
-      return Math.ceil(Math.random() * (track.end - track.start));
+      return Math.floor(Math.random() * (end - start)) + start;
     case SEQ_DIRECTION_FWD:
     default:
       return currentStep >= end ? start : currentStep + 1;
   }
-}
-
-// TODO IF HELL
-export function getNextStep(lane) {
-  const { currentStep, direction, activeSteps } = lane;
-  if ((direction === SEQ_DIRECTION_PEN || direction === SEQ_DIRECTION_PPG)
-    && ascLanes[lane.id] === undefined
-  ) {
-    ascLanes[lane.id] = 1;
-  }
-  if (direction === SEQ_DIRECTION_PPG) {
-    if (ascLanes[lane.id] === 0) {
-      if (currentStep === 1) {
-        ascLanes[lane.id] = 1;
-        return 1;
-      }
-      return currentStep - 1;
-    }
-    if (ascLanes[lane.id] === 1) {
-      if (lane.currentStep === activeSteps) {
-        ascLanes[lane.id] = 0;
-        return activeSteps;
-      }
-      return currentStep + 1;
-    }
-  }
-  if (direction === SEQ_DIRECTION_PEN) {
-    if (ascLanes[lane.id] === 0) {
-      if (currentStep === 1) {
-        ascLanes[lane.id] = 1;
-        return currentStep + 1;
-      }
-      return currentStep - 1;
-    }
-    if (ascLanes[lane.id] === 1) {
-      if (lane.currentStep === activeSteps) {
-        ascLanes[lane.id] = 0;
-        return activeSteps - 1;
-      }
-      return currentStep + 1;
-    }
-  }
-  if (direction === SEQ_DIRECTION_REV) {
-    return currentStep <= 1 ? activeSteps : currentStep - 1;
-  }
-  if (direction === SEQ_DIRECTION_RND) {
-    return Math.ceil(Math.random() * activeSteps);
-  }
-  return currentStep >= activeSteps ? 1 : currentStep + 1;
 }
 
 export function randomizeStep(step) {

@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { throttle } from 'lodash';
-import { formatNumber } from '../../../util';
+import { formatNumber } from '../../../current/util';
 
 /**
  * @typedef {object} RotaryKnobOptions
