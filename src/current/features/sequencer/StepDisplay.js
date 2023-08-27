@@ -45,7 +45,7 @@ function StepDisplay() {
           Probability
         </span>
         <DisplayValueContainer>
-          {(tracks[selectedTrackKey].steps[selectedStep].probability * 100).toLocaleString('en-us', {
+          {Math.round(tracks[selectedTrackKey].steps[selectedStep].probability * 100).toLocaleString('en-us', {
             minimumIntegerDigits: 3
           })} %
         </DisplayValueContainer>

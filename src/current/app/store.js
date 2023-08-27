@@ -5,6 +5,7 @@ import tracks from '../features/tracks/tracksSlice';
 import sequencer from '../features/sequencer/sequencerSlice';
 import instruments from '../features/instruments/instrumentsSlice';
 import modulation from '../features/mods/modulationSlice';
+import filters from '../features/filters/filtersSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     tracks,
     sequencer,
     modulation,
-    instruments
+    instruments,
+    filters
   }
 });
 

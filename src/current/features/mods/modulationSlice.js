@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { initTracks } from '../app/support';
 
 const defaultLfoObject = {
   wave: 'sine',
@@ -16,7 +17,7 @@ const defaultEnvObject = {
 function initState() {
   const trackMods = {};
 
-  (new Int8Array(8)).forEach((_v, id) => {
+  initTracks((_v, id) => {
     trackMods[id] = {
       lfo1: { ...defaultLfoObject },
       lfo2: { ...defaultLfoObject },

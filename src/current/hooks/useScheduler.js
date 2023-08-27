@@ -26,7 +26,7 @@ export default function useScheduler(ctx) {
     bpm
   } = useSelector((s) => s.app);
   const { tracks } = useSelector((s) => s.sequencer);
-  const { assignments } = useSelector((s) => s.instruments);
+  const { assignments, settings: instSettings } = useSelector((s) => s.instruments);
   const dispatch = useDispatch();
   // console.log(assignments);
 
@@ -38,8 +38,7 @@ export default function useScheduler(ctx) {
     const trks = Object.values(tracks);
     trks.forEach((trk, id) => {
       // console.log(trk);
-      if (trk.active
-        && trk.steps[trk.currentStep]
+      if (trk.steps[trk.currentStep]
         && trk.steps[trk.currentStep].active
       ) {
         // if (enableMidi) scheduleStep(trk.steps[trk.currentStep], t, gate);
@@ -47,7 +46,7 @@ export default function useScheduler(ctx) {
           // console.log(assignments[id]);
           //   // TODO play instrument
           //   // console.log(trk.steps[trk.currentStep]);
-          playStep(trk.steps[trk.currentStep], time, assignments[id]);
+          playStep(trk.steps[trk.currentStep], time, assignments[id], instSettings[id]);
         }
       }
       steps[id] = nextStep(id, trk);

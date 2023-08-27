@@ -1,5 +1,7 @@
 // import { toMidi } from '@tonaljs/midi';
 
+import { initTracks } from '../app/support';
+
 /* eslint-disable no-unused-vars */
 export const SEQ_DIRECTION_FWD = 0;
 export const SEQ_DIRECTION_REV = 1;
@@ -10,8 +12,8 @@ export const SEQ_DIRECTION_RND = 4;
 export function initStep() {
   return {
     note: Math.floor(Math.random() * 127),
-    active: false,
-    probability: 1,
+    active: Math.random() > 0.57,
+    probability: Math.random() > 0.54 ? Math.random() : 1,
   };
 }
 
@@ -32,7 +34,7 @@ export function initTrack() {
 
 export function initSequencer() {
   const tracks = {};
-  (new Int8Array(8)).forEach((_v1, k1) => {
+  initTracks((_v1, k1) => {
     tracks[k1] = initTrack();
   });
   // console.log(lanes);

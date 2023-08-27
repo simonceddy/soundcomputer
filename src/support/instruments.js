@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { midiToFreq } from '@tonaljs/midi';
 import audioContext from './audioContext';
 import * as waves from './wavetables';
+import { defaultOscillatorSettings } from '../current/features/instruments/support';
 
 let kickBuffer;
 let hatBuffer;
@@ -33,18 +35,27 @@ export const waveInstrument = {
 };
 
 const wave = new PeriodicWave(audioContext, {
-  real: waves.bass.real,
-  imag: waves.bass.imag,
+  real: waves.triangle.real,
+  imag: waves.triangle.imag,
 });
 const attackTime = 0.01;
 const releaseTime = 0.5;
 const sweepLength = 0.6;
 
-export function playSweep(time, hz = 380) {
+export function playSweep(time, hz = 380, settings = defaultOscillatorSettings) {
+  let wf = null;
+  if (settings.type === 'custom') {
+    if (settings.wave && waves[settings.wave]) {
+      wf = new PeriodicWave(audioContext, {
+        real: waves[settings.wave].real,
+        imag: waves[settings.wave].imag,
+      });
+    } else wf = wave;
+  }
   const osc = new OscillatorNode(audioContext, {
     frequency: hz,
-    type: 'custom',
-    periodicWave: wave,
+    type: settings.type || 'sine',
+    periodicWave: wf || undefined,
   });
 
   const sweepEnv = new GainNode(audioContext);
@@ -58,9 +69,10 @@ export function playSweep(time, hz = 380) {
   osc.stop(time + sweepLength);
 }
 
-function playSweepForStep(step, time) {
+function playSweepForStep(step, time, settings = {}) {
+  // console.log(step);
   const hz = midiToFreq(step.note);
-  playSweep(time, hz);
+  playSweep(time, hz, settings);
 }
 
 export function playSample(audioBuffer, time) {
@@ -73,11 +85,11 @@ export function playSample(audioBuffer, time) {
   return sampleSource;
 }
 
-export function playStep(step, time, type = 0) {
+export function playStep(step, time, type = 0, settings = {}) {
   if (Math.random() <= step.probability) {
     switch (type) {
       case 1:
-        playSweepForStep(step, time);
+        playSweepForStep(step, time, settings);
         break;
       case 2:
         // Play kick sample

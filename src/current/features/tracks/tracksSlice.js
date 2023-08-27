@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
+import { initTracks } from '../app/support';
 
-function initTracks() {
+function initState() {
   const list = {};
-  (new Int8Array(8)).forEach((_v, id) => {
+  initTracks((_v, id) => {
     list[id] = {};
   });
   return {
@@ -14,7 +15,7 @@ function initTracks() {
 
 export const tracksSlice = createSlice({
   name: 'tracks',
-  initialState: initTracks,
+  initialState: initState,
   reducers: {
     setSelectedTrack(state, action) {
       state.selectedTrackKey = action.payload;
@@ -23,5 +24,7 @@ export const tracksSlice = createSlice({
 });
 
 export const { setSelectedTrack } = tracksSlice.actions;
+
+export const selectSelectedTrackKey = (s) => s.tracks.selectedTrackKey;
 
 export default tracksSlice.reducer;

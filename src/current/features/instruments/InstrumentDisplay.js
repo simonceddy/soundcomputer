@@ -1,10 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import DisplaySubHeading from '../../components/DisplaySubHeading';
 import { setAssignment } from './instrumentsSlice';
+import { INSTRUMENT_OSC } from './support';
+import OscillatorDisplay from './OscillatorDisplay';
+import DisplaySelector from '../../components/DisplaySelector';
 
 const opts = [
-  { key: 0, label: 'None' },
-  { key: 1, label: 'Oscillator' }
+  { value: 0, label: 'None' },
+  { value: 1, label: 'Oscillator' }
 ];
 
 function InstrumentDisplay() {
@@ -16,26 +19,21 @@ function InstrumentDisplay() {
       <DisplaySubHeading>
         Track {selectedTrackKey + 1} Instrument
       </DisplaySubHeading>
-      <label htmlFor="track-instrument-assignment">
-        <span className="text-lg font-bold mr-2">
-          Instrument Mode:
-        </span>
-        <select
-          id="track-instrument-assignment"
-          onChange={(e) => {
-            dispatch(setAssignment({
-              instrument: Number(e.target.value),
-              track: selectedTrackKey
-            }));
-          }}
-          value={assignment}
-          className="bg-black text-teal-200 text-xl font-bold p-1"
-        >
-          {opts.map((v, id) => (
-            <option value={v.key} key={`instrument-type-opt-${id}`} label={v.label} />
-          ))}
-        </select>
-      </label>
+      <DisplaySelector
+        label="Instrument type:"
+        id="track-instrument-assignment"
+        onChange={(e) => {
+          dispatch(setAssignment({
+            instrument: Number(e.target.value),
+            track: selectedTrackKey
+          }));
+        }}
+        value={assignment}
+        opts={opts}
+      />
+      {assignment === INSTRUMENT_OSC && (
+        <OscillatorDisplay />
+      )}
     </div>
   );
 }
