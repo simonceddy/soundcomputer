@@ -11,9 +11,10 @@ import RightColButtons from './features/rightColButtons';
 import SystemControls from './features/systemControls';
 import useScheduler from './hooks/useScheduler';
 import audioContext from '../support/audioContext';
+import AudioCtx from './AudioCtx';
 
 function App() {
-  const { start, stopScheduler } = useScheduler(audioContext);
+  const { start, stopScheduler, reset } = useScheduler(audioContext);
   const playing = useSelector((s) => s.app.playing);
 
   useEffect(() => {
@@ -29,21 +30,23 @@ function App() {
   }, [playing]);
 
   return (
-    <Bootloader>
-      <Layout>
-        <div className="row justify-between items-start px-4 pt-6 pb-2 w-full flex-1">
-          <LeftColButtons />
-          <div className="flex-1 h-full col justify-between items-center">
-            <SystemControls />
-            <AppDisplay />
-            <Controllers />
+    <AudioCtx.Provider value={audioContext}>
+      <Bootloader>
+        <Layout>
+          <div className="row justify-between items-start px-4 pt-6 pb-2 w-full flex-1">
+            <LeftColButtons />
+            <div className="flex-1 h-full col justify-between items-center">
+              <SystemControls />
+              <AppDisplay />
+              <Controllers />
+            </div>
+            <RightColButtons />
           </div>
-          <RightColButtons />
-        </div>
-        <Controls />
-        <Pads />
-      </Layout>
-    </Bootloader>
+          <Controls resetFn={reset} />
+          <Pads />
+        </Layout>
+      </Bootloader>
+    </AudioCtx.Provider>
   );
 }
 

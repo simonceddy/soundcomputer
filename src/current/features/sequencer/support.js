@@ -76,7 +76,7 @@ function stepPend(id, track) {
 }
 
 export function nextStep(id, track) {
-  // TODO
+  // console.log(track);
   const {
     currentStep, direction, start, end
   } = track;

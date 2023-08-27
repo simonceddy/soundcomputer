@@ -2,13 +2,13 @@ import { useSelector } from 'react-redux';
 import DisplaySubHeading from '../../components/DisplaySubHeading';
 import DisplayValueContainer from '../../components/DisplayValueContainer';
 import { render2DigitNum } from '../../support';
-import SmallSequenceRow from '../../components/SmallSequenceRow';
+import SequenceOverview from './SequenceOverview';
 
 function SequenceDisplay() {
   const selectedTrackKey = useSelector((s) => s.tracks.selectedTrackKey);
   const track = useSelector((s) => s.sequencer.tracks[selectedTrackKey]);
   if (!track) return <div>Error: Unknown track!</div>;
-  console.log(track);
+  // console.log(track, selectedTrackKey);
   return (
     <div className="col w-full">
       <DisplaySubHeading>Track {selectedTrackKey + 1}</DisplaySubHeading>
@@ -29,11 +29,8 @@ function SequenceDisplay() {
             </DisplayValueContainer>
           </div>
         </div>
-        <div>
-          <SmallSequenceRow page={0} steps={track.steps} />
-          <SmallSequenceRow page={1} steps={track.steps} />
-          <SmallSequenceRow page={2} steps={track.steps} />
-          <SmallSequenceRow page={3} steps={track.steps} />
+        <div className="col">
+          <SequenceOverview />
         </div>
       </div>
     </div>

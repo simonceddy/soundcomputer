@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { advanceAllSteps, resetAll } from '../features/sequencer/sequencerSlice';
+import { nextStep } from '../features/sequencer/support';
 // import { advanceAllSteps } from '../features/sequencer/sequencerSlice';
 // import { scheduleStep } from '../support/midi';
-// import { playStep } from '../support/instruments';
+import { playStep } from '../../support/instruments';
 
 const lookahead = 25.0;
 const scheduleAheadTime = 0.1;
@@ -17,71 +18,83 @@ timerWorker.postMessage({ interval: lookahead });
 
 /**
  *
- * @param {AudioContext} audioCtx
+ * @param {AudioContext} engine
  * @returns
  */
-export default function useScheduler(audioCtx) {
+export default function useScheduler(ctx) {
   const {
     bpm
   } = useSelector((s) => s.app);
-
+  const { tracks } = useSelector((s) => s.sequencer);
+  const { assignments } = useSelector((s) => s.instruments);
   const dispatch = useDispatch();
+  // console.log(assignments);
 
-  const nextNote = useCallback(() => {
+  const scheduleSteps = (beat, time) => {
+    // const t = time - engine.currentTime;
+    // const gate = 30 / bpm;
+    const steps = [];
+
+    const trks = Object.values(tracks);
+    trks.forEach((trk, id) => {
+      // console.log(trk);
+      if (trk.active
+        && trk.steps[trk.currentStep]
+        && trk.steps[trk.currentStep].active
+      ) {
+        // if (enableMidi) scheduleStep(trk.steps[trk.currentStep], t, gate);
+        if (assignments[id] !== 0) {
+          // console.log(assignments[id]);
+          //   // TODO play instrument
+          //   // console.log(trk.steps[trk.currentStep]);
+          playStep(trk.steps[trk.currentStep], time, assignments[id]);
+        }
+      }
+      steps[id] = nextStep(id, trk);
+      // dispatch(setNextStep({ track: id, step: nextStep(id, trk) }));
+    });
+
+    return steps;
+  };
+
+  const nextNote = () => {
     const secondsPerBeat = 60.0 / bpm;
 
     nextNoteTime += secondsPerBeat;
-    currentNote = (currentNote + 1) % 16;
-  }, [bpm]);
-  // console.log(assignments);
-
-  // const scheduleSteps = (beat, time) => {
-  //   const t = time - audioCtx.currentTime;
-  //   const gate = 30 / bpm;
-  //   const lanes = Object.values(sequencer.lanes);
-  //   lanes.forEach((lane) => {
-  //     // console.log(lane);
-  //     if (lane.active
-  //       && lane.steps[lane.currentStep]
-  //       && lane.steps[lane.currentStep].active
-  //     ) {
-  //       if (enableMidi) scheduleStep(lane.steps[lane.currentStep], t, gate);
-  //       if (assignments[lane.id] !== 0) {
-  //         // TODO play instrument
-  //         // console.log(lane.steps[lane.currentStep]);
-  //         playStep(lane.steps[lane.currentStep], time, assignments[lane.id]);
-  //       }
-  //     }
-  //   });
-  // };
+    currentNote = (currentNote + 1) % 64;
+  };
 
   const scheduler = () => {
-    while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime) {
-      // scheduleSteps(currentNote, nextNoteTime);
-      // dispatch(advanceAllSteps());
+    while (nextNoteTime < ctx.currentTime + scheduleAheadTime) {
+      const steps = scheduleSteps(currentNote, nextNoteTime);
+      // console.log('new steps');
+      dispatch(advanceAllSteps(steps));
       nextNote();
     }
   };
 
   timerWorker.onmessage = (e) => {
     if (e.data === 'tick') {
+      // console.log('ticked');
       scheduler();
     } else { console.log(`message: ${e.data}`); }
   };
 
   return {
     start() {
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+      if (ctx.state === 'suspended') {
+        ctx.resume();
       }
       currentNote = 0;
-      nextNoteTime = audioCtx.currentTime;
+      nextNoteTime = ctx.currentTime;
       // scheduler(); // kick off scheduling
       timerWorker.postMessage('start');
     },
     reset() {
-      nextNoteTime = audioCtx.currentTime;
+      console.log('reset!');
+      nextNoteTime = ctx.currentTime;
       currentNote = 0;
+      dispatch(resetAll());
     },
     stopScheduler() {
       timerWorker.postMessage('stop');

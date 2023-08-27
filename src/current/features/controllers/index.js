@@ -15,9 +15,9 @@ const controllerKnobs = [
   { key: 'controller-2', El: Controller2 },
   { key: 'controller-3', El: Controller3 },
   { key: 'controller-4', El: Controller4 },
-  { key: 'controller-5', El: Controller5 },
-  { key: 'controller-6', El: Controller6 },
-  { key: 'controller-7', El: Controller7 },
+  // { key: 'controller-5', El: Controller5 },
+  // { key: 'controller-6', El: Controller6 },
+  // { key: 'controller-7', El: Controller7 },
 ];
 
 function Controllers() {
@@ -25,7 +25,7 @@ function Controllers() {
   // console.log(appMode);
 
   return (
-    <div className="row items-center justify-around">
+    <div className="row w-full sm:w-11/12 md:w-5/6 mx-auto items-center justify-around">
       {controllerKnobs.map(({ key, El }) => (
         <El key={`controller-knob-${key}`} />
       ))}

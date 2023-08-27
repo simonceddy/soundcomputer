@@ -1,7 +1,7 @@
 // From https://github.com/cwilso/metronome/
 
 let timerID = null;
-let interval = 1;
+let interval = 50;
 
 onmessage = (e) => {
   if (e.data === 'start') {
@@ -13,7 +13,10 @@ onmessage = (e) => {
     // console.log(`interval=${interval}`);
     if (timerID) {
       clearInterval(timerID);
-      timerID = setInterval(() => { postMessage('tick'); }, interval);
+      timerID = setInterval(() => {
+        console.log('here');
+        postMessage('tick');
+      }, interval);
     }
   } else if (e.data === 'stop') {
     // console.log('stopping');

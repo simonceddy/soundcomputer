@@ -59,7 +59,7 @@ export function playSweep(time, hz = 380) {
 }
 
 function playSweepForStep(step, time) {
-  const hz = midiToFreq(step.value1);
+  const hz = midiToFreq(step.note);
   playSweep(time, hz);
 }
 

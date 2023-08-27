@@ -2,8 +2,8 @@
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { advanceAllSteps } from '../features/sequencer/sequencerSlice';
-import { scheduleStep } from '../support/midi';
-import { playStep } from '../support/instruments';
+import { scheduleStep } from '../../support/midi';
+import { playStep } from '../../support/instruments';
 
 const lookahead = 25.0;
 const scheduleAheadTime = 0.1;
