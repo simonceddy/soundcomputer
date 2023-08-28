@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import DisplaySubHeading from '../../components/DisplaySubHeading';
 import { setAssignment } from './instrumentsSlice';
-import { INSTRUMENT_OSC } from './support';
+import { INSTRUMENT_OSC, INSTRUMENT_SAMPLER } from './support';
 import OscillatorDisplay from './OscillatorDisplay';
 import DisplaySelector from '../../components/DisplaySelector';
+import SamplerDisplay from './SamplerDisplay';
 
 const opts = [
   { value: 0, label: 'None' },
@@ -33,6 +34,9 @@ function InstrumentDisplay() {
       />
       {assignment === INSTRUMENT_OSC && (
         <OscillatorDisplay />
+      )}
+      {assignment === INSTRUMENT_SAMPLER && (
+        <SamplerDisplay />
       )}
     </div>
   );

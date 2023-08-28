@@ -112,24 +112,25 @@ export function randomizeStep(step) {
       minimumFractionDigits: 1,
       maximumFractionDigits: 1
     })),
-    note: Math.floor(Math.random() * 128),
-    value2: Math.floor(Math.random() * 128),
+    note: Math.floor(Math.random() * 127),
     active: Math.random() > 0.6,
   };
 }
 
-export function randomizeLane(lane) {
-  // console.log(lane);
-  const stepKeys = Object.keys(lane.steps);
+export function randomizeTrack(track) {
+  // console.log(track);
+  const stepKeys = Object.keys(track.steps);
   // console.log(stepKeys);
 
-  const activeSteps = Math.ceil(Math.random() * 16);
+  const start = Math.floor(Math.random() * 48);
+  const end = Math.floor(Math.random() * 16) + start;
   return {
-    ...lane,
+    ...track,
     direction: Math.floor(Math.random() * 5),
-    currentStep: 1,
-    activeSteps,
-    steps: Object.fromEntries(stepKeys.map((k) => [k, randomizeStep(lane.steps[k])]))
+    currentStep: start,
+    start,
+    end,
+    steps: Object.fromEntries(stepKeys.map((k) => [k, randomizeStep(track.steps[k])]))
   };
 }
 

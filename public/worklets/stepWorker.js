@@ -39,7 +39,7 @@ function stepPend(id, track) {
   return track.currentStep + 1;
 }
 
-export function nextStep(id, track) {
+function nextStep(id, track) {
   // TODO
   const {
     currentStep, direction, start, end
@@ -68,5 +68,6 @@ export function nextStep(id, track) {
 onmessage = (e) => {
   if (e.data) {
     // TODO
+    console.log(e.data);
   }
 };

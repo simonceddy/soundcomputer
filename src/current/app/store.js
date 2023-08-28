@@ -6,6 +6,7 @@ import sequencer from '../features/sequencer/sequencerSlice';
 import instruments from '../features/instruments/instrumentsSlice';
 import modulation from '../features/mods/modulationSlice';
 import filters from '../features/filters/filtersSlice';
+import mixer from '../features/mixer/mixerSlice';
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     sequencer,
     modulation,
     instruments,
-    filters
+    filters,
+    mixer
   }
 });
 

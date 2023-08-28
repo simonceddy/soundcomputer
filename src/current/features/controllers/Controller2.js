@@ -5,7 +5,8 @@ import {
   APP_MODE_SEQ,
   APP_MODE_STEP
 } from '../app/support';
-import RotaryKnob from '../../../modules/shared/components/RotaryKnob';
+import RunModeController from './seq/RunModeController';
+import KnobController from './KnobController';
 
 function label(mode) {
   switch (mode) {
@@ -22,17 +23,15 @@ function label(mode) {
   }
 }
 
+const el = {
+  [APP_MODE_SEQ]: RunModeController
+};
+
 function Controller2() {
   const appMode = useSelector((s) => s.app.appMode);
-
-  return (
-    <div className="my-2 mx-[4%] col all-center">
-      <span className="p-0.5 text-teal-300 text-sm w-11 mx-auto text-center mb-1 bg-black font-digi">
-        {label(appMode)}
-      </span>
-      <RotaryKnob radius="48px" backgroundClass="bg-slate-500" />
-    </div>
-  );
+  const El = el[appMode];
+  if (!El) return <KnobController label={label(appMode)} />;
+  return <El />;
 }
 
 export default Controller2;

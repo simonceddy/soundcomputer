@@ -1,5 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { initSequencer } from './support';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { selectSelectedTrackKey } from '../tracks/tracksSlice';
+import {
+  initSequencer,
+  randomizeTrack as randSeq,
+  randomizeStep as randStep
+} from './support';
 
 export const sequencerSlice = createSlice({
   name: 'sequencer',
@@ -29,6 +34,34 @@ export const sequencerSlice = createSlice({
       keys.forEach((k) => {
         state.tracks[k].currentStep = state.tracks[k].start || 0;
       });
+    },
+    randomizeTrack(state, action) {
+      const track = state.tracks[action.payload];
+      state.tracks[action.payload] = randSeq(track);
+    },
+    randomizeStep(state, action) {
+      const step = state.tracks[action.payload.track]?.steps[action.payload.step];
+      if (step) {
+        state.tracks[action.payload.track].steps[action.payload.step] = randStep(step);
+      }
+    },
+    setTrackStart(state, action) {
+      state.tracks[action.payload.track].start = action.payload.start;
+    },
+    setTrackEnd(state, action) {
+      state.tracks[action.payload.track].end = action.payload.end;
+    },
+    updateStep(state, action) {
+      const step = state.tracks[action.payload.track]?.steps[action.payload.step];
+      if (step) {
+        state.tracks[action.payload.track].steps[action.payload.step] = {
+          ...step,
+          ...action.payload.data
+        };
+      }
+    },
+    setTrackDirection(state, action) {
+      state.tracks[action.payload.track].direction = action.payload.direction;
     }
   },
 });
@@ -39,6 +72,24 @@ export const {
   setNextStep,
   advanceAllSteps,
   resetAll,
+  randomizeTrack,
+  randomizeStep,
+  setTrackEnd,
+  setTrackStart,
+  updateStep,
+  setTrackDirection
 } = sequencerSlice.actions;
 
 export default sequencerSlice.reducer;
+
+export const selectSeqTracks = (s) => s.sequencer.tracks;
+
+export const selectCurrentSeqTrack = createSelector(
+  [selectSelectedTrackKey, selectSeqTracks],
+  (key, tracks) => tracks[key]
+);
+
+export const selectCurrentSeqTrackStart = createSelector(
+  [selectCurrentSeqTrack],
+  (track) => track.start
+);

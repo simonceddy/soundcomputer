@@ -5,11 +5,11 @@ import {
   APP_MODE_MODS,
   APP_MODE_SEQ,
   APP_MODE_STEP
-} from '../app/support';
-import StartController from './seq/StartController';
-import KnobController from './KnobController';
-import TypeController from './instrument/TypeController';
-import NoteController from './step/NoteController';
+} from '../../app/support';
+import KnobController from '../KnobController';
+import { selectCurrentInstrument } from '../../instruments/instrumentsSlice';
+import { INSTRUMENT_OSC } from '../../instruments/support';
+import WaveTypeController from './WaveTypeController';
 
 function label(mode) {
   switch (mode) {
@@ -27,16 +27,17 @@ function label(mode) {
 }
 
 const el = {
-  [APP_MODE_SEQ]: StartController,
-  [APP_MODE_INSTR]: TypeController,
-  [APP_MODE_STEP]: NoteController,
+  [INSTRUMENT_OSC]: WaveTypeController,
 };
 
-function Controller0() {
+function InstrumentController1() {
   const appMode = useSelector((s) => s.app.appMode);
-  const El = el[appMode];
+  const { instrument } = useSelector(selectCurrentInstrument);
+  if (appMode !== APP_MODE_INSTR) return <div>whoops!</div>;
+
+  const El = el[instrument];
   if (!El) return <KnobController label={label(appMode)} />;
   return <El />;
 }
 
-export default Controller0;
+export default InstrumentController1;

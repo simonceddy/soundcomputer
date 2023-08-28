@@ -23,17 +23,20 @@ timerWorker.postMessage({ interval: lookahead });
  */
 export default function useScheduler(ctx) {
   const {
-    bpm
+    bpm,
+    metronomeActive
   } = useSelector((s) => s.app);
   const { tracks } = useSelector((s) => s.sequencer);
   const { assignments, settings: instSettings } = useSelector((s) => s.instruments);
   const dispatch = useDispatch();
   // console.log(assignments);
 
+  let steps = [];
+
   const scheduleSteps = (beat, time) => {
     // const t = time - engine.currentTime;
     // const gate = 30 / bpm;
-    const steps = [];
+    steps = [];
 
     const trks = Object.values(tracks);
     trks.forEach((trk, id) => {
@@ -43,14 +46,10 @@ export default function useScheduler(ctx) {
       ) {
         // if (enableMidi) scheduleStep(trk.steps[trk.currentStep], t, gate);
         if (assignments[id] !== 0) {
-          // console.log(assignments[id]);
-          //   // TODO play instrument
-          //   // console.log(trk.steps[trk.currentStep]);
           playStep(trk.steps[trk.currentStep], time, assignments[id], instSettings[id]);
         }
       }
       steps[id] = nextStep(id, trk);
-      // dispatch(setNextStep({ track: id, step: nextStep(id, trk) }));
     });
 
     return steps;
@@ -65,8 +64,8 @@ export default function useScheduler(ctx) {
 
   const scheduler = () => {
     while (nextNoteTime < ctx.currentTime + scheduleAheadTime) {
-      const steps = scheduleSteps(currentNote, nextNoteTime);
       // console.log('new steps');
+      scheduleSteps(currentNote, nextNoteTime);
       dispatch(advanceAllSteps(steps));
       nextNote();
     }
@@ -87,6 +86,7 @@ export default function useScheduler(ctx) {
       currentNote = 0;
       nextNoteTime = ctx.currentTime;
       // scheduler(); // kick off scheduling
+      // scheduleSteps(currentNote, nextNoteTime);
       timerWorker.postMessage('start');
     },
     reset() {

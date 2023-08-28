@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux';
 import {
   APP_MODE_FLTR,
+  APP_MODE_INSTR,
   APP_MODE_MODS,
   APP_MODE_SEQ,
   APP_MODE_STEP
 } from '../app/support';
-import RotaryKnob from '../../../modules/shared/components/RotaryKnob';
+import KnobController from './KnobController';
+import EndController from './seq/EndController';
+import InstrumentController1 from './instrument/InstrumentController1';
 
 function label(mode) {
   switch (mode) {
@@ -22,17 +25,16 @@ function label(mode) {
   }
 }
 
+const el = {
+  [APP_MODE_SEQ]: EndController,
+  [APP_MODE_INSTR]: InstrumentController1
+};
+
 function Controller1() {
   const appMode = useSelector((s) => s.app.appMode);
-
-  return (
-    <div className="my-2 mx-[4%] col all-center">
-      <span className="p-0.5 text-teal-300 text-sm w-11 mx-auto text-center mb-1 bg-black font-digi">
-        {label(appMode)}
-      </span>
-      <RotaryKnob radius="48px" backgroundClass="bg-slate-500" />
-    </div>
-  );
+  const El = el[appMode];
+  if (!El) return <KnobController label={label(appMode)} />;
+  return <El />;
 }
 
 export default Controller1;

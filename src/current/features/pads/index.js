@@ -48,9 +48,9 @@ function Pads() {
       {page && padObjects[page - 1] && padObjects[page - 1].map(({ key }) => (
         <PadButton
           key={`pg-${page}-pad-${key}`}
-          onClick={() => {
+          onClick={(e) => {
             dispatch(setSelectedStep(key));
-            if (appMode === APP_MODE_SEQ) {
+            if (e.shiftKey || appMode === APP_MODE_SEQ) {
               dispatch(toggleStep({ track: selectedTrackKey, step: key }));
             }
           }}

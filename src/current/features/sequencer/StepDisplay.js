@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { midiToNoteName } from '@tonaljs/midi';
-import { useMemo } from 'react';
+// import { useMemo } from 'react';
 import DisplaySubHeading from '../../components/DisplaySubHeading';
 import DisplayValueContainer from '../../components/DisplayValueContainer';
 
@@ -17,10 +17,7 @@ function StepDisplay() {
   if (!tracks[selectedTrackKey]) return <div>Error: Undefined track!</div>;
   if (!tracks[selectedTrackKey]?.steps[selectedStep]) return <div>Error: Undefined step!</div>;
   // console.log(tracks[selectedTrackKey]);
-  const [note, octave] = useMemo(
-    () => splitNote(tracks[selectedTrackKey]?.steps[selectedStep].note),
-    [selectedTrackKey, selectedStep]
-  );
+  const [note, octave] = splitNote(tracks[selectedTrackKey]?.steps[selectedStep].note);
   return (
     <div>
       <DisplaySubHeading>
