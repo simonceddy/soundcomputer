@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 class SchedulingWorkletProcessor extends AudioWorkletProcessor {
-  constructor() {
-    super();
+  constructor(opts) {
+    super(opts);
     this.nextEventTime = 0;
     this.bpm = 120; // Tempo in beats per minute
+    this.sampleRate = opts.processorOptions.sampleRate || 44100;
   }
 
   process(inputs, outputs, parameters) {
