@@ -7,7 +7,7 @@ function Envelope2() {
   const adsr = useSelector((s) => s.envelopes.envelope2);
   const dispatch = useDispatch();
   return (
-    <Envelope title="Envelope 2" adsr={adsr} onChange={(v) => dispatch(updateEnvelope2(v))} />
+    <Envelope title="Env 2" adsr={adsr} onChange={(v) => dispatch(updateEnvelope2(v))} />
   );
 }
 

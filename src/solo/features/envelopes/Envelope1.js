@@ -7,7 +7,7 @@ function Envelope1() {
   const adsr = useSelector((s) => s.envelopes.envelope1);
   const dispatch = useDispatch();
   return (
-    <Envelope title="VCA Envelope" adsr={adsr} onChange={(v) => dispatch(updateEnvelope1(v))} />
+    <Envelope title="Env 1" adsr={adsr} onChange={(v) => dispatch(updateEnvelope1(v))} />
   );
 }
 

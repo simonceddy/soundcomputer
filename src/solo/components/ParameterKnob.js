@@ -16,7 +16,7 @@ function ParameterKnob({
   return (
     <div className="col justify-end items-center m-1">
       {label && (
-        <div>{label}</div>
+        <div className="mx-auto font-digi">{label}</div>
       )}
       <RotaryKnob
         id={id}
