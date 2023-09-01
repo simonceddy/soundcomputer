@@ -1,0 +1,11 @@
+.gate-button-outer {
+  background: linear-gradient(to bottom, rgb(16, 142, 142), rgb(120, 189, 189));
+}
+
+.gate-button-inner {
+  background-color: rgb(16, 142, 142);
+}
+
+.gate-button:active > .gate-button-inner {
+  background-color: rgb(120, 189, 189);
+}

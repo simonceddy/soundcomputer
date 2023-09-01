@@ -1,5 +1,7 @@
 import { PiFloppyDisk } from 'react-icons/pi';
-import { FaCog, FaQuestionCircle, FaDice } from 'react-icons/fa';
+import {
+  FaCog, FaQuestionCircle, FaDice, FaUndo, FaRedo
+} from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import SquareButton from '../../components/SquareButton';
 import { APP_MODE_MAN, APP_MODE_SEQ, APP_MODE_STEP } from '../app/support';
@@ -21,6 +23,12 @@ function SystemControls() {
       </SquareButton>
       <SquareButton className="bg-slate-600 text-white mx-2 active:bg-green-500">
         <FaCog size={22} />
+      </SquareButton>
+      <SquareButton className="bg-slate-600 text-white mx-2 active:bg-green-500">
+        <FaUndo size={22} />
+      </SquareButton>
+      <SquareButton className="bg-slate-600 text-white mx-2 active:bg-green-500">
+        <FaRedo size={22} />
       </SquareButton>
       <SquareButton
         className={`${appMode === APP_MODE_MAN ? 'bg-green-700' : 'bg-slate-600'} text-white mx-2 active:bg-green-500`}

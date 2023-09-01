@@ -5,11 +5,13 @@ import { Provider } from 'react-redux';
 // import App from './App';
 import './styles';
 // import Modules from './modules';
-import SoundComputer from './current';
-import store from './current/app/store';
+import SoundComputer from './solo/App';
+import store from './solo/app/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+
+console.log(store.getState());
 
 root.render(
   <React.StrictMode>

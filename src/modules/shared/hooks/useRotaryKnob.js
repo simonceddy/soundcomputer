@@ -80,18 +80,19 @@ export default function useRotaryKnob(ref, options = {}) {
   };
 
   const wheelHandler = throttle((e) => {
-    const a = e.deltaY > 0 ? 1 : -1;
-    let mult = 1;
-    if (e.shiftKey && !e.altKey) mult = opts.microStepSize;
-    if (e.altKey && !e.shiftKey) mult = opts.megaStepSize;
+    const a = (e.deltaY > 0 ? 1 : -1);
+    let mult = opts.stepSize;
+    if (e.shiftKey && !e.ctrlKey) mult = opts.microStepSize;
+    if (e.ctrlKey && !e.shiftKey) mult = opts.megaStepSize;
 
     const newDeg = getDeg(
       state.deg - (a * stepDeg * mult)
     );
 
-    const newVal = Number(formatNumber(getVal(
-      state.val - (a * opts.stepSize * mult)
-    )));
+    const newVal = Number(getVal(
+      state.val - (a * mult)
+    ));
+    if (Number.isNaN(newVal)) console.log(opts);
     if (newDeg !== state.deg || newVal !== state.val) {
       setState({ deg: newDeg, val: newVal });
       if (opts.onChange) opts.onChange(newVal);
@@ -103,16 +104,16 @@ export default function useRotaryKnob(ref, options = {}) {
     e.preventDefault();
     if (lastPos !== null) {
       const a = e.deltaY > 0 ? 1 : -1;
-      let mult = 1;
+      let mult = opts.stepSize;
       if (e.shiftKey && !e.altKey) mult = opts.microStepSize;
       if (e.altKey && !e.shiftKey) mult = opts.megaStepSize;
       const newDeg = getDeg(
         (((lastPos - e.clientY) * stepDeg) * mult) + state.deg
       );
       // console.log(((opts.minDeg + newDeg) / stepDeg) + opts.maxVal);
-      const newVal = Number(formatNumber(getVal(
+      const newVal = Number(getVal(
         ((opts.minDeg + newDeg) / stepDeg) + opts.maxVal
-      )));
+      ));
       if (newDeg !== state.deg || newVal !== state.val) {
         setState({ deg: newDeg, val: newVal });
         if (opts.onChange) opts.onChange(newVal);
