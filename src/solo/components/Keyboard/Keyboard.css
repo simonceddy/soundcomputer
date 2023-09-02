@@ -1,0 +1,15 @@
+.white-key {
+  background: whitesmoke;
+}
+
+.white-key:active {
+  background: radial-gradient(rgb(185, 185, 185), whitesmoke);
+}
+
+.black-key {
+  background: black;
+}
+
+.black-key:active {
+  background: radial-gradient(rgb(83, 83, 83), black);
+}
