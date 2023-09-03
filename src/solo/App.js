@@ -9,6 +9,7 @@ import VCA from './features/vca';
 import TabButton from './components/TabButton';
 import { init, playAudio } from './audio';
 import Keyboard from './keyboard';
+import Sequencer from './features/sequencer';
 
 function App() {
   const [tab, setTab] = useState(0);
@@ -34,6 +35,13 @@ function App() {
             >
               Matrix
             </TabButton>
+            <TabButton
+              onClick={() => {
+                if (tab !== 2) setTab(2);
+              }}
+            >
+              Sequencer
+            </TabButton>
           </div>
           <div className="w-full flex-1 col all-center">
             {tab === 1 && <Matrix />}
@@ -56,6 +64,9 @@ function App() {
                 <GateButton onClick={() => playAudio((Math.random() * 1) + 60)} />
               </div>
             </>
+            )}
+            {tab === 2 && (
+              <Sequencer />
             )}
           </div>
         </>

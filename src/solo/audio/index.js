@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import BasicOscillator from './BasicOscillator';
 import ComplexOscillator from './ComplexOscillator';
 import SignalPath from './SignalPath';
@@ -5,6 +6,33 @@ import SignalPath from './SignalPath';
 export { default as SignalPath } from './SignalPath';
 
 export const audioContext = new AudioContext();
+
+const worker = new Worker('worklets/mScheduler.js');
+console.log(worker);
+
+let { currentTime } = audioContext;
+const scheduledEvents = [];
+
+// Handle events sent by the worker
+worker.onmessage = function (e) {
+  const { data } = e;
+
+  if (data.requestTime) {
+    // Request the current time from the audio context
+    currentTime = audioContext.currentTime;
+    // Send the current time to the worker for the next loop
+    worker.postMessage({ currentTime, scheduledEvents });
+  } else {
+    // Execute the scheduled event received from the worker
+    data.callback();
+  }
+};
+
+export function scheduleEvent(time, eventType, eventData) {
+  const event = { time, type: eventType, data: eventData };
+  // Send the event to the worker
+  worker.postMessage(event);
+}
 
 const cOsc = new ComplexOscillator(audioContext);
 const bOsc = new BasicOscillator(audioContext);
