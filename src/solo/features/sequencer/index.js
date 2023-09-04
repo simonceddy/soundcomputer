@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import StepButton from '../../components/Sequencer/StepButton';
 import { setSelectedStep, toggleRun, updateStep } from './sequencerSlice';
 import { PlayIcon } from '../../components/icons';
-import useScheduler from '../../hooks/useScheduler';
+// import useScheduler from '../../hooks/useScheduler';
 
 const rows = [];
 
@@ -20,7 +20,7 @@ function Sequencer() {
     currentStep, steps, selectedStep, direction, running, start, end
   } = useSelector((s) => s.sequencer);
   const dispatch = useDispatch();
-  const { run } = useScheduler();
+  // const { run } = useScheduler();
 
   return (
     <div className="col w-full justify-start items-center">
@@ -29,7 +29,7 @@ function Sequencer() {
           className={`w-12 h-12 rounded-full border-2 border-slate-600 ${running ? 'bg-green-400' : 'bg-slate-400'} active:border-yellow-400 col all-center active:text-slate-100`}
           type="button"
           onClick={() => {
-            run();
+            // run();
             dispatch(toggleRun());
           }}
         >

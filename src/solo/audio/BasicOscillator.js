@@ -19,7 +19,7 @@ export default class BasicOscillator {
     this.context = context;
     this.node = new OscillatorNode(context, { frequency: this.#frequency, type: 'sine' });
 
-    this.outputGain = new GainNode(context, { gain: 0 });
+    this.outputGain = new GainNode(context, { gain: 1 });
 
     this.node.connect(this.outputGain);
   }

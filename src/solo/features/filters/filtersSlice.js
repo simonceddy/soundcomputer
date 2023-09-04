@@ -1,17 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const filterObj = {
-  type: 'lowpass',
-  frequency: 15000,
-  Q: 1,
-  bypass: false,
-};
-
 export const filtersSlice = createSlice({
   name: 'filters',
   initialState: {
-    filter1: { ...filterObj },
-    filter2: { ...filterObj },
+    filter1: {
+      type: 'lowpass', frequency: 15000, Q: 0.707, bypass: false, modAmt: 0,
+    },
+    filter2: {
+      type: 'highpass', frequency: 20, Q: 0.707, bypass: false, modAmt: 0,
+    },
   },
   reducers: {
     updateFilter1(state, action) {

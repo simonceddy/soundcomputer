@@ -48,8 +48,8 @@ function DrawFilter({ hz = 15000, q = 1, type = 'lowpass' }) {
     ctx.beginPath();
 
     frequencyData.forEach(({ frequency, response }) => {
-      const x = frequency * width;
-      const y = (1 - response) * height;
+      const x = (1 - response) * height;
+      const y = frequency * width;
       ctx.lineTo(x, y);
     });
 

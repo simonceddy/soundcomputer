@@ -31,7 +31,7 @@ export default class ComplexOscillator {
     this.sawtooth = new OscillatorNode(context, { frequency: this.#frequency, type: 'sawtooth' });
     this.square = new OscillatorNode(context, { frequency: this.#frequency, type: 'square' });
 
-    this.outputGain = new GainNode(context, { gain: 0 });
+    this.outputGain = new GainNode(context, { gain: 1 });
 
     this.sine.connect(this.outputGain);
     this.triangle.connect(this.outputGain);

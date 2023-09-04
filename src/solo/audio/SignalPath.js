@@ -40,9 +40,11 @@ export default class SignalPath {
   }
 
   #disconnectAll() {
+    this.inputGain.disconnect();
     this.inserts.forEach((i) => {
       if (i.disconnect) i.disconnect();
     });
+    this.outputGain.disconnect();
   }
 
   #updatePath(callback) {
@@ -69,6 +71,12 @@ export default class SignalPath {
     this.#updatePath(() => {
       this.outputTo = node;
     });
+  }
+
+  disconnect() {
+    this.inputGain.disconnect();
+    this.#disconnectAll();
+    this.outputGain.disconnect();
   }
 
   get output() {

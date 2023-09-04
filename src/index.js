@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 // import App from './App';
 import './styles';
 // import Modules from './modules';
-import SoundComputer from './solo/App';
+import SoundComputer from './solo';
 import store from './solo/app/store';
 
 const container = document.getElementById('root');

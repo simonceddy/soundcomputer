@@ -1,25 +1,28 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable func-names */
-/* eslint-disable no-restricted-globals */
+/* eslint-disable class-methods-use-this */
+class SchedulingProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.scheduledEvents = [];
+    this.port.onmessage = (event) => this.handleMessage(event);
+  }
 
-const EVENT_TYPES = {
-  NOTE_ON: 'note-on',
-  NOTE_OFF: 'note-off',
-};
-
-self.onmessage = function (e) {
-  const { currentTime, scheduledEvents } = e.data;
-
-  while (scheduledEvents.length > 0) {
-    const event = scheduledEvents[0];
-    if (event.time <= currentTime) {
-      scheduledEvents.shift();
-      postMessage(event); // Send the event back to the main thread for execution
-    } else {
-      break;
+  handleMessage(event) {
+    const { currentTime, type, data } = event.data;
+    // Handle different types of events (e.g., note-on, note-off)
+    if (type === 'note-on') {
+      console.log(data);
+      // Perform actions for note-on events using the data
+      // For example, trigger a note with the specified pitch and velocity.
+    } else if (type === 'note-off') {
+      // Perform actions for note-off events using the data
     }
   }
 
-  // Request the main thread to send the current time again for the next loop
-  postMessage({ requestTime: true });
-};
+  process(inputs, outputs, parameters) {
+    // Process audio if needed
+    return true;
+  }
+}
+
+registerProcessor('mScheduler', SchedulingProcessor);
