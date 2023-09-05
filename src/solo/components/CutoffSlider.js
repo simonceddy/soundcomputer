@@ -13,7 +13,7 @@ const logStep = 9 / ((max - min) / step);
 
 function CutoffSlider({ hz, onChange, id }) {
   // TODO non-linear cutoff
-  console.log(scale.invert(hz), hz);
+  // console.log(scale.invert(hz), hz);
   return (
     <RangeSlider
       vertical
@@ -25,7 +25,7 @@ function CutoffSlider({ hz, onChange, id }) {
       step={logStep}
       onChange={(e) => {
         const newVal = scale(+e.target.value);
-        console.log(newVal);
+        // console.log(newVal);
         onChange({ frequency: newVal });
       }}
     />

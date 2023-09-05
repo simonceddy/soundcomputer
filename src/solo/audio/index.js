@@ -9,27 +9,42 @@ export { default as ComplexOscillator } from './ComplexOscillator';
 export const audioContext = new AudioContext();
 
 export async function init() {
+  // Init workers
+  await audioContext.audioWorklet.addModule('worklets/clock-worker.js');
   if (audioContext.state === 'suspended') audioContext.resume();
 }
 
-export async function startClock(tickHandler) {
-  await audioContext.audioWorklet.addModule('worklets/clock-worker.js');
-  const clockNode = new AudioWorkletNode(audioContext, 'clock-worker', {
-    processorOptions: {
-      sampleRate: audioContext.sampleRate
-    }
-  });
-  clockNode.connect(audioContext.destination);
+/**
+ * @type {?AudioWorkletNode}
+ * Shoddy clock singleton
+*/
+let clockNode;
+
+/**
+ * Sketchy clock worker singleton method
+ * @returns {AudioWorkletNode}
+ */
+export function clockWorker() {
+  if (!clockNode) {
+    clockNode = new AudioWorkletNode(audioContext, 'clock-worker', {
+      processorOptions: {
+        sampleRate: audioContext.sampleRate
+      }
+    });
+    clockNode.connect(audioContext.destination);
+  }
   // Handle scheduling by sending messages to the AudioWorklet
-  clockNode.port.onmessage = (event) => {
-    if (event.data.type === 'tick') {
-      // Handle the clock tick here
-      if (tickHandler) tickHandler();
-    } else {
-      // console.log('mystery', event.data);
-    }
-  };
-  clockNode.port.postMessage('start');
+  // clockNode.port.onmessage = (event) => {
+  //   if (event.data.type === 'tick') {
+  //     // Handle the clock tick here
+  //     // console.log('tick');
+  //     if (tickHandler) tickHandler();
+  //   } else {
+  //     // console.log('mystery', event.data);
+  //   }
+  // };
+  // clockNode.port.postMessage('start');
+  return clockNode;
 }
 
 // export function playAudio(hz = 100) {

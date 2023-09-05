@@ -49,7 +49,7 @@ export const EVENT_TYPES = {
 };
 
 export function nextStep(track) {
-  // console.log(track);
+  console.log(track);
   const {
     currentStep, direction, start, end
   } = track;

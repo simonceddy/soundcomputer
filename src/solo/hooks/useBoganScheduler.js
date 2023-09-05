@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { audioContext } from '../audio';
+import { nextStep } from '../features/sequencer/support';
+import { setCurrentStep } from '../features/sequencer/sequencerSlice';
 
 function getNoteDuration(bpm = 120, duration = 0.5) {
   const noteMs = 60 / bpm;
@@ -13,9 +15,12 @@ const getStepTime = (bpm, step) => {
   return stepTime;
 };
 
-const scheduleStep = (step, time) => {
+// const scheduleStep = (step, time) => {
 
-};
+// };
+
+// let counter = 0;
+// const schedule = [];
 
 function useBoganScheduler() {
   const {
@@ -23,13 +28,22 @@ function useBoganScheduler() {
   } = useSelector((s) => s.sequencer);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (running) {
-      // start scheduling
-    } else {
-      // stop scheduling
-    }
-  }, [running]);
+  // const preSchedule = () => {
+  //   schedule.push(steps[currentStep]);
+  // };
+
+  const scheduleNextStep = useCallback(() => {
+    const next = nextStep({
+      currentStep,
+      start,
+      end,
+      direction
+    });
+
+    dispatch(setCurrentStep(next));
+  }, [currentStep, start, end, direction]);
+
+  return scheduleNextStep;
 }
 
 export default useBoganScheduler;

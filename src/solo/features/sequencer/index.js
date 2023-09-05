@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from 'react-redux';
 import StepButton from '../../components/Sequencer/StepButton';
-import { setSelectedStep, toggleRun, updateStep } from './sequencerSlice';
-import { PlayIcon } from '../../components/icons';
+import {
+  reset, setSelectedStep, toggleRun, updateStep
+} from './sequencerSlice';
+import { PlayIcon, ResetIcon } from '../../components/icons';
 // import useScheduler from '../../hooks/useScheduler';
 
 const rows = [];
@@ -24,9 +26,9 @@ function Sequencer() {
 
   return (
     <div className="col w-full justify-start items-center">
-      <div>
+      <div className="row justify-around items-center">
         <button
-          className={`w-12 h-12 rounded-full border-2 border-slate-600 ${running ? 'bg-green-400' : 'bg-slate-400'} active:border-yellow-400 col all-center active:text-slate-100`}
+          className={`w-12 h-12 m-2 rounded-full border-2 border-slate-600 ${running ? 'bg-green-400' : 'bg-slate-400'} active:border-yellow-400 col all-center active:text-slate-100`}
           type="button"
           onClick={() => {
             // run();
@@ -34,6 +36,16 @@ function Sequencer() {
           }}
         >
           <PlayIcon size={42} />
+        </button>
+        <button
+          className="w-12 h-12 m-2 rounded-full border-2 border-slate-600 bg-slate-400 active:border-yellow-400 col all-center active:text-slate-100"
+          type="button"
+          onClick={() => {
+            // run();
+            dispatch(reset());
+          }}
+        >
+          <ResetIcon size={42} />
         </button>
       </div>
       <div className="col w-full justify-start items-center">

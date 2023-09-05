@@ -41,7 +41,6 @@ export function initSequencer() {
 
 const ascLanes = {};
 
-// TODO IF HELL
 export function getNextStep(lane) {
   const { currentStep, direction, activeSteps } = lane;
   if ((direction === SEQ_DIRECTION_PEN || direction === SEQ_DIRECTION_PPG)

@@ -39,6 +39,9 @@ export const sequencerSlice = createSlice({
     setStart: basicSetter('start'),
     setEnd: basicSetter('end'),
     setDirection: basicSetter('direction'),
+    reset(state) {
+      state.currentStep = state.start;
+    },
     updateStep(state, action) {
       const step = state.steps[action.payload.id];
       if (step) {
@@ -55,7 +58,8 @@ export const {
   setStart,
   updateStep,
   toggleRun,
-  setDirection
+  setDirection,
+  reset
 } = sequencerSlice.actions;
 
 export default sequencerSlice.reducer;

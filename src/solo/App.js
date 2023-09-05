@@ -1,20 +1,32 @@
 /* eslint-disable no-unused-vars */
-import { useMemo, useState } from 'react';
+import { /* useEffect, */ useMemo, useState } from 'react';
+// import { useSelector } from 'react-redux';
 import Envelopes from './features/envelopes';
 import Filters from './features/filters';
 import Matrix from './features/modMatrix';
 import Oscillator1 from './features/oscillators/Oscillator1';
 import VCA from './features/vca';
 import TabButton from './components/TabButton';
-import { AudioEngine, AudioEngineContext, audioContext } from './audio';
-import Keyboard from './keyboard';
+import {
+  AudioEngine, AudioEngineContext, audioContext
+} from './audio';
+import Keyboard from './features/keyboard';
 import Sequencer from './features/sequencer';
+// import useBoganScheduler from './hooks/useBoganScheduler';
+// import tickHandler from './features/sequencer/tickHandler';
+import useClockWorker from './hooks/useClockWorker';
 
 function App() {
   const [tab, setTab] = useState(0);
-  const engine = useMemo(() => new AudioEngine(audioContext));
+  const engine = useMemo(() => new AudioEngine(audioContext), []);
+  // const {
+  //   running
+  // } = useSelector((s) => s.sequencer);
+  // const dispatch = useDispatch();
 
-  console.log(engine);
+  useClockWorker();
+
+  // console.log(engine);
   return (
     <AudioEngineContext.Provider value={engine}>
       <div className="w-full row justify-start items-start">

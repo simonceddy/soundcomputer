@@ -6,16 +6,24 @@ class ClockWorker extends AudioWorkletProcessor {
   constructor(opts) {
     super(opts);
     this.clockInterval = 24; // 24 PPQ
-    this.sampleRate = opts.processorOptions.sampleRate || 44100;
-    this.tickInterval = this.sampleRate * ((60 / 120) / this.clockInterval);
-    this.ticksRemaining = this.tickInterval;
+    this.bpm = opts.processorOptions?.bpm || 120;
+    this.sampleRate = opts.processorOptions?.sampleRate || 44100;
+    this.updateIntervals();
     this.port.onmessage = (event) => this.handleMessage(event);
+  }
+
+  updateIntervals() {
+    this.tickInterval = this.sampleRate * ((60 / this.bpm) / this.clockInterval);
+    this.ticksRemaining = this.tickInterval;
   }
 
   handleMessage(event) {
     if (event.data === 'start') {
       console.log(this.tickInterval);
       this.ticksRemaining = this.tickInterval;
+    } else if (event.data.bpm) {
+      this.bpm = event.data.bpm;
+      this.updateIntervals();
     }
   }
 
