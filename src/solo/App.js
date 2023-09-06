@@ -12,9 +12,10 @@ import {
 } from './audio';
 import Keyboard from './features/keyboard';
 import Sequencer from './features/sequencer';
+import Output from './features/master/Output';
 // import useBoganScheduler from './hooks/useBoganScheduler';
 // import tickHandler from './features/sequencer/tickHandler';
-import useClockWorker from './hooks/useClockWorker';
+// import useClockWorker from './hooks/useClockWorker';
 
 function App() {
   const [tab, setTab] = useState(0);
@@ -24,7 +25,7 @@ function App() {
   // } = useSelector((s) => s.sequencer);
   // const dispatch = useDispatch();
 
-  useClockWorker();
+  // useClockWorker();
 
   // console.log(engine);
   return (
@@ -65,6 +66,7 @@ function App() {
               <div className="row">
                 <Filters />
                 <VCA />
+                <Output />
               </div>
             </div>
           </div>

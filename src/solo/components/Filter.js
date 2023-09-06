@@ -3,6 +3,7 @@ import DrawFilter from '../features/filters/DrawFilter';
 import ParameterKnob from './ParameterKnob';
 import { formatNumber } from '../../current/util';
 import CutoffSlider from './CutoffSlider';
+import RangeSlider from './RangeSlider';
 
 function displayHz(hz = 1500) {
   return Math.round(hz).toLocaleString('en-US', {
@@ -13,7 +14,7 @@ function displayHz(hz = 1500) {
 }
 
 function Filter({
-  hz = 700, q = 0.707, type = 'lowpass', onChange = console.log, id = 'filter'
+  hz = 700, q = 0.707, type = 'lowpass', onChange = console.log, id = 'filter', modAmt = 0
 }) {
   // console.log(type);
   const Drawing = useCallback(() => (
@@ -34,15 +35,19 @@ function Filter({
                 Hz
               </span>
             </span>
-            <ParameterKnob
+            <RangeSlider
+              onClick={() => {
+                console.log('clicked');
+                onChange({ modAmt: 0 });
+              }}
               label="Mod"
-              minVal={-1}
-              maxVal={1}
-              defaultVal={0}
-              val={0}
-              stepSize={0.1}
-              microStepSize={0.01}
-              megaStepSize={1}
+              min={-1}
+              max={1}
+              value={modAmt}
+              step={0.01}
+              onChange={(e) => {
+                onChange({ modAmt: Number(e.target.value) });
+              }}
             />
           </div>
           <div className="row items-center justify-between p-1 w-full">

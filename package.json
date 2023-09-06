@@ -15,7 +15,7 @@
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "midi-note": "^1.0.0",
-    "qwerty-hancock": "^0.10.0",
+    "qwerty-hancock": "git@github.com:simonceddy/qwerty-hancock.git",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-keys": "^2.7.2",

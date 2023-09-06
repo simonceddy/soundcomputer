@@ -6,6 +6,7 @@ import {
 } from './sequencerSlice';
 import { PlayIcon, ResetIcon } from '../../components/icons';
 // import useScheduler from '../../hooks/useScheduler';
+import useClockWorker from '../../hooks/useClockWorker';
 
 const rows = [];
 
@@ -23,6 +24,7 @@ function Sequencer() {
   } = useSelector((s) => s.sequencer);
   const dispatch = useDispatch();
   // const { run } = useScheduler();
+  useClockWorker();
 
   return (
     <div className="col w-full justify-start items-center">

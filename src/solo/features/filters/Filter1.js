@@ -9,13 +9,13 @@ function Filter1() {
   /** @type {import('../../audio').AudioEngine} */
   const engine = useContext(AudioEngineContext);
   const {
-    type, Q, bypass, frequency
+    type, Q, bypass, frequency, modAmt
   } = useSelector((s) => s.filters.filter1);
   const dispatch = useDispatch();
   // console.log(engine.filter1.frequency);
 
   useEffect(() => {
-    engine.filter1.frequency.linearRampToValueAtTime(frequency, engine.currentTime + 0.01);
+    engine.setFilter1Hz(frequency);
   }, [frequency]);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ function Filter1() {
 
   return (
     <Filter
+      modAmt={modAmt}
       onChange={(v) => {
         dispatch(updateFilter1(v));
       }}

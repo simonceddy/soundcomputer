@@ -10,29 +10,22 @@ export const audioContext = new AudioContext();
 
 export async function init() {
   // Init workers
-  await audioContext.audioWorklet.addModule('worklets/clock-worker.js');
   if (audioContext.state === 'suspended') audioContext.resume();
 }
 
 /**
- * @type {?AudioWorkletNode}
- * Shoddy clock singleton
-*/
-let clockNode;
-
-/**
  * Sketchy clock worker singleton method
- * @returns {AudioWorkletNode}
- */
-export function clockWorker() {
-  if (!clockNode) {
-    clockNode = new AudioWorkletNode(audioContext, 'clock-worker', {
-      processorOptions: {
-        sampleRate: audioContext.sampleRate
-      }
-    });
-    clockNode.connect(audioContext.destination);
-  }
+ * @returns {Promise<AudioWorkletNode>}
+*/
+export async function clockWorker() {
+  await audioContext.audioWorklet.addModule('worklets/clock-worker.js');
+  const clockNode = new AudioWorkletNode(audioContext, 'clock-worker', {
+    processorOptions: {
+      sampleRate: audioContext.sampleRate
+    }
+  });
+  clockNode.connect(audioContext.destination);
+
   // Handle scheduling by sending messages to the AudioWorklet
   // clockNode.port.onmessage = (event) => {
   //   if (event.data.type === 'tick') {
