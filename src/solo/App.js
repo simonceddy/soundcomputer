@@ -39,7 +39,7 @@ function App() {
         >
           Home
         </TabButton>
-        <TabButton
+        {/* <TabButton
           onClick={() => {
             if (tab !== 1) setTab(1);
           }}
@@ -52,7 +52,21 @@ function App() {
           }}
         >
           Sequencer
-        </TabButton>
+        </TabButton> */}
+      </div>
+      <div className="col font-mono absolute top-1 right-1">
+        Work in progress:
+        <ul>
+          <li>
+            Clicks and pops are prevalent
+          </li>
+          <li>
+            Filter sometimes turns off on noteoff
+          </li>
+          <li>
+            Most params scale linearly.
+          </li>
+        </ul>
       </div>
       <div className="w-full flex-1 col all-center">
         {tab === 1 && <Matrix />}
