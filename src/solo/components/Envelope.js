@@ -57,6 +57,7 @@ function Envelope({ onChange = console.log, adsr = defaultADSR, title = 'Envelop
           val={adsr.sustain}
         />
         <ParameterKnob
+          maxVal={30}
           label="Release"
           onChange={(v) => {
             // console.log(v);

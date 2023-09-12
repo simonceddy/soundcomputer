@@ -62,8 +62,6 @@ function App() {
             <div className="flex-1 col justify-start items-start">
               <div className="row">
                 <Oscillator1 />
-              </div>
-              <div className="row">
                 <Filters />
                 <VCA />
                 <Output />

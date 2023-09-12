@@ -57,8 +57,8 @@ function Keyboard() {
         height: 200,
         octaves: 2,
         startNote: 'C1',
-        whiteNotesColour: 'white',
-        blackNotesColour: 'black',
+        whiteNotesColour: 'black',
+        blackNotesColour: 'red',
         hoverColour: '#f3e939'
       });
       keyboard.keyDown = noteOn;

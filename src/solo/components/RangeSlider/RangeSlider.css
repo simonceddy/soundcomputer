@@ -149,3 +149,12 @@ input[type=range].range-vertical {
 input[type=range].range-rotary-knob {
   border-radius: var(--range-radius);
 }
+
+input[type=range].range-vertical::-webkit-slider-runnable-track,
+input[type=range].range-vertical::-moz-range-track,
+input[type=range].range-vertical::-ms-track {
+  -webkit-appearance: none;
+  appearance: none;
+  border: transparent;
+  background: transparent;
+}

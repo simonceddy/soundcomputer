@@ -15,6 +15,18 @@ export default class ComplexOscillator {
   sawtooth;
 
   /** @type {GainNode} */
+  sineGain;
+
+  /** @type {GainNode} */
+  triangleGain;
+
+  /** @type {GainNode} */
+  squareGain;
+
+  /** @type {GainNode} */
+  sawtoothGain;
+
+  /** @type {GainNode} */
   outputGain;
 
   /** @type {number} */
@@ -33,10 +45,19 @@ export default class ComplexOscillator {
 
     this.outputGain = new GainNode(context, { gain: 1 });
 
-    this.sine.connect(this.outputGain);
-    this.triangle.connect(this.outputGain);
-    this.sawtooth.connect(this.outputGain);
-    this.square.connect(this.outputGain);
+    this.sineGain = new GainNode(context, { gain: 0.5 });
+    this.triangleGain = new GainNode(context, { gain: 0.5 });
+    this.sawtoothGain = new GainNode(context, { gain: 0.5 });
+    this.squareGain = new GainNode(context, { gain: 0.5 });
+
+    this.sine.connect(this.sineGain);
+    this.triangle.connect(this.triangleGain);
+    this.sawtooth.connect(this.sawtoothGain);
+    this.square.connect(this.squareGain);
+    this.sineGain.connect(this.outputGain);
+    this.triangleGain.connect(this.outputGain);
+    this.sawtoothGain.connect(this.outputGain);
+    this.squareGain.connect(this.outputGain);
   }
 
   #updateFrequency() {
@@ -49,10 +70,10 @@ export default class ComplexOscillator {
   #connectAll(node) {
     this.disconnect();
 
-    this.sine.connect(this.outputGain);
-    this.triangle.connect(this.outputGain);
-    this.sawtooth.connect(this.outputGain);
-    this.square.connect(this.outputGain);
+    this.sineGain.connect(this.outputGain);
+    this.triangleGain.connect(this.outputGain);
+    this.sawtoothGain.connect(this.outputGain);
+    this.squareGain.connect(this.outputGain);
 
     if (node) this.outputGain.connect(node);
   }

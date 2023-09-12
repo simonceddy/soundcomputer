@@ -40,7 +40,7 @@ function Filter({
                 console.log('clicked');
                 onChange({ modAmt: 0 });
               }}
-              label="Mod"
+              label="- Mod +"
               min={-1}
               max={1}
               value={modAmt}
