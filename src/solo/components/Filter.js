@@ -1,5 +1,6 @@
-import { useCallback } from 'react';
-import DrawFilter from '../features/filters/DrawFilter';
+/* eslint-disable no-unused-vars */
+// import { useCallback } from 'react';
+// import DrawFilter from '../features/filters/DrawFilter';
 import ParameterKnob from './ParameterKnob';
 import { formatNumber } from '../../current/util';
 import CutoffSlider from './CutoffSlider';
@@ -17,17 +18,17 @@ function Filter({
   hz = 700, q = 0.707, type = 'lowpass', onChange = console.log, id = 'filter', modAmt = 0
 }) {
   // console.log(type);
-  const Drawing = useCallback(() => (
-    <DrawFilter hz={hz} q={q} />
-  ), [hz, q, type]);
+  // const Drawing = useCallback(() => (
+  //   <DrawFilter hz={hz} q={q} />
+  // ), [hz, q, type]);
   return (
-    <div className="row justify-start h-fit items-center m-1 rounded-lg bg-purple-200/50">
+    <div className="row justify-start h-full items-center m-1 rounded-lg bg-purple-200/50">
       <CutoffSlider hz={hz} onChange={onChange} id={id} />
       <div className="col justify-start h-full items-start m-2 rounded-lg bg-purple-200/50">
-        <Drawing />
+        {/* <Drawing /> */}
         <div className="col items-center h-full justify-between p-1">
-          <div className="row flex-1 h-3/5">
-            <span className="py-1 px-2 bg-black row justify-between items-center rounded-sm mt-1 w-16 font-digi text-green-300">
+          <span className="py-1 px-2 bg-black col justify-between items-center rounded-sm mt-1 w-20 font-digi text-green-300">
+            <span className="row w-full justify-between items-center">
               <span>
                 {displayHz(hz)}
               </span>
@@ -35,11 +36,18 @@ function Filter({
                 Hz
               </span>
             </span>
+            <span className="row justify-between items-center w-full">
+              <span>Mod:</span>
+              <span>
+                {Number(modAmt).toLocaleString('en-US', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                })}
+              </span>
+            </span>
+          </span>
+          <div className="row flex-1 h-3/5">
             <RangeSlider
-              onClick={() => {
-                console.log('clicked');
-                onChange({ modAmt: 0 });
-              }}
               label="- Mod +"
               min={-1}
               max={1}
@@ -49,6 +57,14 @@ function Filter({
                 onChange({ modAmt: Number(e.target.value) });
               }}
             />
+            <button
+              type="button"
+              className="w-5 h-5 border m-1 rounded-full border-green-400 bg-slate-400 active:bg-yellow-400"
+              onClick={() => onChange({ modAmt: 0 })}
+            >
+              {}
+            </button>
+
           </div>
           <div className="row items-center justify-between p-1 w-full">
             <ParameterKnob

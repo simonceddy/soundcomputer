@@ -4,6 +4,7 @@ import BasicOscillator from './BasicOscillator';
 import ComplexOscillator from './ComplexOscillator';
 import SignalPath from './SignalPath';
 import { isValidNonNegativeNum } from '../util';
+import LFO from './LFO';
 
 /**
  * @typedef {object} adsr
@@ -63,6 +64,12 @@ export default class AudioEngine {
 
   #baseHz2;
 
+  /** @type {LFO} */
+  lfo1;
+
+  /** @type {LFO} */
+  lfo2;
+
   /**
    * Creates the audio engine instance
    * @param {AudioContext} context
@@ -81,6 +88,9 @@ export default class AudioEngine {
 
     this.complexOscillator.start();
     this.basicOscillator.start();
+
+    this.lfo1 = new LFO(context);
+    this.lfo2 = new LFO(context);
 
     this.filter1 = new BiquadFilterNode(context, defaultFilter1Props);
 
@@ -159,14 +169,14 @@ export default class AudioEngine {
     const sHz = ((aHz - this.#baseHz1) * sustain) + this.#baseHz1;
     // console.log(amount, adsr, this.#baseHz1, aHz, sHz);
 
-    this.filter1.frequency.cancelScheduledValues(this.currentTime);
+    this.filter1.frequency.cancelScheduledValues(this.currentTime + 0.005);
     this.filter1.frequency.linearRampToValueAtTime(this.#baseHz1, this.currentTime + 0.005);
     this.filter1.frequency.linearRampToValueAtTime(aHz, this.currentTime + attack + 0.005);
     this.filter1.frequency.linearRampToValueAtTime(sHz, this.currentTime + attack + decay + 0.005);
   }
 
   #filter1NoteOffMod(release = 1.0) {
-    this.filter1.frequency.cancelScheduledValues(this.currentTime);
+    this.filter1.frequency.cancelScheduledValues(this.currentTime + 0.005);
     this.filter1.frequency.linearRampToValueAtTime(this.#baseHz1, this.currentTime + release);
   }
 
@@ -186,14 +196,14 @@ export default class AudioEngine {
     const sHz = ((aHz - this.#baseHz2) * sustain) + this.#baseHz2;
     // console.log(amount, adsr, this.#baseHz2, aHz, sHz);
 
-    this.filter2.frequency.cancelScheduledValues(this.currentTime);
+    this.filter2.frequency.cancelScheduledValues(this.currentTime + 0.005);
     this.filter2.frequency.linearRampToValueAtTime(this.#baseHz2, this.currentTime + 0.005);
     this.filter2.frequency.linearRampToValueAtTime(aHz, this.currentTime + attack + 0.005);
     this.filter2.frequency.linearRampToValueAtTime(sHz, this.currentTime + attack + decay + 0.005);
   }
 
   #filter2NoteOffMod(release = 1.0) {
-    this.filter2.frequency.cancelScheduledValues(this.currentTime);
+    this.filter2.frequency.cancelScheduledValues(this.currentTime + 0.005);
     this.filter2.frequency.linearRampToValueAtTime(this.#baseHz2, this.currentTime + release);
   }
 
@@ -221,7 +231,7 @@ export default class AudioEngine {
 
     const { currentTime } = this.context;
 
-    this.oscillatorGain.gain.cancelScheduledValues(currentTime);
+    this.oscillatorGain.gain.cancelScheduledValues(currentTime + 0.005);
     this.oscillatorGain.gain.setValueAtTime(0, currentTime + 0.005);
     this.oscillatorGain.gain.linearRampToValueAtTime(1, currentTime + attack + 0.005);
     this.oscillatorGain.gain.linearRampToValueAtTime(

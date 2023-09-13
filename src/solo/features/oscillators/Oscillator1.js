@@ -7,11 +7,13 @@ import {
   sine, saw, tri, pulse
 } from '../../assets';
 import {
+  setOscillator1MasterGain,
   setOscillator1SawGain,
   setOscillator1SineGain,
   setOscillator1SquareGain,
   setOscillator1TriGain
 } from './oscillatorsSlice';
+import VolIcon from '../../components/icons/VolIcon';
 
 function Oscillator1() {
   const {
@@ -33,10 +35,13 @@ function Oscillator1() {
   useEffect(() => {
     engine.complexOscillator.squareGain.gain.setValueAtTime(squareGain, engine.currentTime + 0.005);
   }, [squareGain]);
+  useEffect(() => {
+    engine.complexOscillator.outputGain.gain.setValueAtTime(master, engine.currentTime + 0.005);
+  }, [master]);
 
   return (
     <div>
-      <div className="row justify-around items-center p-1 m-1">
+      <div className="row justify-around h-full items-center p-1 m-1 text-white rounded-lg bg-blue-700/50">
 
         {}
         {/* Waveform levels */}
@@ -82,6 +87,17 @@ function Oscillator1() {
           vertical
           onChange={(e) => {
             dispatch(setOscillator1SquareGain(Number(e.target.value)));
+          }}
+        />
+        <RangeSlider
+          label={<VolIcon size={26} />}
+          min={0}
+          step={0.001}
+          max={1}
+          value={master}
+          vertical
+          onChange={(e) => {
+            dispatch(setOscillator1MasterGain(Number(e.target.value)));
           }}
         />
       </div>

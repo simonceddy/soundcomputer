@@ -3,6 +3,7 @@ import filters from '../features/filters/filtersSlice';
 import oscillators from '../features/oscillators/oscillatorsSlice';
 import envelopes from '../features/envelopes/envelopesSlice';
 import sequencer from '../features/sequencer/sequencerSlice';
+import lfos from '../features/lfos/lfosSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     oscillators,
     envelopes,
     sequencer,
+    lfos,
   }
 });
 

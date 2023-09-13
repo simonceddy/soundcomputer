@@ -9,6 +9,10 @@ export const oscillatorsSlice = createSlice({
       sawGain: 0.5,
       squareGain: 0.5,
       master: 1,
+    },
+    oscillator2: {
+      type: 'sine',
+      gain: 0.5
     }
   },
   reducers: {
@@ -27,6 +31,12 @@ export const oscillatorsSlice = createSlice({
     setOscillator1SquareGain(state, action) {
       state.oscillator1.squareGain = action.payload;
     },
+    setOscillator2Type(state, action) {
+      state.oscillator2.type = action.payload;
+    },
+    setOscillator2Gain(state, action) {
+      state.oscillator2.gain = action.payload;
+    }
   },
 });
 
@@ -36,6 +46,8 @@ export const {
   setOscillator1SineGain,
   setOscillator1SquareGain,
   setOscillator1TriGain,
+  setOscillator2Gain,
+  setOscillator2Type
 } = oscillatorsSlice.actions;
 
 export default oscillatorsSlice.reducer;

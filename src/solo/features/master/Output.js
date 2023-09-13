@@ -15,6 +15,7 @@ function Output() {
   return (
     <div>
       <RangeSlider
+        vertical
         label="Volume"
         max={1}
         min={0}
